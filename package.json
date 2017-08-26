@@ -1,0 +1,26 @@
+{
+  "name": "backend2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/server.js",
+  "scripts": {
+    "compile-watch": "webpack --watch --progress --debug",
+    "server": "node ./build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/body-parser": "^1.16.5",
+    "@types/cassandra-driver": "^0.8.12",
+    "@types/express": "^4.0.37",
+    "@types/node": "^8.0.25",
+    "body-parser": "^1.17.2",
+    "cassandra-driver": "^3.2.2",
+    "express": "^4.15.4",
+    "ts-lint": "^4.5.1",
+    "ts-loader": "^2.3.4",
+    "typescript": "^2.4.2",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
