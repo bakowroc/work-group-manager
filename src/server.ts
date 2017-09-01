@@ -3,10 +3,10 @@ import * as Express from 'express';
 import { Application, Router } from 'express';
 
 import { Config } from './config';
+import Database from './database';
 import { Route } from './router/routes';
 
-import BoardController from './router/controllers/BoardController';
-import UserController from './router/controllers/UserController';
+import UserRoutes from './router/controllers/UserController';
 
 class Server {
   public app: Application;
@@ -22,13 +22,14 @@ class Server {
   private config = (): void => {
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
+
+    Database.connect();
   }
 
   private routes = (): void => {
     this.app.use('/', this.router);
-    this.app.get(Config.API_PATH + Route.USER, UserController);
-    this.app.get(Config.API_PATH + Route.BOARD, BoardController);
+    this.app.use(Config.API_PATH + Route.USER, UserRoutes.router);
   }
 }
 
-export default new Server();
+export default new Server().app;

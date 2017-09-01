@@ -1,6 +1,6 @@
 import { Config } from '../config';
 
 export enum Route {
-  USER = 'post/',
+  USER = 'user/',
   BOARD = 'board/'
 }
