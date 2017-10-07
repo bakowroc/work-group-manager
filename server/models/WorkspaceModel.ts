@@ -1,31 +1,24 @@
 import { model, Schema } from 'mongoose';
 
-const UserSchema = new Schema({
+import { generateRandomSlug } from './../utils/helpers';
+
+const WorkspaceSchema = new Schema({
   createdAt: {
     default: new Date(),
     required: true,
     type: Date
   },
-  email: {
+  name: {
     required: true,
     type: String,
     unique: true
-  },
-  password: {
-    required: true,
-    type: String
   },
   slug: {
-    default: '',
-    required: true,
-    type: String,
-    unique: true
-  },
-  username: {
+    default: generateRandomSlug(),
     required: true,
     type: String,
     unique: true
   },
 });
 
-export default model('User', UserSchema);
+export default model('Workspace', WorkspaceSchema);

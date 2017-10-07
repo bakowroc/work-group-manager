@@ -46,10 +46,10 @@ class APIRequest {
     return RESPONSE_HANDLER;
   }
 
-  private getJSONResponse = (response: Response, handler: any) => {
-    const status = response.statusCode;
-    response.json({
-      handler,
+  private getJSONResponse = (requestResponse: Response, response: any) => {
+    const status = requestResponse.statusCode;
+    requestResponse.json({
+      response,
       status
     });
   }
