@@ -1,9 +1,8 @@
 language: node_js
 node_js:
   - '6.10'
-before_install: npm i -g yarn nodemon tslint typescript
+before_install: npm i -g yarn nodemon tslint typescript webpack
 install: yarn
 script:
   - yarn build
   - yarn lint
-  - yarn server
