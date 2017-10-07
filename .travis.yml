@@ -3,6 +3,9 @@ node_js:
   - '6.10'
 before_install: npm i -g yarn nodemon tslint typescript webpack
 install: yarn
-script:
-  - yarn build
-  - yarn lint
+jobs:
+  include:
+    - stage: build
+      script: yarn build
+    - stage: lint
+      script: yarn lint
