@@ -1,1 +1,1 @@
-web: webpack && node ./build/server.js
+web: yarn build && node ./build/server.js
