@@ -8,7 +8,8 @@
     "build:watch": "webpack --watch --progress --debug",
     "server": "nodemon ./build/server.js",
     "test": "echo \"Error: no test specified\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "postinstall": "npm i -g webpack typescript"
   },
   "author": "",
   "license": "ISC",
