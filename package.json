@@ -9,7 +9,7 @@
     "server": "nodemon ./build/server.js",
     "test": "echo \"Error: no test specified\"",
     "lint": "tslint -p tsconfig.json",
-    "postinstall": "npm i -g webpack typescript"
+    "postinstall": "npm i -g webpack typescript && yarn build"
   },
   "author": "",
   "license": "ISC",
