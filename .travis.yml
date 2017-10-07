@@ -1,8 +1,8 @@
 language: node_js
-before_install: npm i -g yarn nodemon
+node_js: "10"
+before_install: npm i -g yarn nodemon tslint typescript
 install: yarn
 script:
   - yarn build
   - yarn lint
   - yarn server
-  - rs

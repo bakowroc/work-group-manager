@@ -17,7 +17,7 @@ class Database {
     this.DB_URI = `mongodb://${DB_CREDENTIALS.user}:${DB_CREDENTIALS.password}${DB_CREDENTIALS.host}/${DB_CREDENTIALS.dbName}`;
   }
 
-  public connect = (): MongooseThenable => mongoose.connect(this.DB_URI || process.env.MONGODB_URI, {useMongoClient: true});
+  public connect = (): MongooseThenable => mongoose.connect(this.DB_URI, {useMongoClient: true});
 }
 
 export default new Database();
