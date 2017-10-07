@@ -1,11 +1,21 @@
 language: node_js
 node_js:
-  - '6.10'
+- '6.10'
 before_install: npm i -g yarn nodemon tslint typescript webpack
 install: yarn
 jobs:
   include:
-    - stage: build
-      script: yarn build
-    - stage: lint
-      script: yarn lint
+  - stage: build
+    script: yarn build
+  - stage: lint
+    script: yarn lint
+  - stage: deploy
+    deploy:
+      provider: heroku
+      skip_cleanup: true
+      api_key:
+        secure: ONVxa7ZO4k0IqXKdxd2WE1m40sbePB7OKGOfq4XgTV3z84V1W7j/OZuszjXKDeEkEO3eQQxqSWxj0XbBa/m8Oru1FyMF0cY9KWxZAByhj0lQewai8lS0nS03j2sfXol97HEV/urvVEtUjA63kAgK1D5BH2zytnW0zdkTPEVNxSyF0wGJskIhWTfYvcgbR34cArkMX015U48gdesxKk2urbQlf/Hexu6OiIxNpbp1u41AHHdYdvXePB13pram4+qCnmx8N23yKyzOx+hOVszRAfQHO8OYSu8t/mYK+L+JNFdfgiY4hbL9Y+apqRCgikcsYXIA9hKF8vQlQeXYAndQzy8iKrG51qfmo4tJa7+1/2yvBlpg1ovpCCONG+Fvr0URvVzIV/J1JaoeJJe82dAAwps7JSlb7QH44lpeXE5pb3dQf5DOq5Oj5vYtjihACgJJGczaDuA2zueiDBBLITMCE1pM+NA4nYFW73vdF0cHKIt1JNZ6fHwVlDaOnnxMRUwDoXuySjAkkN2Z9lP4IBtGaRyDSaaNL9yt1gIunObaICXOjeivj521acrpyPig61B2t1bq5FsyMnSBFKBVW2N2YoL0yPMbcl1mXaxZA7asyT+dozhV5V/0eqU6EKyyL2KYSZFpT2O5+7KEgvqvp78ozRdVsKMefDArBrhMZLgfXWA=
+      app:
+        master: work-group-manager
+      on:
+        repo: bakowroc/work-group-manager
