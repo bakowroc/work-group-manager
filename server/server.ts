@@ -28,7 +28,7 @@ class Server {
 
   private routes = (): void => {
     this.app.use('/', this.router);
-    this.app.use(Config.API_PATH + Route.USER, UserRoutes.router);
+    this.app.use(Config.API_PATH + Route.USER, UserRoutes);
   }
 }
 

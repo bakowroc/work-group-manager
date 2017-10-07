@@ -24,7 +24,7 @@ const UserSchema: Schema = new Schema({
   username: {
     required: true,
     type: String,
-    unique: true,
+    unique: true
   },
 });
 

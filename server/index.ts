@@ -1,6 +1,3 @@
-import * as Express from 'express';
-import { Application } from 'express';
-
 import { Config } from './config';
 import Server from './server';
 

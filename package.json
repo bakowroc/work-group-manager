@@ -4,9 +4,11 @@
   "description": "",
   "main": "./build/server.js",
   "scripts": {
-    "compile-watch": "webpack --watch --progress --debug",
-    "server": "node ./build/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --debug",
+    "build:watch": "webpack --watch --progress --debug",
+    "server": "nodemon ./build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -p tsconfig.json"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +22,8 @@
     "cassandra-driver": "^3.2.2",
     "express": "^4.15.4",
     "mongoose": "^4.11.8",
-    "ts-lint": "^4.5.1",
     "ts-loader": "^2.3.4",
+    "tslint": "^5.7.0",
     "typescript": "^2.4.2",
     "webpack-node-externals": "^1.6.0"
   }

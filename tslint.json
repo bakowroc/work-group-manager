@@ -2,7 +2,8 @@
   "lintOptions": {
     "typeCheck": true
   },
-  "extends": "tslint:all",
+  "extends": "tslint:recommended",
+  "include": "server",
   "rules": {
     "cyclomatic-complexity": false,
     "newline-before-return": true,
@@ -70,27 +71,25 @@
     ],
     "no-default-export": false,
     "match-default-export-name": true,
-    "newline-before-return": true,
     "new-parens": true,
     "no-consecutive-blank-lines": true,
     "no-irregular-whitespace": true,
     "no-reference-import": true,
     "no-trailing-whitespace": true,
-    "no-unnecessary-qualifier": true,
     "number-literal-format": true,
     "object-literal-shorthand": true,
     "import-spacing": true,
     "array-type": true,
-    "arrow-parens": true,
+    "arrow-parens": [true, "as-needed"],
     "arrow-return-shorthand": true,
     "binary-expression-operand-order": true,
     "eofline": true,
     "indent": true,
     "linebreak-style": false,
-    "no-duplicate-imports": true,
+    "no-duplicate-imports": false,
     "check-literal-sort-keys": true,
     "prefer-const": true,
-    "trailing-comma": true,
+    "trailing-comma": false,
     "quotemark": [true, "single", "jsx-double"]
   }
 }
