@@ -1,14 +1,17 @@
 language: node_js
 node_js:
 - '6.10'
-before_install: npm i -g yarn nodemon tslint typescript webpack
 install: yarn
 jobs:
   include:
   - stage: build
-    script: yarn build
+    script: 
+    - npm i -g yarn tslint typescript webpack
+    - yarn
+    - yarn build
   - stage: lint
-    script: yarn lint
+    script: 
+    - yarn lint
   - stage: deploy
     deploy:
       provider: heroku
