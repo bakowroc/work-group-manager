@@ -1,55 +1,58 @@
-import { Request, Response} from 'express';
+import {Request, Response} from 'express';
 import { Model } from 'mongoose';
+
+import UserModel from '../models/UserModel';
+import { ResponseError, ResponseHandler } from '../types/typings';
 
 class APIRequest {
 
-  public GET_MANY = (model: Model<any>): any => {
+  public GET_MANY<T>(DataModel: Model<any>): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
-      model.find({})
-        .then((data: any) => this.getJSONResponse(response, data))
-        .catch((error: any) => this.getJSONResponse(response, error));
+      DataModel.find({})
+        .then((data: Array<T>) => this.getJSONResponse(response, data))
+        .catch((error: ResponseError) => this.getJSONResponse(response, error));
     };
 
     return RESPONSE_HANDLER;
   }
 
-  public GET_SINGLE = (model: Model<any>): any => {
+  public GET_SINGLE<T>(DataModel: Model<any>): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
       const slug: number = request.params.slug;
-      model.findOne({slug})
-        .then((data: any) => this.getJSONResponse(response, data))
-        .catch((error: any) => this.getJSONResponse(response, error));
+      DataModel.findOne({slug})
+        .then((data: T) => this.getJSONResponse(response, data))
+        .catch((error: ResponseError) => this.getJSONResponse(response, error));
     };
 
     return RESPONSE_HANDLER;
   }
 
-  public POST = (model: Model<any>): any => {
+  public POST<T>(DataModel: Model<any>, rules?: (body: T) => T): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
-      const postModel = new model(request.body);
-      postModel.save()
-        .then((data: any) => this.getJSONResponse(response, data))
-        .catch((error: any) => this.getJSONResponse(response, error));
+      const DataModelBody = rules ? rules(request.body) : request.body;
+      new DataModel(DataModelBody).save()
+        .then((data: T) => this.getJSONResponse(response, data))
+        .catch((error: ResponseError) => this.getJSONResponse(response, error));
     };
 
     return RESPONSE_HANDLER;
   }
 
-  public UPDATE = (model: Model<any>): any => {
+  public UPDATE<T>(DataModel: Model<any>, rules?: (body: T) => T): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
-      const postModel = new model(request.body);
-      postModel.save()
-        .then((data: any) => this.getJSONResponse(response, data))
-        .catch((error: any) => this.getJSONResponse(response, error));
+      const DataModelBody = rules ? rules(request.body) : request.body;
+      new DataModel(DataModelBody).save()
+        .then((data: T) => this.getJSONResponse(response, data))
+        .catch((error: ResponseError) => this.getJSONResponse(response, error));
     };
 
     return RESPONSE_HANDLER;
   }
 
-  private getJSONResponse = (requestResponse: Response, response: any) => {
-    const status = requestResponse.statusCode;
+  private getJSONResponse<T>(requestResponse: Response, responseData: T): void {
+    const status: number = requestResponse.statusCode;
     requestResponse.json({
-      response,
+      responseData,
       status
     });
   }
