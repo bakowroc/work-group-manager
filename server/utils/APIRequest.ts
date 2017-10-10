@@ -1,7 +1,6 @@
 import {Request, Response} from 'express';
 import { Model } from 'mongoose';
 
-import UserModel from '../models/UserModel';
 import { ResponseError, ResponseHandler } from '../types/typings';
 
 class APIRequest {
@@ -29,7 +28,7 @@ class APIRequest {
 
   public POST<T>(DataModel: Model<any>, rules?: (body: T) => T): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
-      const DataModelBody = rules ? rules(request.body) : request.body;
+      const DataModelBody = arguments.length === 2 ? rules(request.body) : request.body;
       new DataModel(DataModelBody).save()
         .then((data: T) => this.getJSONResponse(response, data))
         .catch((error: ResponseError) => this.getJSONResponse(response, error));
@@ -40,7 +39,7 @@ class APIRequest {
 
   public UPDATE<T>(DataModel: Model<any>, rules?: (body: T) => T): ResponseHandler {
     const RESPONSE_HANDLER = (request: Request, response: Response): void => {
-      const DataModelBody = rules ? rules(request.body) : request.body;
+      const DataModelBody = arguments.length === 2 ? rules(request.body) : request.body;
       new DataModel(DataModelBody).save()
         .then((data: T) => this.getJSONResponse(response, data))
         .catch((error: ResponseError) => this.getJSONResponse(response, error));
