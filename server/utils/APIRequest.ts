@@ -12,7 +12,7 @@ class APIRequest {
         .catch((error: ResponseError) => this.JSONResponse(response, error));
     }
 
-  public GET_SINGLE = <T>(DataModel: Model<any>): ResponseHandler => 
+  public GET_SINGLE = <T>(DataModel: Model<any>): ResponseHandler =>
     (request: Request, response: Response): void => {
       const slug: number = request.params.slug;
       DataModel.findOne({slug})
@@ -20,7 +20,7 @@ class APIRequest {
         .catch((error: ResponseError) => this.JSONResponse(response, error));
     }
 
-  public POST = <T>(DataModel: Model<any>, getBodyByRules?: (body: T) => T): ResponseHandler => 
+  public POST = <T>(DataModel: Model<any>, getBodyByRules?: (body: T) => T): ResponseHandler =>
     (request: Request, response: Response): void => {
       const DataModelBody = arguments.length === 2 ? getBodyByRules(request.body) : request.body;
       new DataModel(DataModelBody).save()
