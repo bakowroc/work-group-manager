@@ -28,9 +28,9 @@ class APIRequest {
         .catch((error: ResponseError) => this.JSONResponse(response, error));
     }
 
-  public UPDATE = <T>(DataModel: Model<any>, rules?: (body: T) => T): ResponseHandler =>
+  public UPDATE = <T>(DataModel: Model<any>, getBodyByRules?: (body: T) => T): ResponseHandler =>
     (request: Request, response: Response): void => {
-      const DataModelBody = arguments.length === 2 ? rules(request.body) : request.body;
+      const DataModelBody = arguments.length === 2 ? getBodyByRules(request.body) : request.body;
       new DataModel(DataModelBody).save()
         .then((data: T) => this.JSONResponse(response, data))
         .catch((error: ResponseError) => this.JSONResponse(response, error));
