@@ -1,6 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as Express from 'express';
 import { Application, Router } from 'express';
+import * as path from 'path';
 
 import { Config } from './config';
 import Database from './database';
@@ -20,13 +21,20 @@ class Server {
     this.router = Router();
     this.config();
     this.routes();
+    this.staticFileRoutes();
   }
 
   private config = (): void => {
     this.app.use(bodyParser.urlencoded({extended: true}));
     this.app.use(bodyParser.json());
-
+    this.app.use(Express.static(path.resolve('build')));
     Database.connect();
+  }
+
+  private staticFileRoutes = (): void => {
+    this.app.use(Config.ROOT_PATH, (req, res) => {
+      res.sendFile(__dirname + 'index.html');
+    });
   }
 
   private routes = (): void => {

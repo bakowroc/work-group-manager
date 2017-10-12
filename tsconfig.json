@@ -5,6 +5,11 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "target": "ES2017",
-    "allowJs": true
-  }
+    "allowJs": true,
+    "jsx": "react"
+  },
+  "include": [
+    "./app/**/*",
+    "./server/**/*"
+  ]
 }

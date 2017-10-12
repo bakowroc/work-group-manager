@@ -2,7 +2,7 @@
   "lintOptions": {
     "typeCheck": true
   },
-  "extends": "tslint:recommended",
+  "extends": ["tslint:latest", "tslint-react"],
   "include": "server",
   "rules": {
     "cyclomatic-complexity": false,
