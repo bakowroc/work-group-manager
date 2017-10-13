@@ -6,12 +6,13 @@ jobs:
   include:
   - stage: build
     script: 
-    - npm i -g yarn tslint typescript webpack
+    - npm i -g yarn tslint typescript webpack sass-lint
     - yarn
     - yarn build
   - stage: lint
     script: 
     - yarn lint
+    - yarn sasslint
   - stage: deploy
     deploy:
       provider: heroku

@@ -8,11 +8,12 @@ import { AppContainer } from './AppContainer';
 
 const history = createBrowserHistory();
 const Routes: JSX.Element = (
-  <Route path={ '/' } component={ AppContainer } />
+  <Route path={ '/' } component={ Main } />
 );
 
 ReactDOM.render(
     <Provider>
+      <AppContainer />
       <Router history={ history }>
         { Routes }
       </Router>
