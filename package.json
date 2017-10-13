@@ -8,7 +8,8 @@
     "server": "nodemon ./build/server.js",
     "lint": "tslint -p tsconfig.json --format stylish",
     "sasslint": "sass-lint -c .sass-lint.yml --no-exit -v",
-    "heroku-prebuild": "npm i -g webpack typescript && yarn build"
+    "heroku-prebuild": "npm i -g webpack typescript",
+    "heroku-postbuild": "yarn build"
   },
   "author": "",
   "license": "ISC",

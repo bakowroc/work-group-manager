@@ -7,7 +7,6 @@ export class AppContainer extends React.Component<{}> {
     return (
       <div className={ 'someClass' }>
         Text
-        { styles }
       </div>
     );
   }

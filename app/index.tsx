@@ -9,12 +9,11 @@ import { Main } from './Main/Main';
 
 const history = createBrowserHistory();
 const Routes: JSX.Element = (
-  <Route path={ '/' } component={ Main } />
+  <Route path={ '/' } component={ AppContainer } />
 );
 
 ReactDOM.render(
     <Provider>
-      <AppContainer />
       <Router history={ history }>
         { Routes }
       </Router>
