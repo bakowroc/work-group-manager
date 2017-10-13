@@ -1,7 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
+
+const styles: any = require('./AppContainer.scss');
 
 export class AppContainer extends React.Component<{}> {
-    render() {
-        return <h1>Hello from</h1>;
-    }
+  public render() {
+    return (
+      <div className={ 'someClass' }>
+        Text
+        { styles }
+      </div>
+    );
+  }
 }

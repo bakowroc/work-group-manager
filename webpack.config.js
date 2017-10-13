@@ -40,7 +40,24 @@ const appConfig = {
   module: {
       rules: [
         { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-        { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+        { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+        {
+          test: /\.css$/,
+          use: [
+            'to-string-loader',
+            'style-loader',
+            'raw-loader'
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            'to-string-loader',
+            'style-loader',
+            'raw-loader',
+            'sass-loader'
+          ]
+        }
       ]
   },
   externals: {
