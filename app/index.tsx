@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import {  Route, Router } from 'react-router';
 
 import { AppContainer } from './AppContainer';
+import { Main } from './Main/Main';
 
 const history = createBrowserHistory();
 const Routes: JSX.Element = (
