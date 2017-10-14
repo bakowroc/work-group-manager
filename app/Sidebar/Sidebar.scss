@@ -2,8 +2,7 @@
 @import '../consts/styles/shadows';
 
 .content {
-  @include shadow-depth-3;
-  background: $color-main-blue;
+  background: $color-main-white;
   color: $color-main-white;
   grid-area: sidebar;
 }

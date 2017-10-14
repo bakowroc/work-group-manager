@@ -1,0 +1,26 @@
+@import '../../../../consts/styles/utils';
+
+.content {
+  @include content-box;
+  @include shadow-depth-2;
+  margin-bottom: 10px;
+
+  .title {
+    padding: 0;
+  }
+
+  .paragraph {
+    margin-bottom: 10px;
+  }
+
+  .category {
+    background: $color-gray-3;
+    border-radius: 3px;
+    color: $color-main-white;
+    font-size: $font-subtitle;
+    font-weight: 600;
+    padding: 4px;
+    text-transform: uppercase;
+    width: auto !important;
+  }
+}

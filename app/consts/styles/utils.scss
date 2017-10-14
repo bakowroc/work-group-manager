@@ -1,0 +1,52 @@
+@import './colors';
+@import './shadows';
+@import './sizes';
+
+
+@mixin content-box {
+  @include shadow-depth-4;
+  background: $color-main-white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .title {
+    color: $color-main-gray;
+    font-size: $font-standard-heading;
+    padding-bottom: 10px;
+  }
+
+  .paragraph {
+    color: $color-gray-4;
+    font-size: $font-paragraph;
+    padding-top: 10px;
+  }
+}
+
+@mixin board-box($color) {
+  @include content-box;
+
+  .title {
+    align-items: center;
+    color: $color;
+    display: flex;
+    font-size: $font-secondary-title;
+    font-weight: 500;
+    justify-content: flex-start;
+
+    .titleIcon {
+      color: $color;
+      margin-right: 10px;
+      padding: 10px;
+    }
+  }
+
+  .tasks {
+    background: $color-gray-1;
+    border: 1px solid $color-gray-1;
+    border-radius: 3px;
+    height: 100%;
+    padding: 10px;
+  }
+}

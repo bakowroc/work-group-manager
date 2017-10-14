@@ -11,16 +11,17 @@
       display: flex;
 
       a {
-        color: $color-main-white;
+        color: $color-main-gray;
         padding: 20px;
         width: 100%;
 
         &:hover {
-          background: darken($color-main-blue, 5%);
+          background: $color-gray-1;
         }
 
         &.activeListItem {
           background: $color-red;
+          color: $color-main-white;
         }
 
         .listItemIcon {

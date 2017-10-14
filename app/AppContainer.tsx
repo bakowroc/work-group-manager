@@ -9,16 +9,21 @@ import { Sidebar } from './Sidebar/Sidebar';
 const styles: any = require('./AppContainer.scss');
 
 export class AppContainer extends React.Component<{}> {
+
+  private renderRouteContainer = (): JSX.Element => (
+    <div className={ styles.container }>
+      <Route exact={ true } path="/" component={ Main } />
+      <Route path="/workspace" component={ Workspace } />
+    </div>
+  )
+
   public render() {
     return (
       <Router>
         <div className={ styles.content }>
-          <Navigation />
           <Sidebar />
-          <div className={ styles.container }>
-            <Route exact={ true } path="/" component={ Main } />
-            <Route path="/workspace" component={ Workspace } />
-          </div>
+          <Navigation items={[]} primary={ true } />
+          { this.renderRouteContainer() }
         </div>
       </Router>
     );

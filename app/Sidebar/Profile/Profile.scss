@@ -3,9 +3,10 @@
 
 .content {
   align-items: center;
-  background: rgba($color-main-white, .05);
+  background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM47l_-DHwDnLWlckbYs3nmTMiIDSenDlo6Xv92rRxyH1eNnn7) left bottom no-repeat;
+  background-size: cover;
   display: flex;
-  height: 100px;
+  height: 80px;
   justify-content: space-around;
   padding: 20px;
 }

@@ -1,6 +1,6 @@
 .content {
   display: grid;
-  grid-template: 100px calc(100vh - 100px) / 320px calc(100vw - 320px);
+  grid-template: 80px calc(100vh - 80px) / 320px calc(100vw - 320px);
   grid-template-areas:
     'sidebar navigation'
     'sidebar container';
@@ -8,5 +8,4 @@
 
 .container {
   grid-area: container;
-  padding: 20px;
 }
