@@ -6,8 +6,7 @@
 
 .content {
   $board-color: $color-gray-4;
-  @include board-box($board-color);
-  
+
   &.red {
     $board-color: $color-red;
     @include board-box($board-color);
@@ -28,5 +27,6 @@
     @include board-box($board-color);
   }
 
+  @include board-box($board-color);
   height: 100%;
 }

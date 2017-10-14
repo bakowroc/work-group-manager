@@ -3,13 +3,14 @@ import { Icon } from 'react-fa';
 
 import { BoardProps } from './BoardProps';
 import { Task } from './Task/Task';
+import { TaskProps } from './Task/TaskProps';
 
 const styles: any = require('./Board.scss');
 
 export class Board extends React.Component<BoardProps> {
 
   private renderWorkspaceTasks = (): Array<JSX.Element> =>
-    this.props.tasks.map((taskProps: any) => (<Task { ...taskProps } />))
+    this.props.tasks.map((taskProps: TaskProps, key: number) => (<Task key={ key } { ...taskProps } />))
 
   private renderBoardIcon = (): JSX.Element => (
     <span className={ styles.titleIcon }>

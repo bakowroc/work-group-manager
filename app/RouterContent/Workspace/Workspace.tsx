@@ -8,8 +8,8 @@ const styles: any = require('./Workspace.scss');
 
 export class Workspace extends React.Component<{}> {
 
-  private renderBoards = (): Array<JSX.Element> => BOARDS_DATA.map((boardProps: BoardProps) => (
-    <div className={ styles.board }>
+  private renderBoards = (): Array<JSX.Element> => BOARDS_DATA.map((boardProps: BoardProps, key: number) => (
+    <div key={ key } className={ styles.board }>
       <Board { ...boardProps } />
     </div>
   ))

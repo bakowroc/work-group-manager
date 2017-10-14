@@ -7,7 +7,12 @@ files:
   ignore: 'app/global.scss'
 rules:
   no-color-keywords: 1
-  class-name-format: camelcase
+  class-name-format:
+    - 1
+    -
+      allow-leading-underscore: false
+      convention: camelcase
+      convention-explanation: ''
   empty-args: true
   empty-line-between-blocks: true
   final-newline: true
