@@ -1,0 +1,13 @@
+@import '../consts/styles/colors';
+@import '../consts/styles/shadows';
+@import '../consts/styles/sizes';
+
+.content {
+  @include shadow-depth-2;
+  align-items: center;
+  background: $color-main-white;
+  display: flex;
+  grid-area: navigation;
+  padding: 20px;
+  z-index: $index-on-top;
+}

@@ -39,6 +39,7 @@ class Server {
   }
 
   private appRoutes = (): void => {
+    this.app.use('/fonts', Express.static(path.resolve('node_modules/font-awesome/fonts')));
     this.app.use(Config.ROOT_PATH, (req, res) => {
       res.sendFile(path.resolve('build/index.html'));
     });

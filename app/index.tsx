@@ -1,22 +1,24 @@
-import { createBrowserHistory  } from 'history';
+import 'normalize.css';
+import './global.scss';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {  Route, Router } from 'react-router';
 
 import { AppContainer } from './AppContainer';
-import { Main } from './Main/Main';
+import sagaMiddleware from './middleware/saga';
+import configure from './store';
+import { fetchMeUser, watchFetchMeUser } from './utils/axios.duck';
 
-const history = createBrowserHistory();
-const Routes: JSX.Element = (
-  <Route path={ '/' } component={ AppContainer } />
-);
+const store = configure();
+
+store.dispatch(fetchMeUser());
+
+sagaMiddleware.run(watchFetchMeUser);
 
 ReactDOM.render(
-    <Provider>
-      <Router history={ history }>
-        { Routes }
-      </Router>
+    <Provider store={ store }>
+      <AppContainer />
      </Provider>,
     document.getElementById('root')
 );

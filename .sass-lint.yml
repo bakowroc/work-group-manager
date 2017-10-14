@@ -4,6 +4,7 @@ options:
   merge-default-rules: false
 files:
   include: 'app/**/*.s+(a|c)ss'
+  ignore: 'app/global.scss'
 rules:
   no-color-keywords: 1
   class-name-format: camelcase
@@ -25,3 +26,4 @@ rules:
   property-sort-order: alphabetical
   space-before-brace: true
   zero-unit: true
+  space-before-colon: true

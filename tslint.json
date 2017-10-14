@@ -22,6 +22,7 @@
         true,
         "check-space"
     ],
+    "member-ordering": false,
     "member-access": true,
     "only-arrow-functions": [
         true,
@@ -57,6 +58,7 @@
       "options": ["log"]
     },
     "no-switch-case-fall-through": true,
+    "no-submodule-imports": false,
     "strict-boolean-expressions": [true, "allow-boolean-or-undefined"],
     "switch-default": false,
     "variable-name": [true,

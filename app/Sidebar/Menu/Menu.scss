@@ -1,0 +1,32 @@
+@import '../../consts/styles/colors';
+
+.content {
+  display: flex;
+
+  ul {
+    list-style: none;
+    width: 100%;
+
+    li {
+      display: flex;
+
+      a {
+        color: $color-main-white;
+        padding: 20px;
+        width: 100%;
+
+        &:hover {
+          background: darken($color-main-blue, 5%);
+        }
+
+        &.activeListItem {
+          background: $color-red;
+        }
+
+        .listItemIcon {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}

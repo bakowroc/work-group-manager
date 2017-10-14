@@ -1,0 +1,26 @@
+@import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
+
+.content {
+  align-items: center;
+  background: rgba($color-main-white, .05);
+  display: flex;
+  height: 100px;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.userAvatar {
+  align-items: center;
+  background: $color-blue;
+  border-radius: 100%;
+  display: flex;
+  font-size: $font-paragraph;
+  height: 50px;
+  justify-content: center;
+  width: 50px;
+}
+
+.userName {
+  font-size: $font-standard-heading;
+}
