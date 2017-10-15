@@ -1,6 +1,6 @@
 import * as React from 'react';
+
 import { PopupProps } from './PopupProps';
-import { Icon } from 'react-fa';
 
 const styles: any = require('./Popup.scss');
 

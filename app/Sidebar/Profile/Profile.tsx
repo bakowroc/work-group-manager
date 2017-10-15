@@ -21,7 +21,6 @@ export class Profile extends React.Component<ProfileProps> {
 
   private renderUserMenu = (): JSX.Element => <div />;
 
-
   private renderBackgroundImage = (): JSX.Element => <div className={ styles.image } />;
 
   public render(): JSX.Element {

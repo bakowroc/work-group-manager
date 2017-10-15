@@ -1,5 +1,3 @@
-import { Action } from 'redux-actions';
-
 export interface MenuItem {
   label: string;
   anchor?: any;

@@ -1,4 +1,3 @@
-import { head } from 'lodash';
 import * as React from 'react';
 import { Icon } from 'react-fa';
 
@@ -38,7 +37,7 @@ export class Board extends React.Component<BoardProps> {
       isDetailsOpen: true
     }))
 
-  private taskDetailsClose = (): void => 
+  private taskDetailsClose = (): void =>
   this.setState((prev: any) => ({
     ...prev,
     isDetailsOpen: false

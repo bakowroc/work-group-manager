@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import { Chat } from '../../../../components/Chat/Chat';
 import { Popup } from '../../../../components/Popup/Popup';
 import { TaskDetailsProps } from './TaskDetailsProps';
-import { Chat } from '../../../../components/Chat/Chat';
 
 const styles: any = require('./TaskDetails.scss');
 
