@@ -1,9 +1,11 @@
 @import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
 
 .content {
   align-items: center;
   background: darken($color-main-blue, 10%);
   display: flex;
+  font-size: $font-main-title;
   height: 80px;
   justify-content: space-around;
   padding: 20px;

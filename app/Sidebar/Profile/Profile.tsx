@@ -19,9 +19,10 @@ export class Profile extends React.Component<ProfileProps> {
     </div>
   )
 
-  private renderUserMenu = (): JSX.Element => (
-    <div />
-  )
+  private renderUserMenu = (): JSX.Element => <div />;
+
+
+  private renderBackgroundImage = (): JSX.Element => <div className={ styles.image } />;
 
   public render(): JSX.Element {
     return (
@@ -29,6 +30,7 @@ export class Profile extends React.Component<ProfileProps> {
         { this.renderUserAvatar() }
         { this.renderUserName() }
         { this.renderUserMenu() }
+        { this.renderBackgroundImage() }
       </div>
     );
   }

@@ -4,4 +4,5 @@ export interface TaskProps {
   author: string;
   assigned: Array<any>;
   category?: string;
+  onDetailsClick?: (task: any) => any;
 }

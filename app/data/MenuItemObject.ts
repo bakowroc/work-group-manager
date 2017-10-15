@@ -1,9 +1,12 @@
+import { Action } from 'redux-actions';
+
 export interface MenuItem {
   label: string;
-  anchor?: string;
-  className?: string;
-  icon: string;
+  anchor?: any;
+  labelClassName?: string;
+  icon?: string;
   iconColor?: IconColor;
+  iconClassName?: string;
   linkTo?: string;
 }
 

@@ -1,9 +1,13 @@
 @import '../../../../consts/styles/utils';
 
 .content {
-  @include content-box;
+  @include content-box(true);
   @include shadow-depth-2;
   margin-bottom: 10px;
+
+  &:hover {
+    @include shadow-depth-3;
+  }
 
   .title {
     padding: 0;

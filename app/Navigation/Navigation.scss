@@ -10,9 +10,26 @@
   grid-area: navigation;
   height: 80px;
   padding: 20px;
+  width: 100%;
 
   &.primary {
     background: $color-main-blue;
     box-shadow: none;
   }
+}
+
+.menu {
+  color: $color-main-white;
+  width: 100%;
+}
+
+.projectNameLabel {
+  font-size: $font-standard-heading;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.iconButton {
+  cursor: pointer;
+  margin-left: auto;
 }

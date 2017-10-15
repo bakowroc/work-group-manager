@@ -1,0 +1,37 @@
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/sizes';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.author {
+  align-items: center;
+  display: flex;
+  margin-bottom: 5px;
+
+  .postedDate {
+    font-size: $font-subtitle;
+    margin-left: 10px;
+  }
+
+  .authorAvatar {
+    align-items: center;
+    background: $color-blue;
+    border-radius: 3px;
+    color: $color-main-white;
+    display: flex;
+    font-size: $font-subtitle;
+    height: 30px;
+    justify-content: center;
+    margin-right: 10px;
+    width: 30px;
+  }
+}
+
+.message {
+  font-weight: 300;
+  line-height: 1.3;
+}

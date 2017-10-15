@@ -12,16 +12,20 @@ export class Task extends React.Component<TaskProps> {
     </div>
   )
 
+  private onTaskClick = (): void => this.props.onDetailsClick(this.props);
+
   public render(): JSX.Element {
     return(
-      <div className={ styles.content }>
-        <div className={ styles.title }>
-          { this.props.title }
+      <div onClick={ this.onTaskClick } >
+        <div className={ styles.content }>
+          <div className={ styles.title }>
+            { this.props.title }
+          </div>
+          <div className={ styles.paragraph }>
+            { this.props.desc }
+          </div>
+          { this.props.category && this.renderCategory() }
         </div>
-        <div className={ styles.paragraph }>
-          { this.props.desc }
-        </div>
-        { this.props.category && this.renderCategory() }
       </div>
     );
   }

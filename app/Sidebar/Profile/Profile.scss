@@ -3,13 +3,25 @@
 
 .content {
   align-items: center;
-  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM47l_-DHwDnLWlckbYs3nmTMiIDSenDlo6Xv92rRxyH1eNnn7');
-  background-position: bottom left;
-  background-size: cover;
+  background: $color-gray-4;
   display: flex;
   height: 80px;
   justify-content: space-around;
+  overflow: hidden;
   padding: 20px;
+  position: relative;
+
+  .image {
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM47l_-DHwDnLWlckbYs3nmTMiIDSenDlo6Xv92rRxyH1eNnn7');
+    background-position: bottom left;
+    background-size: cover;
+    filter: blur(22px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: $index-on-bottom;
+  }
+
 }
 
 .userAvatar {
@@ -21,8 +33,10 @@
   height: 50px;
   justify-content: center;
   width: 50px;
+  z-index: $index-on-top;
 }
 
 .userName {
   font-size: $font-standard-heading;
+  z-index: $index-on-top;
 }

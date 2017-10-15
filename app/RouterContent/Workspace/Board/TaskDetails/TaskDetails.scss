@@ -1,0 +1,57 @@
+@import '../../../../consts/styles/colors';
+@import '../../../../consts/styles/utils';
+@import '../../../../consts/styles/sizes';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+
+  .buttons {
+    color: $color-main-white;
+    display: flex;
+    font-size: $font-paragraph;
+    font-weight: 500;
+    justify-content: flex-end;
+    padding: 20px 0;
+    width: calc(70% - 20px);
+  }
+}
+
+.title {
+  color: $color-main-white;
+  font-size: $font-secondary-title;
+  margin-bottom: 20px;
+}
+
+.taskBody {
+  display: flex;
+  flex-direction: row;
+}
+
+.taskDetails {
+  @include content-box;
+  margin-right: 20px;
+  padding: 20px;
+  transition: none;
+  width: calc(70% - 20px);
+}
+
+.taskChatroom {
+  height: 640px;
+  position: relative;
+  width: 30%;
+
+  .historyChat {
+    height: calc(640px - 170px);
+  }
+
+  .messageInputArea {
+    background: rgba(#000, .1);
+    font-size: $font-large-text;
+    font-weight: 400;
+    height: 100px;
+    left: 0;
+    position: absolute;
+  }
+}

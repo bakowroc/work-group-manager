@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { Menu } from '../components/Menu/Menu';
 import { Logo } from './Logo/Logo';
-import { Menu } from './Menu/Menu';
 import { Profile } from './Profile/Profile';
 import { ProfileProps } from './Profile/ProfileProps';
 import { MENU_ELEMENTS } from './SidebarData';
@@ -22,7 +22,10 @@ export class Sidebar extends React.Component<{}> {
           createdAt={ tempUserProps.createdAt }
           username={ tempUserProps.username }
         />
-        <Menu items={ MENU_ELEMENTS } />
+        <Menu
+          vertical={ true }
+          items={ MENU_ELEMENTS }
+        />
       </div>
     );
   }

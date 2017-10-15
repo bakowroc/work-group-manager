@@ -1,0 +1,30 @@
+@import '../../consts/styles/sizes';
+@import '../../consts/styles/colors';
+
+.content {
+  color: $color-main-white;
+  overflow: hidden;
+  position: relative;
+  width: 30%;
+
+  .history {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .input {
+    border: 0;
+    bottom: 0;
+    color: $color-main-white;
+    font-size: $font-large-text;
+    font-weight: 400;
+    margin: 0;
+    padding: 10px;
+    resize: none;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

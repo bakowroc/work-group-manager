@@ -3,13 +3,15 @@
 @import './sizes';
 
 
-@mixin content-box {
+@mixin content-box($hovered: false) {
   @include shadow-depth-4;
   background: $color-main-white;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   padding: 10px;
+  transition: all 0.2s ease;
 
   .title {
     color: $color-main-gray;
@@ -21,6 +23,14 @@
     color: $color-gray-4;
     font-size: $font-paragraph;
     padding-top: 10px;
+  }
+
+  @if $hovered {
+    &:hover {
+      @include shadow-depth-5;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
   }
 }
 
