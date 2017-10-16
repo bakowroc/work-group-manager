@@ -1,13 +1,14 @@
+import { head } from 'lodash';
 import { Action, createAction, handleActions } from 'redux-actions';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
-// import Axios from 'axios';
+import { axios } from './axios';
 
 const GET_ME_USER = 'GET_ME_USER';
-const getMeUser = createAction(GET_ME_USER);
+const getMeUser = createAction<any>(GET_ME_USER);
 
 const FETCH_ME_ERROR = 'FETCH_ME_ERROR';
-const fetchMeError = createAction(FETCH_ME_ERROR);
+const fetchMeError = createAction<any>(FETCH_ME_ERROR);
 
 const FETCH_ME_USER = 'FETCH_ME_USER';
 export const fetchMeUser = createAction(FETCH_ME_USER);
@@ -22,12 +23,12 @@ export default handleActions({
   [FETCH_ME_ERROR]: (state: any, action: Action<any>) => ({...state, error: action.payload})
 }, initialState);
 
-function *fetchMe() {
+export function *fetchMe() {
   try {
-    // const {user} = yield call(axios.get, '/api/user');
-    yield put(getMeUser());
+    const {data} = yield call(axios.get, '/api/user/bakowroc');
+    yield put(getMeUser(data.responseData));
   } catch {
-    yield put(fetchMeError());
+    yield put(fetchMeError('error'));
   }
 }
 

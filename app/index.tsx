@@ -6,15 +6,15 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import { AppContainer } from './AppContainer';
-import sagaMiddleware from './middleware/saga';
+import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
-import { fetchMeUser, watchFetchMeUser } from './utils/axios.duck';
+import { fetchMe, fetchMeUser, watchFetchMeUser } from './utils/axios.duck';
 
 const store = configure();
 
 store.dispatch(fetchMeUser());
 
-sagaMiddleware.run(watchFetchMeUser);
+sagaMiddleware.run(fetchMe);
 
 ReactDOM.render(
     <Provider store={ store }>
