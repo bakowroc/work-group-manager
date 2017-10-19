@@ -25,7 +25,9 @@ import {
 const initialState = {
   error: '',
   me: {},
-  users: []
+  users: [
+    {}
+  ]
 };
 
 export default handleActions({
