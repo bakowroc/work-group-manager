@@ -4,7 +4,9 @@
   display: flex;
 
   ul {
+    align-items: center;
     display: flex;
+    justify-content: center;
     list-style: none;
     width: 100%;
 
@@ -14,38 +16,6 @@
 
     &.menuHorizontal {
       flex-direction: row;
-
-      li {
-        margin-right: 20px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-
-    a {
-      color: $color-main-gray;
-      display: flex;
-      padding: 20px;
-      width: 100%;
-
-      &:hover {
-        background: $color-gray-1;
-      }
-
-      &.activeListItem {
-        background: $color-red;
-        color: $color-main-white;
-      }
-    }
-
-    li {
-      color: inherit;
-    }
-
-    .listItemIcon {
-      margin-right: 20px;
     }
   }
 }

@@ -1,0 +1,7 @@
+@import '../../consts/styles/utils';
+@import '../../consts/styles/sizes';
+@import '../../consts/styles/animations';
+
+.content {
+  @include button;
+}

@@ -1,6 +1,6 @@
-import { MenuItem } from '../data/MenuItemObject';
+import { MenuItemProps } from '../components/Menu/MenuItem';
 
-export const MENU_ELEMENTS: Array<MenuItem> = [
+export const MENU_ELEMENTS: Array<MenuItemProps> = [
   {
     icon: 'eye',
     label: 'Main',

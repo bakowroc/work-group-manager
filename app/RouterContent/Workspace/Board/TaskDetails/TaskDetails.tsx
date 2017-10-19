@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { Chat } from '../../../../components/Chat/Chat';
-import { Popup } from '../../../../components/Popup/Popup';
+import { Button } from '../../../../components/Button';
+import { Chat } from '../../../../components/Chat';
+import { InputEdit } from '../../../../components/InputEdit';
+import { Popup } from '../../../../components/Popup';
 import { TaskDetailsProps } from './TaskDetailsProps';
 
 const styles: any = require('./TaskDetails.scss');
@@ -17,9 +19,13 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
   )
 
   private renderButtons = (): JSX.Element => (
-   <div className={ styles.buttons }>
-     <div onClick={ this.props.onClose }>CLOSE</div>
-   </div>
+  <div className={ styles.buttons }>
+    <Button
+      label="Close"
+      onClick={ this.props.onClose }
+      flat={ true }
+    />
+  </div>
   )
 
   private renderTaskChatroom = (): JSX.Element => (
@@ -33,11 +39,18 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
     />
   )
 
+  private onTitleInputLeave = (): void => {
+    // console.log('leave');
+  }
+
   private renderDetailsContent = (): JSX.Element => (
     <div className={ styles.content }>
-      <div className={ styles.title }>
-        { this.props.task.title }
-      </div>
+      <InputEdit
+        text={ this.props.task.title }
+        useEnterToLeave={ true }
+        onLeave={ this.onTitleInputLeave }
+        inputClassName={ styles.title }
+      />
       <div className={ styles.taskBody }>
         { this.renderTaskDetails() }
         { this.renderTaskChatroom() }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Icon } from 'react-fa';
 
+import { InputEdit } from '../../../components/InputEdit';
 import { BoardProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
@@ -43,12 +44,22 @@ export class Board extends React.Component<BoardProps> {
     isDetailsOpen: false
   }))
 
+  private onTitleInputLeave = (): void => {
+    // console.log('left');
+  }
+
   public render(): JSX.Element {
     return (
       <div className={ styles.content  + ' ' + styles[this.props.boardColor] }>
         <div className={ styles.title }>
           { this.renderBoardIcon() }
-          { this.props.title }
+          <InputEdit
+            text={ this.props.title }
+            onLeave={ this.onTitleInputLeave }
+            useEnterToLeave={ true }
+            inputClassName={ styles.text }
+            maxInputLength={ 20 }
+          />
         </div>
         <div className={ styles.tasks }>
           { this.renderWorkspaceTasks() }

@@ -1,43 +1,49 @@
 import * as React from 'react';
+import { Icon } from 'react-fa';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Menu } from '../components/Menu/Menu';
-import { MenuItem } from '../data/MenuItemObject';
-import { NavigationProps } from './NavigationProps';
+import { Button } from '../components/Button';
+import { Menu } from '../components/Menu';
+import { MenuItem } from '../components/Menu/MenuItem';
+import { toggleNotification } from '../Notification/notification.duck';
+import { NavigationDispatchProps, } from './NavigationProps';
 
 const styles: any = require('./Navigation.scss');
 
-const invokeAdjustAnchor = () => alert();
+class NavigationComponent extends React.Component<NavigationDispatchProps> {
 
-const NAVIGATION_ITEMS: Array<MenuItem> = [
-  {
-    label: 'Work group manager',
-    labelClassName: styles.projectNameLabel
-  }
-];
-
-export class Navigation extends React.Component<NavigationProps> {
-
-  private getNavigationClass = (): string =>
-    this.props.primary ? `${styles.content} ${styles.primary}` : styles.content
-
-  private appendAnchorElements = (): Array<MenuItem> => [
-    ...NAVIGATION_ITEMS,
-    {
-      anchor: invokeAdjustAnchor,
-      icon: 'bell',
-      label: '',
-      labelClassName: styles.iconButton
-    }
-  ]
+  private renderNotafictionButton = (): JSX.Element => (
+    <Button
+      label={ <Icon name="bell" /> }
+      onClick={ this.props.toggleNotification }
+      flat={ true }
+    />
+  )
 
   public render(): JSX.Element {
     return(
-      <div className={ this.getNavigationClass()  }>
-        <Menu
-          menuClassName={ styles.menu }
-          items={ this.appendAnchorElements() }
-        />
+      <div className={ styles.content }>
+        <Menu menuClassName={ styles.menu }>
+          <MenuItem
+            label="Work group manager"
+            labelClassName={ styles.projectNameLabel }
+          />
+          <MenuItem
+            label={ this.renderNotafictionButton() }
+            labelClassName={ styles.iconButton }
+          />
+        </Menu>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: any): NavigationDispatchProps => bindActionCreators({
+  toggleNotification
+}, dispatch);
+
+export const Navigation = connect<any, NavigationDispatchProps, any>(
+  null,
+  mapDispatchToProps,
+)(NavigationComponent);

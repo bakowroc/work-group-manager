@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
 import { Navigation } from './Navigation/Navigation';
+import { Notification } from './Notification/Notification';
 import { Main } from './RouterContent/Main/Main';
 import { Workspace } from './RouterContent/Workspace/Workspace';
 import { Sidebar } from './Sidebar/Sidebar';
@@ -21,8 +22,9 @@ export class AppContainer extends React.Component<{}> {
     return (
       <Router>
         <div className={ styles.content }>
+          <Notification />
           <Sidebar />
-          <Navigation items={[]} primary={ true } />
+          <Navigation />
           { this.renderRouteContainer() }
         </div>
       </Router>

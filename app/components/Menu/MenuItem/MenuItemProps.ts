@@ -1,6 +1,5 @@
-export interface MenuItem {
-  label: string;
-  anchor?: any;
+export interface MenuItemProps {
+  label: string | JSX.Element;
   labelClassName?: string;
   icon?: string;
   iconColor?: IconColor;

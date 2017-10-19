@@ -1,4 +1,3 @@
-export interface NavigationProps {
-  items: Array<any>;
-  primary: boolean;
+export interface NavigationDispatchProps {
+  toggleNotification: () => void;
 }

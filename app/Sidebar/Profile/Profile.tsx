@@ -1,21 +1,22 @@
 import { head } from 'lodash';
 import * as React from 'react';
+import { connect } from 'react-redux';
 
-import { ProfileProps } from './ProfileProps';
+import { ProfileStateProps } from './ProfileProps';
 
 const styles: any = require('./Profile.scss');
 
-export class Profile extends React.Component<ProfileProps> {
+export class ProfileComponent extends React.Component<ProfileStateProps> {
 
   private renderUserAvatar = (): JSX.Element => (
     <div className={ styles.userAvatar }>
-      { head(this.props.username) }
+      { head(this.props.me.username) }
     </div>
   )
 
   private renderUserName = (): JSX.Element => (
     <div className={ styles.userName }>
-      { this.props.username }
+      { this.props.me.email }
     </div>
   )
 
@@ -34,3 +35,11 @@ export class Profile extends React.Component<ProfileProps> {
     );
   }
 }
+
+const mapStateToProps = (state: any): ProfileStateProps => ({
+  me: state.data.me
+});
+
+export const Profile = connect<ProfileStateProps, {}, {}>(
+  mapStateToProps
+)(ProfileComponent);

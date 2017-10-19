@@ -1,0 +1,17 @@
+@keyframes button-onmousedown {
+  from {
+    opacity: 1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  to {
+    opacity: 0;
+    transform: scaleX(3);
+    transition: transform 0.3s ease;
+  }
+}
+
+@mixin on-mouse-down {
+  animation: button-onmousedown 0.3s ease;
+}

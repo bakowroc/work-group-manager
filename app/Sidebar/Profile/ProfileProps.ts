@@ -1,4 +1,3 @@
-export interface ProfileProps {
-  createdAt: Date;
-  username: string;
+export interface ProfileStateProps {
+  me: any;
 }

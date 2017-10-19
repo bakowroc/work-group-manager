@@ -5,17 +5,12 @@
 .content {
   @include shadow-depth-2;
   align-items: center;
-  background: $color-main-white;
+  background: $color-main-blue;
   display: flex;
   grid-area: navigation;
   height: 80px;
   padding: 20px;
   width: 100%;
-
-  &.primary {
-    background: $color-main-blue;
-    box-shadow: none;
-  }
 }
 
 .menu {
