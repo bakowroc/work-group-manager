@@ -75,6 +75,7 @@
     "no-trailing-whitespace": true,
     "number-literal-format": true,
     "object-literal-shorthand": true,
+    "object-literal-sort-keys": false,
     "import-spacing": true,
     "array-type": false,
     "arrow-parens": [true, "as-needed"],

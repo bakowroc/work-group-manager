@@ -7,11 +7,11 @@ import { Button } from '../components/Button';
 import { Menu } from '../components/Menu';
 import { MenuItem } from '../components/Menu/MenuItem';
 import { toggleNotification } from '../Notification/notification.duck';
-import { NavigationDispatchProps, } from './NavigationProps';
+import { NavigationDispatchProps, NavigationStateProps } from './NavigationProps';
 
 const styles: any = require('./Navigation.scss');
 
-class NavigationComponent extends React.Component<NavigationDispatchProps> {
+class NavigationComponent extends React.Component<NavigationStateProps & NavigationDispatchProps> {
 
   private renderNotafictionButton = (): JSX.Element => (
     <Button
@@ -26,7 +26,7 @@ class NavigationComponent extends React.Component<NavigationDispatchProps> {
       <div className={ styles.content }>
         <Menu menuClassName={ styles.menu }>
           <MenuItem
-            label="Work group manager"
+            label={ this.props.project.name }
             labelClassName={ styles.projectNameLabel }
           />
           <MenuItem
@@ -39,11 +39,15 @@ class NavigationComponent extends React.Component<NavigationDispatchProps> {
   }
 }
 
+const mapStateToProps = (state: any) => ({
+  project: state.data.project
+});
+
 const mapDispatchToProps = (dispatch: any): NavigationDispatchProps => bindActionCreators({
   toggleNotification
 }, dispatch);
 
-export const Navigation = connect<any, NavigationDispatchProps, any>(
-  null,
+export const Navigation = connect<NavigationStateProps, NavigationDispatchProps, any>(
+  mapStateToProps,
   mapDispatchToProps,
 )(NavigationComponent);

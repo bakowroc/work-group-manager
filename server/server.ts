@@ -6,9 +6,9 @@ import * as path from 'path';
 import { Config } from './config';
 import Database from './database';
 import BoardRoutes from './router/controllers/BoardController';
+import ProjectRoutes from './router/controllers/ProjectController';
 import TaskRoutes from './router/controllers/TaskController';
 import UserRoutes from './router/controllers/UserController';
-import WorkspaceRoutes from './router/controllers/WorkspaceController';
 import { Route } from './router/routes';
 
 class Server {
@@ -35,7 +35,7 @@ class Server {
     this.app.use(Config.API_PATH + Route.BOARD, BoardRoutes);
     this.app.use(Config.API_PATH + Route.TASK, TaskRoutes);
     this.app.use(Config.API_PATH + Route.USER, UserRoutes);
-    this.app.use(Config.API_PATH + Route.WORKSPACE, WorkspaceRoutes);
+    this.app.use(Config.API_PATH + Route.PROJECT, ProjectRoutes);
   }
 
   private appRoutes = (): void => {

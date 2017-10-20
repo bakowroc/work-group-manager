@@ -2,11 +2,12 @@
 
 .content {
   @include content-box(true);
-  @include shadow-depth-2;
+  @include shadow-depth-1;
+  border-left: 3px solid $color-main-blue;
   margin-bottom: 10px;
 
   &:hover {
-    @include shadow-depth-3;
+    @include shadow-depth-2;
   }
 
   .title {
@@ -18,7 +19,7 @@
   }
 
   .category {
-    background: $color-gray-3;
+    background: $color-gray-2;
     border-radius: 3px;
     color: $color-main-white;
     font-size: $font-subtitle;
@@ -26,5 +27,21 @@
     padding: 4px;
     text-transform: uppercase;
     width: auto !important;
+  }
+
+  &.prior3 {
+    border-color: $color-red;
+  }
+
+  &.prior2 {
+    border-color: $color-orange
+  }
+
+  &.prior1 {
+    border-color: $color-blue;
+  }
+
+  &.prior0 {
+    border-color: $color-gray-3;
   }
 }

@@ -7,7 +7,6 @@
 @mixin content-box($hovered: false) {
   @include shadow-depth-4;
   background: $color-main-white;
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -36,14 +35,17 @@
 }
 
 @mixin board-box($color) {
-  @include content-box;
+  overflow: hidden;
 
   .title {
     align-items: center;
+    background: $color-gray-2;
     display: flex;
     font-size: $font-secondary-title;
     font-weight: 500;
     justify-content: flex-start;
+    margin-bottom: 10px;
+    overflow: hidden;
     width: 100%;
 
     .text {
@@ -60,11 +62,7 @@
   }
 
   .tasks {
-    background: $color-gray-1;
-    border: 1px solid $color-gray-1;
-    border-radius: 3px;
     height: 100%;
-    padding: 10px;
   }
 }
 

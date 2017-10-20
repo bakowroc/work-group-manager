@@ -15,14 +15,17 @@ export class ProfileComponent extends React.Component<ProfileStateProps> {
   )
 
   private renderUserName = (): JSX.Element => (
-    <div className={ styles.userName }>
+    <div className={ styles.user } >
+      <div className={ styles.userName }>
+      { this.props.me.username }
+    </div>
+    <div className={ styles.userEmail }>
       { this.props.me.email }
+    </div>
     </div>
   )
 
   private renderUserMenu = (): JSX.Element => <div />;
-
-  private renderBackgroundImage = (): JSX.Element => <div className={ styles.image } />;
 
   public render(): JSX.Element {
     return (
@@ -30,7 +33,6 @@ export class ProfileComponent extends React.Component<ProfileStateProps> {
         { this.renderUserAvatar() }
         { this.renderUserName() }
         { this.renderUserMenu() }
-        { this.renderBackgroundImage() }
       </div>
     );
   }

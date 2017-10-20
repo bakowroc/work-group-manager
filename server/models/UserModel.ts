@@ -1,12 +1,18 @@
 import { model, Schema } from 'mongoose';
 
 const UserSchema = new Schema({
-  createdAt: {
-    default: new Date(),
+  username: {
     required: true,
-    type: Date
+    type: String,
+    unique: true
   },
   email: {
+    required: true,
+    type: String,
+    unique: true
+  },
+  slug: {
+    default: '',
     required: true,
     type: String,
     unique: true
@@ -15,17 +21,15 @@ const UserSchema = new Schema({
     required: true,
     type: String
   },
-  slug: {
-    default: '',
+  tasks: [{
+    ref: 'Task',
+    type: Schema.Types.ObjectId
+  }],
+  createdAt: {
+    default: new Date(),
     required: true,
-    type: String,
-    unique: true
-  },
-  username: {
-    required: true,
-    type: String,
-    unique: true
-  },
+    type: Date
+  }
 });
 
 export default model('User', UserSchema);

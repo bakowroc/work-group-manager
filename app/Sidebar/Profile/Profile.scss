@@ -1,43 +1,48 @@
 @import '../../consts/styles/colors';
 @import '../../consts/styles/sizes';
+@import '../../consts/styles/shadows';
 
 .content {
   align-items: center;
-  background: $color-gray-4;
+  background: $color-main-gray;
   display: flex;
-  height: 80px;
+  flex-direction: column;
+  height: 240px;
   justify-content: space-around;
   overflow: hidden;
   padding: 20px;
   position: relative;
-
-  .image {
-    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM47l_-DHwDnLWlckbYs3nmTMiIDSenDlo6Xv92rRxyH1eNnn7');
-    background-position: bottom left;
-    background-size: cover;
-    filter: blur(22px);
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    z-index: $index-on-bottom;
-  }
-
 }
 
 .userAvatar {
+  @include shadow-depth-3;
   align-items: center;
-  background: $color-blue;
+  background: $color-orange;
   border-radius: 100%;
   display: flex;
-  font-size: $font-paragraph;
-  height: 50px;
+  font-size: $font-main-title;
+  height: 100px;
   justify-content: center;
   text-transform: uppercase;
-  width: 50px;
+  width: 100px;
   z-index: $index-on-top;
 }
 
-.userName {
-  font-size: $font-standard-heading;
-  z-index: $index-on-top;
+.user {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .userName {
+    color: $color-main-white;
+    font-size: $font-large-text;
+    font-weight: 500;
+    margin-bottom: 5px;
+    z-index: $index-on-top;
+  }
+
+  .userEmail {
+    color: $color-gray-5;
+  }
 }

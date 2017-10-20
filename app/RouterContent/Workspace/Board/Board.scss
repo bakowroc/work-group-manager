@@ -5,28 +5,6 @@
 
 
 .content {
-  $board-color: $color-gray-4;
-
-  &.red {
-    $board-color: $color-red;
-    @include board-box($board-color);
-  }
-
-  &.blue {
-    $board-color: $color-blue;
-    @include board-box($board-color);
-  }
-
-  &.green {
-    $board-color: $color-green;
-    @include board-box($board-color);
-  }
-
-  &.orange {
-    $board-color: $color-orange;
-    @include board-box($board-color);
-  }
-
-  @include board-box($board-color);
+  @include board-box($color-gray-5);
   height: 100%;
 }

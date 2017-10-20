@@ -5,7 +5,7 @@
 .content {
   @include shadow-depth-2;
   align-items: center;
-  background: $color-main-blue;
+  background: $color-green;
   display: flex;
   grid-area: navigation;
   height: 80px;
@@ -19,8 +19,8 @@
 }
 
 .projectNameLabel {
-  font-size: $font-standard-heading;
-  font-weight: 600;
+  font-size: $font-paragraph;
+  font-weight: 500;
   text-transform: uppercase;
 }
 

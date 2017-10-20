@@ -1,14 +1,14 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import { Board } from './Board/Board';
-import { BoardProps } from './Board/BoardProps';
-import { BOARDS_DATA } from './BoardsData';
+import { WorkspaceStateProps } from './WorkspaceProps';
 
 const styles: any = require('./Workspace.scss');
 
-export class Workspace extends React.Component<{}> {
+export class WorkspaceComponent extends React.Component<WorkspaceStateProps> {
 
-  private renderBoards = (): Array<JSX.Element> => BOARDS_DATA.map((boardProps: BoardProps, key: number) => (
+  private renderBoards = (): Array<JSX.Element> => this.props.project.boards.map((boardProps: any, key: number) => (
     <div key={ key } className={ styles.board }>
       <Board { ...boardProps } />
     </div>
@@ -22,3 +22,9 @@ export class Workspace extends React.Component<{}> {
     );
   }
 }
+
+const mapStateToProps = (state: any) => ({
+  project: state.data.project
+});
+
+export const Workspace = connect(mapStateToProps)(WorkspaceComponent);

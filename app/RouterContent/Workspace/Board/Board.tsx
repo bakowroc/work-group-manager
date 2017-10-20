@@ -50,11 +50,11 @@ export class Board extends React.Component<BoardProps> {
 
   public render(): JSX.Element {
     return (
-      <div className={ styles.content  + ' ' + styles[this.props.boardColor] }>
+      <div className={ styles.content }>
         <div className={ styles.title }>
           { this.renderBoardIcon() }
           <InputEdit
-            text={ this.props.title }
+            text={ this.props.name }
             onLeave={ this.onTitleInputLeave }
             useEnterToLeave={ true }
             inputClassName={ styles.text }

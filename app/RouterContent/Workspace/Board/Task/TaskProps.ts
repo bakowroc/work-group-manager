@@ -1,3 +1,5 @@
+import { TaskPrior } from './TaskPrior';
+
 export interface TaskProps {
   title: string;
   desc: string;
@@ -5,4 +7,5 @@ export interface TaskProps {
   assigned: Array<any>;
   category?: string;
   onDetailsClick?: (task: any) => any;
+  prior?: TaskPrior;
 }
