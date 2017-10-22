@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import BoardModel from '../../models/BoardModel';
 import APIRequest from '../../utils/APIRequest';
+import { PopulateQuery } from './../../types/typings';
 
 class BoardController {
 
@@ -12,10 +13,25 @@ class BoardController {
     this.routes();
   }
 
-  public routes = () => {
-    this.router.get('/', APIRequest.GET_MANY(BoardModel));
-    this.router.get('/:slug', APIRequest.GET_SINGLE(BoardModel));
-    this.router.post('/', APIRequest.POST(BoardModel));
+  private getPopulateQuery = (): Array<PopulateQuery> => ([
+    {path: 'project', select: ''},
+    {path: 'tasks', select: ''},
+  ])
+
+  private getManyElementRoutes = (): void => {
+    this.router.route('/:slug')
+    .get(APIRequest.GET_SINGLE(BoardModel, this.getPopulateQuery()));
+  }
+
+  private getSingleElementRoutes = (): void => {
+    this.router.route('/')
+      .get(APIRequest.GET_MANY(BoardModel, this.getPopulateQuery()))
+      .post(APIRequest.POST(BoardModel));
+  }
+
+  public routes = (): void => {
+   this.getManyElementRoutes();
+   this.getSingleElementRoutes();
   }
 }
 

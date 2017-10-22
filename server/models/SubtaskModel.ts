@@ -9,6 +9,10 @@ const SubtaskSchema = new Schema({
     required: true,
     type: Boolean
   },
+  task: {
+    ref: 'Task',
+    type: Schema.Types.ObjectId
+  },
   createdAt: {
     default: new Date(),
     required: true,

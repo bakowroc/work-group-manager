@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import ProjectModel from '../../models/ProjectModel';
 import APIRequest from '../../utils/APIRequest';
+import { PopulateQuery } from './../../types/typings';
 
 class ProjectController {
 
@@ -12,10 +13,24 @@ class ProjectController {
     this.routes();
   }
 
-  public routes = () => {
-    this.router.get('/', APIRequest.GET_MANY(ProjectModel));
-    this.router.get('/:slug', APIRequest.GET_SINGLE(ProjectModel));
-    this.router.post('/', APIRequest.POST(ProjectModel));
+  private getPopulateQuery = (): Array<PopulateQuery> => ([
+    {path: 'boards', select: ''}
+  ])
+
+  private getManyElementRoutes = (): void => {
+    this.router.route('/:slug')
+    .get(APIRequest.GET_SINGLE(ProjectModel, this.getPopulateQuery()));
+  }
+
+  private getSingleElementRoutes = (): void => {
+    this.router.route('/')
+      .get(APIRequest.GET_MANY(ProjectModel, this.getPopulateQuery()))
+      .post(APIRequest.POST(ProjectModel));
+  }
+
+  public routes = (): void => {
+   this.getManyElementRoutes();
+   this.getSingleElementRoutes();
   }
 }
 

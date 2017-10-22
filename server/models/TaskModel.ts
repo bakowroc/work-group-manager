@@ -11,6 +11,9 @@ const TaskSchema = new Schema({
     required: true,
     type: String
   },
+  prior: {
+    type: String
+  },
   author: {
     ref: 'User',
     type: Schema.Types.ObjectId

@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 
 import { generateRandomSlug } from './../utils/helpers';
 
-const WorkspaceSchema = new Schema({
+const ProjectSchema = new Schema({
   name: {
     required: true,
     type: String,
@@ -30,4 +30,4 @@ const WorkspaceSchema = new Schema({
   },
 });
 
-export default model('Workspace', WorkspaceSchema);
+export default model('Project', ProjectSchema);

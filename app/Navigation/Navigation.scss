@@ -5,7 +5,7 @@
 .content {
   @include shadow-depth-2;
   align-items: center;
-  background: $color-green;
+  background: $color-main-blue;
   display: flex;
   grid-area: navigation;
   height: 80px;
