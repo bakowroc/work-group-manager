@@ -16,12 +16,13 @@ import {
     watchFetchUsers,
     watchUpdateBoard
 } from './utils/axios/axios.duck';
+/*tslint:disable*/
 import { fetchBoards, fetchBoardsAction } from './utils/axios/requests/BoardActions';
 import { fetchProject, fetchProjectAction } from './utils/axios/requests/ProjectActions';
 import { fetchTasks, fetchTasksAction } from './utils/axios/requests/TaskActions';
 import { fetchMe, fetchMeUserAction } from './utils/axios/requests/UserActions';
 import { fetchUsers, fetchUsersAction } from './utils/axios/requests/UsersActions';
-
+/*tslint:enable*/
 const store = configure();
 
 store.dispatch(fetchMeUserAction());
