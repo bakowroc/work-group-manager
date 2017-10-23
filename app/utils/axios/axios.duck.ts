@@ -1,7 +1,7 @@
 import { Action, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
 
-import { FETCH_BOARDS, fetchBoards, GET_BOARDS } from './requests/BoardActions';
+import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_ERROR } from './requests/ErrorActions';
 import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
 import { FETCH_TASKS, fetchTasks, GET_TASKS } from './requests/TaskActions';
@@ -46,6 +46,10 @@ export function* watchFetchProject() {
 
 export function* watchFetchBoards() {
   yield takeLatest(FETCH_BOARDS, fetchBoards);
+}
+
+export function* watchUpdateBoard() {
+  yield takeLatest(UPDATE_BOARD, updateBoard);
 }
 
 export function* watchFetchTasks() {

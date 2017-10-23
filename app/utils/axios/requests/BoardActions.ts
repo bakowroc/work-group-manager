@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { Action, createAction } from 'redux-actions';
 import { call, put } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
@@ -9,6 +9,9 @@ import { fetchError } from '../requests/ErrorActions';
 
 const FETCH_BOARDS = 'FETCH_BOARDS';
 const fetchBoardsAction = createAction(FETCH_BOARDS);
+
+const UPDATE_BOARD = 'UPDATE_BOARD';
+const updateBoardAction = createAction<any>(UPDATE_BOARD);
 
 const GET_BOARDS = 'GET_BOARDS';
 const getBoards = createAction<any>(GET_BOARDS);
@@ -22,10 +25,24 @@ function* fetchBoards() {
   }
 }
 
+function* updateBoard(action: Action<any>) {
+  try {
+    const boardSlug = action.payload.slug;
+    const toUpdateData = action.payload.data;
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.put, `/api/board${boardSlug}`, toUpdateData);
+    yield put(fetchBoardsAction());
+  } catch (error) {
+    yield fetchError('error');
+  }
+}
+
 export {
   FETCH_BOARDS,
   fetchBoards,
   fetchBoardsAction,
   GET_BOARDS,
-  getBoards
+  getBoards,
+  UPDATE_BOARD,
+  updateBoard,
+  updateBoardAction
 };

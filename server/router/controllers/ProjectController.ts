@@ -19,7 +19,8 @@ class ProjectController {
 
   private getManyElementRoutes = (): void => {
     this.router.route('/:slug')
-    .get(APIRequest.GET_SINGLE(ProjectModel, this.getPopulateQuery()));
+    .get(APIRequest.GET_SINGLE(ProjectModel, this.getPopulateQuery()))
+    .put(APIRequest.UPDATE(ProjectModel));
   }
 
   private getSingleElementRoutes = (): void => {

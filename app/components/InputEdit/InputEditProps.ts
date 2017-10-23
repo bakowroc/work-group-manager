@@ -2,7 +2,7 @@ export interface InputEditProps {
   text: string;
   inputClassName: string;
   useEnterToLeave: boolean;
-  onLeave: () => any;
+  onLeave: (event: any) => any;
   placeholder?: string;
   maxInputLength?: number;
 }

@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { Icon } from 'react-fa';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { InputEdit } from '../../../components/InputEdit';
-import { BoardProps } from './BoardProps';
+import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
+import { BoardDispatchProps, BoardProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
 import { TaskDetails } from './TaskDetails/TaskDetails';
 
 const styles: any = require('./Board.scss');
 
-export class Board extends React.Component<BoardProps> {
+export class BoardComponent extends React.Component<BoardProps & BoardDispatchProps> {
 
   public state = {
     currentTaskDetails: this.props.tasks[1],
@@ -44,8 +47,8 @@ export class Board extends React.Component<BoardProps> {
     isDetailsOpen: false
   }))
 
-  private onTitleInputLeave = (): void => {
-    // console.log('left');
+  private onTitleInputLeave = (value: string): void => {
+   this.props.updateBoardAction({slug: this.props.slug, data: {name: value}});
   }
 
   public render(): JSX.Element {
@@ -73,3 +76,9 @@ export class Board extends React.Component<BoardProps> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  updateBoardAction
+}, dispatch);
+
+export const Board = connect<any, BoardDispatchProps, BoardProps>(null, mapDispatchToProps)(BoardComponent);

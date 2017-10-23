@@ -41,12 +41,12 @@ export class InputEdit extends React.Component<InputEditProps> {
     }
   }
 
-  private onBlur = (): void => {
+  private onBlur = (event: any): void => {
     this.setState((prev: any) => ({
       isFocused: false
     }));
 
-    this.props.onLeave();
+    this.props.onLeave(event.currentTarget.value);
   }
 
   private getInputClassName = (): string => {
