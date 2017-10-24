@@ -52,7 +52,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     </span>
   )
 
-  private onAddTask = (): void => console.log('Adding task')
+  private onAddTask = (): void => alert('Add task');
 
   private openTaskDetalis = (task: TaskProps): void =>
     this.setState((prev: any) => ({
