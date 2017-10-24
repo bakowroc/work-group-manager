@@ -6,9 +6,14 @@ const styles: any = require('./InputEdit.scss');
 
 export class InputEdit extends React.Component<InputEditProps> {
 
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this);
+  }
+
   public state = {
     isFocused: false,
-    value: this.props.text
+    value: ''
   };
 
   public componentDidMount() {

@@ -29,7 +29,7 @@ function* updateBoard(action: Action<any>) {
   try {
     const boardSlug = action.payload.slug;
     const toUpdateData = action.payload.data;
-    yield call(axios.put, `/api/board${boardSlug}`, toUpdateData);
+    yield call(axios.put, `/api/board/${boardSlug}`, toUpdateData);
     yield put(fetchBoardsAction());
   } catch (error) {
     yield fetchError('error');

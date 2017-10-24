@@ -16,20 +16,14 @@ import {
     watchFetchUsers,
     watchUpdateBoard
 } from './utils/axios/axios.duck';
-/*tslint:disable*/
-import { fetchBoards, fetchBoardsAction } from './utils/axios/requests/BoardActions';
-import { fetchProject, fetchProjectAction } from './utils/axios/requests/ProjectActions';
-import { fetchTasks, fetchTasksAction } from './utils/axios/requests/TaskActions';
-import { fetchMe, fetchMeUserAction } from './utils/axios/requests/UserActions';
-import { fetchUsers, fetchUsersAction } from './utils/axios/requests/UsersActions';
-/*tslint:enable*/
-const store = configure();
 
-store.dispatch(fetchMeUserAction());
-store.dispatch(fetchUsersAction());
-store.dispatch(fetchProjectAction());
-store.dispatch(fetchBoardsAction());
-store.dispatch(fetchTasksAction());
+import { fetchBoardsAction } from './utils/axios/requests/BoardActions';
+import { fetchProjectAction } from './utils/axios/requests/ProjectActions';
+import { fetchTasksAction } from './utils/axios/requests/TaskActions';
+import { fetchMeUserAction } from './utils/axios/requests/UserActions';
+import { fetchUsersAction } from './utils/axios/requests/UsersActions';
+
+const store = configure();
 
 sagaMiddleware.run(watchFetchMe);
 sagaMiddleware.run(watchFetchUsers);
@@ -38,13 +32,12 @@ sagaMiddleware.run(watchFetchBoards);
 sagaMiddleware.run(watchFetchTasks);
 sagaMiddleware.run(watchUpdateBoard);
 
-/*
-sagaMiddleware.run(fetchMe);
-sagaMiddleware.run(fetchUsers);
-sagaMiddleware.run(fetchProject);
-sagaMiddleware.run(fetchBoards);
-sagaMiddleware.run(fetchTasks);
-*/
+store.dispatch(fetchMeUserAction());
+store.dispatch(fetchUsersAction());
+store.dispatch(fetchProjectAction());
+store.dispatch(fetchBoardsAction());
+store.dispatch(fetchTasksAction());
+
 ReactDOM.render(
     <Provider store={ store }>
       <AppContainer />

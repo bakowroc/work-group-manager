@@ -3,6 +3,7 @@ import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { BoardDispatchProps, BoardProps } from './BoardProps';
@@ -28,11 +29,30 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
       />
     ))
 
+  private renderNoTasksInfo = (): JSX.Element => (
+    <div className={ styles.noTasksInfo } >
+      <span>No task assigned to this board.</span>
+      <span>Drag it here or create one!</span>
+    </div>
+  )
+
+  private renderAddTask = (): JSX.Element => (
+    <div className={ styles.addTaskButton }>
+      <Button
+        label="Add task"
+        onClick={ this.onAddTask }
+        flat={ false }
+      />
+    </div>
+  )
+
   private renderBoardIcon = (): JSX.Element => (
     <span className={ styles.titleIcon }>
       <Icon name={ this.props.icon || 'check' } />
     </span>
   )
+
+  private onAddTask = (): void => console.log('Adding task')
 
   private openTaskDetalis = (task: TaskProps): void =>
     this.setState((prev: any) => ({
@@ -65,7 +85,11 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
           />
         </div>
         <div className={ styles.tasks }>
-          { this.renderWorkspaceTasks() }
+          { this.props.tasks.length
+            ? this.renderWorkspaceTasks()
+            : this.renderNoTasksInfo()
+          }
+          { this.renderAddTask() }
         </div>
         <TaskDetails
           isOpen={ this.state.isDetailsOpen }

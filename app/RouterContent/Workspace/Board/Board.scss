@@ -7,4 +7,20 @@
 .content {
   @include board-box($color-gray-5);
   height: 100%;
+
+  .noTasksInfo {
+    color: $color-gray-4;
+    display: flex;
+    flex-direction: column;
+    font-size: $font-large-text;
+    font-weight: 300;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .addTaskButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 }

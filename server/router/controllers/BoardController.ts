@@ -20,7 +20,8 @@ class BoardController {
 
   private getManyElementRoutes = (): void => {
     this.router.route('/:slug')
-    .get(APIRequest.GET_SINGLE(BoardModel, this.getPopulateQuery()));
+    .get(APIRequest.GET_SINGLE(BoardModel, this.getPopulateQuery()))
+    .put(APIRequest.UPDATE(BoardModel));
   }
 
   private getSingleElementRoutes = (): void => {

@@ -67,21 +67,21 @@
 }
 
 @mixin button {
+  display: flex;
   font-family: 'Roboto';
-  font-size: $font-paragraph;
+  font-size: $font-paragraph - 1;
   font-weight: 500;
   margin: 0;
-  overflow: hidden;
   position: relative;
   text-transform: uppercase;
   width: auto;
 
 
   .button {
-    border-radius: 3px;
+    border-radius: 2px;
     color: $color-main-white;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     width: auto;
     z-index: $index-on-top;
 
@@ -90,7 +90,7 @@
     }
 
     &.raised {
-      @include shadow-depth-1;
+      @include shadow-depth-2;
       background: $color-main-blue;
     }
   }
