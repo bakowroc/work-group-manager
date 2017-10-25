@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
+import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
+import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { BoardDispatchProps, BoardProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
@@ -17,7 +19,8 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
 
   public state = {
     currentTaskDetails: this.props.tasks[1],
-    isDetailsOpen: false
+    isDetailsOpen: false,
+    isAddTaskFormOpen: false
   };
 
   private renderWorkspaceTasks = (): Array<JSX.Element> =>
@@ -52,7 +55,14 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     </span>
   )
 
-  private onAddTask = (): void => alert('Add task');
+  private onAddTask = (): void => {
+    this.setState((prev: any) => ({
+        ...prev,
+        isAddTaskFormOpen: true
+      }));
+  }
+
+  private onAddTaskSubmit = (): void => {}
 
   private openTaskDetalis = (task: TaskProps): void =>
     this.setState((prev: any) => ({
@@ -68,7 +78,11 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
   }))
 
   private onTitleInputLeave = (value: string): void => {
-   this.props.updateBoardAction({slug: this.props.slug, data: {name: value}});
+    const updateBoardBody = {
+      slug: this.props.slug,
+      data: {name: value}
+    };
+    this.props.updateBoardAction(updateBoardBody);
   }
 
   public render(): JSX.Element {
@@ -96,13 +110,19 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
           task={ this.state.isDetailsOpen && this.state.currentTaskDetails }
           onClose={ this.taskDetailsClose }
         />
+        <AddTaskForm
+          board={ this.props }
+          isOpen={ this.state.isAddTaskFormOpen }
+          onSubmit={ this.onAddTaskSubmit }
+        />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-  updateBoardAction
+  updateBoardAction,
+  addTaskAction
 }, dispatch);
 
 export const Board = connect<any, BoardDispatchProps, BoardProps>(null, mapDispatchToProps)(BoardComponent);

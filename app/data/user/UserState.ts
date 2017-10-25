@@ -1,7 +1,7 @@
 import { TaskState } from '../task/TaskState';
 
 export interface UserState {
-  id: number;
+  _id: number;
   username: string;
   email: string;
   slug: string;

@@ -9,6 +9,7 @@ import { AppContainer } from './AppContainer';
 import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
 import {
+    watchAddTask,
     watchFetchBoards,
     watchFetchMe,
     watchFetchProject,
@@ -29,8 +30,9 @@ sagaMiddleware.run(watchFetchMe);
 sagaMiddleware.run(watchFetchUsers);
 sagaMiddleware.run(watchFetchProject);
 sagaMiddleware.run(watchFetchBoards);
-sagaMiddleware.run(watchFetchTasks);
 sagaMiddleware.run(watchUpdateBoard);
+sagaMiddleware.run(watchFetchTasks);
+sagaMiddleware.run(watchAddTask);
 
 store.dispatch(fetchMeUserAction());
 store.dispatch(fetchUsersAction());

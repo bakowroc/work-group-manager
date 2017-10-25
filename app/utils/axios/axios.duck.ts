@@ -4,7 +4,7 @@ import { takeLatest } from 'redux-saga/effects';
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_ERROR } from './requests/ErrorActions';
 import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
-import { FETCH_TASKS, fetchTasks, GET_TASKS } from './requests/TaskActions';
+import { ADD_TASK, addTask, FETCH_TASKS, fetchTasks, GET_TASKS } from './requests/TaskActions';
 import { FETCH_ME_USER, fetchMe, GET_ME_USER } from './requests/UserActions';
 import { FETCH_USERS, fetchUsers, GET_USERS } from './requests/UsersActions';
 
@@ -54,4 +54,8 @@ export function* watchUpdateBoard() {
 
 export function* watchFetchTasks() {
   yield takeLatest(FETCH_TASKS, fetchTasks);
+}
+
+export function* watchAddTask() {
+  yield takeLatest(ADD_TASK, addTask);
 }

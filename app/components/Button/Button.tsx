@@ -26,14 +26,15 @@ export class Button extends React.Component<ButtonProps> {
 
   public render(): JSX.Element {
     return (
-      <div className={ `${styles.content} ${this.props.contentClassName}` }>
+      <div className={ this.getClassName() }>
         <div
-          className={ this.getClassName() }
+          className={ styles.label }
           onClick={ this.props.onClick }
           onMouseDown={ this.onMouseDown }
           onMouseUp={ this.onMouseUp }
-          children={ this.props.label }
-        />
+        >
+          { this.props.label }
+        </div>
         <div className={ this.state.mouseDown ? styles.onMouseDown : '' } />
       </div>
     );
