@@ -1,5 +1,5 @@
-import { BoardState } from '../../../../data/board/BoardState';
-import { UserState } from '../../../../data/user/UserState';
+import { BoardState } from '../../../data/board/BoardState';
+import { UserState } from '../../../data/user/UserState';
 
 export interface AddTaskFormProps {
   board: BoardState;

@@ -1,4 +1,4 @@
-import { TaskState } from '../../../../data/task/TaskState';
+import { TaskState } from '../../../data/task/TaskState';
 
 export interface TaskDetailsProps {
   isOpen: boolean;

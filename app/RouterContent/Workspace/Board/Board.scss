@@ -19,15 +19,14 @@
   }
 
   .tasks {
-    height: calc(100% - 60px);
+    max-height: calc(100vh - 230px);
     overflow-y: auto;
     position: relative;
+  }
 
-    .addTaskButton {
-      display: flex;
-      justify-content: center;
-      padding: 20px 0;
-    }
-
+  .addTaskButton {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
   }
 }

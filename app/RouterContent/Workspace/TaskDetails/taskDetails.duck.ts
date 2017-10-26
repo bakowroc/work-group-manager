@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Action, createAction, handleActions } from 'redux-actions';
 
-import { TaskProps } from './../Task/TaskProps';
+import { TaskProps } from '../Board/Task/TaskProps';
 
 const TOGGLE_TASK_DETAILS = 'TOGGLE_TASK_DETAILS';
 export const toggleTaskDetails = createAction<TaskProps>(TOGGLE_TASK_DETAILS);

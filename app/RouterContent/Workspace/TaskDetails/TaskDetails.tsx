@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Button } from '../../../../components/Button';
-import { Chat } from '../../../../components/Chat';
-import { InputEdit } from '../../../../components/InputEdit';
-import { Popup } from '../../../../components/Popup';
+import { Button } from '../../../components/Button';
+import { Chat } from '../../../components/Chat';
+import { InputEdit } from '../../../components/InputEdit';
+import { Popup } from '../../../components/Popup';
 import { TaskDetailsProps } from './TaskDetailsProps';
 
 const styles: any = require('./TaskDetails.scss');

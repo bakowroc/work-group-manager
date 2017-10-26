@@ -1,10 +1,10 @@
-import { TaskProps } from './../../RouterContent/Workspace/Board/Task/TaskProps';
+import { TaskState } from './../../data/task/TaskState';
 
 export interface ChatProps {
   chatClassName?: string;
   inputClassName?: string;
   titleClassName?: string;
   historyClassName?: string;
-  relatedToTask: TaskProps;
+  relatedToTask: TaskState;
   title: string;
 }

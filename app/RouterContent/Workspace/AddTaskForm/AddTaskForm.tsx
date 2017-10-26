@@ -3,12 +3,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Form } from '../../../../components/Form';
-import { Input } from '../../../../components/Form/Input';
-import { Select } from '../../../../components/Form/Select';
-import { Popup } from '../../../../components/Popup';
-import { addTaskAction } from '../../../../utils/axios/requests/TaskActions';
-import { TaskPrior } from '../Task/TaskPrior';
+import { Form } from '../../../components/Form';
+import { Input } from '../../../components/Form/Input';
+import { Select } from '../../../components/Form/Select';
+import { Popup } from '../../../components/Popup';
+import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
+import { TaskPrior } from '../Board/Task/TaskPrior';
 import { AddTaskFormDispatchProps, AddTaskFormProps, AddTaskFormStateProps } from './AddTaskFormProps';
 
 const styles: any = require('./AddTaskForm.scss');

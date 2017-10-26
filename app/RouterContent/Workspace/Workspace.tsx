@@ -3,11 +3,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { AddTaskForm } from './Board/AddTaskForm/AddTaskForm';
-import { toggleAddTaskForm } from './Board/AddTaskForm/addTaskForm.duck';
+import { AddTaskForm } from './AddTaskForm/AddTaskForm';
+import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 import { Board } from './Board/Board';
-import { TaskDetails } from './Board/TaskDetails/TaskDetails';
-import { toggleTaskDetails } from './Board/TaskDetails/taskDetails.duck';
+import { TaskDetails } from './TaskDetails/TaskDetails';
+import { toggleTaskDetails } from './TaskDetails/taskDetails.duck';
 import { WorkspaceDispatchProps, WorkspaceStateProps } from './WorkspaceProps';
 
 const styles: any = require('./Workspace.scss');

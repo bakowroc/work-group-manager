@@ -1,7 +1,7 @@
+import { BoardState } from '../../data/board/BoardState';
 import { ProjectState } from '../../data/project/ProjectState';
 import { TaskState } from '../../data/task/TaskState';
-import { BoardState } from './../../data/board/BoardState';
-import { toggleAddTaskForm } from './Board/AddTaskForm/addTaskForm.duck';
+import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 
 export interface WorkspaceStateProps {
   project: ProjectState;

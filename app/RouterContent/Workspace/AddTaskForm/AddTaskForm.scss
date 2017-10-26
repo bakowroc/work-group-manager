@@ -1,6 +1,6 @@
-@import '../../../../consts/styles/colors';
-@import '../../../../consts/styles/sizes';
-@import '../../../../consts/styles/utils';
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/sizes';
+@import '../../../consts/styles/utils';
 
 .content {
   @include content-box;
