@@ -18,9 +18,16 @@
     text-align: center;
   }
 
-  .addTaskButton {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  .tasks {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    position: relative;
+
+    .addTaskButton {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
   }
 }

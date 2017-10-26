@@ -1,3 +1,4 @@
+import { orderBy } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -25,7 +26,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps> {
 
 const mapStateToProps = (state: any) => ({
   project: state.data.project,
-  boards: state.data.boards
+  boards: orderBy(state.data.boards, ['order', 'createdAt', 'name'])
 });
 
 export const Workspace = connect(mapStateToProps)(WorkspaceComponent);

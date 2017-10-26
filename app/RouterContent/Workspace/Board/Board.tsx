@@ -115,7 +115,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
 
   private renderTasksBoard = (): JSX.Element => (
     <div className={ styles.tasks }>
-      { this.props.tasks && this.props.tasks.length > 0
+      { this.props.tasks
       ? this.renderWorkspaceTasks()
       : this.renderNoTasksInfo() }
       { this.renderAddTask() }
