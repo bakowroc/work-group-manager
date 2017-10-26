@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Action, createAction, handleActions } from 'redux-actions';
 
 import { TaskProps } from '../Board/Task/TaskProps';

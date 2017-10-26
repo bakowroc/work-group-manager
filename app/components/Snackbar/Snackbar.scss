@@ -1,0 +1,34 @@
+@import '../../consts/styles/utils';
+@import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
+
+.content {
+  @include content-box;
+  background: $color-main-gray;
+  bottom: 40px;
+  color: $color-main-white;
+  font-size: $font-standard-heading;
+  left: 0;
+  margin: 0 auto;
+  padding: 30px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  width: 450px;
+  z-index: $index-always-on-top;
+
+ 
+  &.open {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity transform .2s ease;
+    visibility: visible;
+  }
+
+  &.close {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity transform .2s ease;
+    visibility: hidden;
+  }
+}

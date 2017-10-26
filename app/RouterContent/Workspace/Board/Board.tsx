@@ -6,10 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
-import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
-import { AddTaskForm } from '../AddTaskForm/AddTaskForm';
 import { toggleAddTaskForm } from '../AddTaskForm/addTaskForm.duck';
-import { TaskDetails } from '../TaskDetails/TaskDetails';
 import { toggleTaskDetails } from '../TaskDetails/taskDetails.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
 import { Task } from './Task/Task';
@@ -100,7 +97,6 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addTaskAction,
   updateBoardAction,
   toggleAddTaskForm,
   toggleTaskDetails

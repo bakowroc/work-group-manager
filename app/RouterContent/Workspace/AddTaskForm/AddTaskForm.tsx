@@ -7,6 +7,8 @@ import { Form } from '../../../components/Form';
 import { Input } from '../../../components/Form/Input';
 import { Select } from '../../../components/Form/Select';
 import { Popup } from '../../../components/Popup';
+import { toggleSnackbar } from '../../../components/Snackbar/snackbar.duck';
+import { SnackbarMessage } from '../../../components/Snackbar/SnackbarProps';
 import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { TaskPrior } from '../Board/Task/TaskPrior';
 import { AddTaskFormDispatchProps, AddTaskFormProps, AddTaskFormStateProps } from './AddTaskFormProps';
@@ -28,6 +30,7 @@ class AddTaskFormComponent extends React.Component<AddTaskFormStateProps & AddTa
     };
 
     this.props.addTaskAction(toPostTask);
+    this.props.toggleSnackbar(SnackbarMessage.TASK_ADDED_SUCCESS);
   }
 
   private onSubmit = (data: any): void => {
@@ -61,7 +64,8 @@ const mapStateToProps = (state: any): AddTaskFormStateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): AddTaskFormDispatchProps => bindActionCreators({
-  addTaskAction
+  addTaskAction,
+  toggleSnackbar
 }, dispatch);
 
 export const AddTaskForm = connect<AddTaskFormStateProps, AddTaskFormDispatchProps, AddTaskFormProps>(

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
+import { Snackbar } from './components/Snackbar';
 import { Navigation } from './Navigation/Navigation';
 import { Notification } from './Notification/Notification';
 import { Main } from './RouterContent/Main/Main';
@@ -22,6 +23,7 @@ export class AppContainer extends React.Component<{}> {
     return (
       <Router>
         <div className={ styles.content }>
+          <Snackbar />
           <Notification />
           <Sidebar />
           <Navigation />
