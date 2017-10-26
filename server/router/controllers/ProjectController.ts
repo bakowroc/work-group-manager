@@ -14,7 +14,7 @@ class ProjectController {
   }
 
   private getPopulateQuery = (): Array<PopulateQuery> => ([
-    {path: 'boards', select: ''}
+    {path: 'boards', select: ''},
   ])
 
   private getManyElementRoutes = (): void => {

@@ -4,12 +4,13 @@ import { call, put } from 'redux-saga/effects';
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
 import { axios } from '../axios';
+import { fillCollection } from '../parsers/collection';
 
 import { fetchError } from '../requests/ErrorActions';
-import { updateBoard } from './BoardActions';
+import { updateBoardAction } from './BoardActions';
 
 const FETCH_TASKS = 'FETCH_TASKS';
-const fetchTasksAction = createAction(FETCH_TASKS);
+const fetchTasksAction = createAction<string>(FETCH_TASKS);
 
 const ADD_TASK = 'ADD_TASK';
 const addTaskAction = createAction<any>(ADD_TASK);
@@ -17,9 +18,9 @@ const addTaskAction = createAction<any>(ADD_TASK);
 const GET_TASKS = 'GET_TASKS';
 const getTasks = createAction<any>(GET_TASKS);
 
-function* fetchTasks() {
+function* fetchTasks(action: Action<string>) {
   try {
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, '/api/task');
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/task${action.payload}`);
     yield put(getTasks(data.responseData));
   } catch {
     yield put(fetchError('error'));
@@ -28,10 +29,17 @@ function* fetchTasks() {
 
 function* addTask(action: Action<any>) {
   try {
-    const newTaskBody = action.payload.task;
-    const toUpdateBoard = action.payload.board;
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.post, '/api/task', newTaskBody);
-    yield updateBoard(toUpdateBoard);
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.post, '/api/task', action.payload.task);
+    const toUpdateBoard = {
+      slug: action.payload.board.slug,
+      data: {
+        tasks: [...fillCollection(action.payload.board.tasks), data.responseData._id]
+      }
+    };
+
+    if (data.responseData._id) {
+      yield put(updateBoardAction(toUpdateBoard));
+    }
   } catch (error) {
     yield put(fetchError('error'));
   }

@@ -1,41 +1,27 @@
+import { toArray } from 'lodash';
 import * as React from 'react';
 
-import { Form } from '../../../../components/Form/Form';
-import { Popup } from '../../../../components/Popup/Popup';
-import { AddTaskFormProps, AddTaskFormStateProps, AddTaskFormDispatchProps } from './AddTaskFormProps';
-import { Input } from '../../../../components/Form/Input/Input';
-import { addTaskAction } from '../../../../utils/axios/requests/TaskActions';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { Form } from '../../../../components/Form';
+import { Input } from '../../../../components/Form/Input';
+import { Select } from '../../../../components/Form/Select';
+import { Popup } from '../../../../components/Popup';
+import { TaskPrior } from '../Task/TaskPrior';
+import { AddTaskFormProps } from './AddTaskFormProps';
 
 const styles: any = require('./AddTaskForm.scss');
 
-export class AddTaskFormComponent extends React.Component<AddTaskFormStateProps & AddTaskFormDispatchProps & AddTaskFormProps> {
+export class AddTaskForm extends React.Component<AddTaskFormProps> {
 
   private renderForm = (): JSX.Element => (
     <div className={ styles.content }>
-      <Form onSubmit={ this.onFormSubmit }>
+      <div className={ styles.formHeader }>Add new task</div>
+      <Form onSubmit={ this.props.onSubmit }>
         <Input name="name" label="Name the task" />
         <Input name="description" label="Describe it" />
-        <Input name="prior" label="Prior" />
+        <Select options={ toArray(TaskPrior) } name="prior" label="Set the priority" />
       </Form>
     </div>
   )
-
-  private onFormSubmit = (data: any): void => {
-    const toPostTask = {
-      board: this.props.board,
-      task: {
-        ...data,
-        author: this.props.me._id,
-        assigned: [this.props.me._id],
-        board: this.props.board._id
-      }
-    };
-    
-    console.log(toPostTask);
-    this.props.addTaskAction(toPostTask);
-  }
 
   public render(): JSX.Element {
     return (
@@ -46,16 +32,3 @@ export class AddTaskFormComponent extends React.Component<AddTaskFormStateProps 
     );
   }
 }
-
-const mapStateToProps = (state: any) => ({
-  me: state.data.me
-});
-
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-  addTaskAction
-}, dispatch);
-
-export const AddTaskForm = connect<AddTaskFormStateProps, AddTaskFormDispatchProps, AddTaskFormProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddTaskFormComponent);

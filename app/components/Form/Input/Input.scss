@@ -1,0 +1,29 @@
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/sizes';
+@import '../../../consts/styles/shadows';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .label {
+    color: $color-gray-4;
+    font-size: $font-subtitle;
+    margin-bottom: 5px;
+  }
+
+  .input {
+    background: none;
+    border: 0;
+    border-bottom: 2px solid $color-gray-2;
+    color: $color-main-gray;
+    font-weight: 600;
+    outline: none;
+    padding: 8px 0;
+
+    &:focus {
+      border-color: $color-main-blue;
+    }
+  }
+}

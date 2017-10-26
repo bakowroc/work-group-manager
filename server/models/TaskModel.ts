@@ -22,14 +22,6 @@ const TaskSchema = new Schema({
     ref: 'User',
     type: Schema.Types.ObjectId
   }],
-  subtasks: [{
-    ref: 'Subtask',
-    type: Schema.Types.ObjectId
-  }],
-  tags: [{
-    ref: 'Tag',
-    type: Schema.Types.ObjectId
-  }],
   board: {
     ref: 'Board',
     type: Schema.Types.ObjectId
@@ -42,8 +34,7 @@ const TaskSchema = new Schema({
   slug: {
     default: generateRandomSlug(),
     required: true,
-    type: String,
-    unique: true
+    type: String
   },
 });
 

@@ -7,6 +7,7 @@ import { axios } from '../axios';
 
 import { ProjectState } from '../../../data/project/ProjectState';
 import { fetchError } from '../requests/ErrorActions';
+import { fetchBoardsAction } from './BoardActions';
 
 const FETCH_PROJECT = 'FETCH_PROJECT';
 const fetchProjectAction = createAction(FETCH_PROJECT);
@@ -26,7 +27,11 @@ const DEFAULT_PROJECT_STATE: ProjectState = {
 function* fetchProject() {
   try {
     const {data}: AxiosResponse<Response<any>> = yield call(axios.get, '/api/project');
-    yield put(getProject(data.responseData[0]));
+    const project = data.responseData[0];
+    yield [
+      put(getProject(project)),
+      put(fetchBoardsAction(project._id))
+    ];
   } catch {
     yield put(fetchError('error'));
   }

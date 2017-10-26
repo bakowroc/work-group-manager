@@ -8,7 +8,8 @@ class APIRequest {
   public GET_MANY = (DataModel: Model<any>, populateQuery: Array<PopulateQuery> = []): ResponseHandler =>
     async (request: Request, response: Response): Promise<void> => {
       try {
-        const data = await DataModel.find({}).populate(populateQuery);
+        const findBy = request.query;
+        const data = await DataModel.find(findBy).populate(populateQuery);
         this.JSONResponse(response, data);
       } catch (error) {
         this.JSONResponse(response, error);

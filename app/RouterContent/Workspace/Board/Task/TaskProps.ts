@@ -1,8 +1,8 @@
 import { TaskPrior } from './TaskPrior';
 
 export interface TaskProps {
-  title: string;
-  desc: string;
+  name: string;
+  description: string;
   author: string;
   assigned: Array<any>;
   category?: string;

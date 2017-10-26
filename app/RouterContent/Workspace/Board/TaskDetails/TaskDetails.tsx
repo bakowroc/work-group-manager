@@ -13,7 +13,7 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
   private renderTaskDetails = (): JSX.Element => (
     <div className={ styles.taskDetails }>
       <div className={ styles.taskDesc }>
-        { this.props.task.desc }
+        { this.props.task.description }
       </div>
     </div>
   )
@@ -46,7 +46,7 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
   private renderDetailsContent = (): JSX.Element => (
     <div className={ styles.content }>
       <InputEdit
-        text={ this.props.task.title }
+        text={ this.props.task.name }
         useEnterToLeave={ true }
         onLeave={ this.onTitleInputLeave }
         inputClassName={ styles.title }

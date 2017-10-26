@@ -1,3 +1,4 @@
+import { truncate } from 'lodash';
 import * as React from 'react';
 
 import { TaskPrior } from './TaskPrior';
@@ -29,18 +30,18 @@ export class Task extends React.Component<TaskProps> {
 
   public render(): JSX.Element {
     return(
-        <div
-          className={ this.getTaskClassName() }
-          onClick={ this.onTaskClick }
-        >
-          <div className={ styles.title }>
-            { this.props.title }
-          </div>
-          <div className={ styles.paragraph }>
-            { this.props.desc }
-          </div>
-          { this.props.category && this.renderCategory() }
+      <div
+        className={ this.getTaskClassName() }
+        onClick={ this.onTaskClick }
+      >
+        <div className={ styles.title }>
+          { this.props.name }
         </div>
+        <div className={ styles.paragraph }>
+          { truncate(this.props.description, {length: 130}) }
+        </div>
+        { this.props.category && this.renderCategory() }
+      </div>
     );
   }
 }

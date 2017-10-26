@@ -37,8 +37,6 @@ sagaMiddleware.run(watchAddTask);
 store.dispatch(fetchMeUserAction());
 store.dispatch(fetchUsersAction());
 store.dispatch(fetchProjectAction());
-store.dispatch(fetchBoardsAction());
-store.dispatch(fetchTasksAction());
 
 ReactDOM.render(
     <Provider store={ store }>

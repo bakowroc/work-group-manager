@@ -1,16 +1,7 @@
-import { BoardState } from './../../../../data/board/BoardState';
-import { UserState } from './../../../../data/user/UserState';
+import { BoardProps } from './../BoardProps';
 
 export interface AddTaskFormProps {
-  board: BoardState;
+  board: BoardProps;
   isOpen: boolean;
-  onSubmit: () => void;
-}
-
-export interface AddTaskFormStateProps {
-  me: UserState;
-}
-
-export interface AddTaskFormDispatchProps {
-  addTaskAction: (data: any) => void;
+  onSubmit: (data: any) => void;
 }

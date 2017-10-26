@@ -1,33 +1,40 @@
 import * as React from 'react';
 
-import { InputProps } from './InputProps';
+import { InputProps } from '../Input/InputProps';
+import { SelectProps } from './SelectProps';
 
-const styles: any = require('./Input.scss');
+const styles: any = require('../Input/Input.scss');
 
-export class Input extends React.Component<InputProps> {
+export class Select extends React.Component<InputProps & SelectProps> {
 
   public state = {
-    value: ''
+    value: this.props.options[0]
   };
 
   private onChange = (event: any) => {
+
     this.setState((prev: any) => ({
       ...prev,
       value: event.currentTarget.value
     }));
   }
 
+  private renderOptions = (): Array<JSX.Element> => this.props.options.map((option: any, key: number) =>
+    <option key={ key } value={ option } children={ option }/>
+  )
+
   public render(): JSX.Element {
     return (
       <div className={ styles.content } >
         <label className={ styles.label } >{ this.props.label }</label>
-        <input
+        <select
           className={ styles.input }
           name={ this.props.name }
           onChange={ this.onChange }
           value={ this.state.value }
-          placeholder={ this.props.placeholder || '' }
-        />
+        >
+          { this.renderOptions() }
+        </select>
       </div>
     );
   }

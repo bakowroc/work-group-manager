@@ -1,6 +1,7 @@
 import { dropRight, toArray } from 'lodash';
 import * as React from 'react';
 
+import { Button } from '../Button/Button';
 import { FormProps } from './FormProps';
 
 export class Form extends React.Component<FormProps> {
@@ -25,7 +26,7 @@ export class Form extends React.Component<FormProps> {
     return (
       <form onSubmit={ this.onSubmit }>
         { this.props.children }
-        <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" />
       </form>
     );
   }
