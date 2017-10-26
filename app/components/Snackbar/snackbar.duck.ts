@@ -16,4 +16,4 @@ export default handleActions({
     isOpen: !state.isOpen,
     message: action.payload
   })
-}, initialState)
+}, initialState);
