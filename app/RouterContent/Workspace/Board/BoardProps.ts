@@ -12,6 +12,8 @@ export interface BoardProps {
 export interface BoardDispatchProps {
   updateBoardAction: (toUpdateObject: any) => any;
   addTaskAction: (toPostObject: any) => any;
+  toggleAddTaskForm: (board?: any) => void;
+  toggleTaskDetails: (task?: any) => void;
 }
 
 export interface BoardStateProps {

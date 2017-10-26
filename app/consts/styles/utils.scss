@@ -7,6 +7,7 @@
 @mixin content-box($hovered: false) {
   @include shadow-depth-4;
   background: $color-main-white;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
   overflow: hidden;

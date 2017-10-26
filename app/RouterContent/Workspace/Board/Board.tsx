@@ -8,57 +8,16 @@ import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
+import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
 import { TaskDetails } from './TaskDetails/TaskDetails';
+import { toggleTaskDetails } from './TaskDetails/taskDetails.duck';
 
 const styles: any = require('./Board.scss');
 
 export class BoardComponent extends React.Component<BoardProps & BoardDispatchProps & BoardStateProps> {
-
-  public state = {
-    isAddTaskFormOpen: false,
-    isTaskDetailsOpen: false,
-    currentTaskDetails: {
-      name: '',
-      author: '',
-      assigned: [{}],
-      description: '',
-      _id: ''
-    }
-  };
-
-  private toggleTaskDetails = (task?: TaskProps): void => {
-    this.setState((prev: any) => ({
-      ...prev,
-      isTaskDetailsOpen: !prev.isTaskDetailsOpen,
-      currentTaskDetails: task || {}
-    }));
-  }
-
-  private toggleAddTaskForm = (): void => {
-    this.setState((prev: any) => ({
-      ...prev,
-      isAddTaskFormOpen: !prev.isAddTaskFormOpen
-    }));
-  }
-
-  private onAddTaskSubmit = (data: any): void => {
-    const toPostTask = {
-      board: this.props,
-      task: {
-        ...data,
-        author: this.props.me._id,
-        assigned: [this.props.me._id],
-        board: this.props._id,
-        slug: new Date().getTime().toString()
-      }
-    };
-
-    this.props.addTaskAction(toPostTask);
-    this.toggleAddTaskForm();
-  }
 
   private onTitleInputLeave = (value: string): void => {
     const updateBoardBody = {
@@ -67,6 +26,8 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     };
     this.props.updateBoardAction(updateBoardBody);
   }
+
+  private onAddTask = (): void => this.props.toggleAddTaskForm(this.props);
 
   private renderBoardIcon = (): JSX.Element => (
     <span className={ styles.titleIcon }>
@@ -91,7 +52,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     this.props.tasks.map((taskProps: TaskProps, key: number) => (
       <Task
         key={ key }
-        onDetailsClick={ this.toggleTaskDetails }
+        onDetailsClick={ this.props.toggleTaskDetails }
         { ...taskProps }
       />
     ))
@@ -107,7 +68,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     <div className={ styles.addTaskButton }>
       <Button
         label="Add task"
-        onClick={ this.toggleAddTaskForm }
+        onClick={ this.onAddTask }
         flat={ false }
       />
     </div>
@@ -122,29 +83,11 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     </div>
   )
 
-  private renderAddTaskForm = (): JSX.Element => (
-    <AddTaskForm
-      board={ this.props }
-      isOpen={ this.state.isAddTaskFormOpen }
-      onSubmit={ this.onAddTaskSubmit }
-    />
-  )
-
-  private renderTaskDetails = (): JSX.Element => (
-    <TaskDetails
-      isOpen={ this.state.isTaskDetailsOpen }
-      task={ this.state.currentTaskDetails }
-      onClose={ this.toggleTaskDetails }
-    />
-  )
-
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
         { this.props.name && this.renderBoardTitle() }
         { this.renderTasksBoard() }
-        { this.props.tasks && this.renderTaskDetails() }
-        { this.renderAddTaskForm() }
       </div>
     );
   }
@@ -156,7 +99,12 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   addTaskAction,
-  updateBoardAction
+  updateBoardAction,
+  toggleAddTaskForm,
+  toggleTaskDetails
 }, dispatch);
 
-export const Board = connect<BoardStateProps, BoardDispatchProps, BoardProps>(mapStateToProps, mapDispatchToProps)(BoardComponent);
+export const Board = connect<BoardStateProps, BoardDispatchProps, BoardProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(BoardComponent);
