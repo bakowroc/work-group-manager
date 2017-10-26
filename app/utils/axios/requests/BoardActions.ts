@@ -1,14 +1,13 @@
-import { createReqQuery } from './../parsers/query';
 import { Action, createAction } from 'redux-actions';
 import { call, put } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
 import { axios } from '../axios';
-
+import { createReqQuery } from '../parsers/query';
 import { fetchError } from '../requests/ErrorActions';
-import { fetchTasksAction } from './TaskActions';
 import { fetchProjectAction } from './ProjectActions';
+import { fetchTasksAction } from './TaskActions';
 
 const FETCH_BOARDS = 'FETCH_BOARDS';
 const fetchBoardsAction = createAction<string>(FETCH_BOARDS);

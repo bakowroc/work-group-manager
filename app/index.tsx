@@ -18,9 +18,7 @@ import {
     watchUpdateBoard
 } from './utils/axios/axios.duck';
 
-import { fetchBoardsAction } from './utils/axios/requests/BoardActions';
 import { fetchProjectAction } from './utils/axios/requests/ProjectActions';
-import { fetchTasksAction } from './utils/axios/requests/TaskActions';
 import { fetchMeUserAction } from './utils/axios/requests/UserActions';
 import { fetchUsersAction } from './utils/axios/requests/UsersActions';
 

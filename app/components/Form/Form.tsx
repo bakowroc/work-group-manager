@@ -1,7 +1,6 @@
 import { dropRight, toArray } from 'lodash';
 import * as React from 'react';
 
-import { Button } from '../Button/Button';
 import { FormProps } from './FormProps';
 
 export class Form extends React.Component<FormProps> {

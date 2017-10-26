@@ -8,12 +8,10 @@ import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { addTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
-import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
 import { TaskDetails } from './TaskDetails/TaskDetails';
-import { toggleTaskDetails } from './TaskDetails/taskDetails.duck';
 
 const styles: any = require('./Board.scss');
 
@@ -117,7 +115,9 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
 
   private renderTasksBoard = (): JSX.Element => (
     <div className={ styles.tasks }>
-      { this.renderWorkspaceTasks() }
+      { this.props.tasks && this.props.tasks.length > 0
+      ? this.renderWorkspaceTasks()
+      : this.renderNoTasksInfo() }
       { this.renderAddTask() }
     </div>
   )
@@ -142,7 +142,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     return (
       <div className={ styles.content }>
         { this.props.name && this.renderBoardTitle() }
-        { this.props.tasks && this.renderTasksBoard() }
+        { this.renderTasksBoard() }
         { this.props.tasks && this.renderTaskDetails() }
         { this.renderAddTaskForm() }
       </div>
