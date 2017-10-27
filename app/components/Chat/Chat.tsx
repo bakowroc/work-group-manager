@@ -43,7 +43,7 @@ const exampleChatHistory: Array<any> = [
 export class Chat extends React.Component<ChatProps> {
 
   private onLeave = (data: any) => {
-    alert(data);
+    /*tslint:disable*/console.log(data);/*tslint:enable*/
   }
 
   private renderChatHistory = (): Array<JSX.Element> =>

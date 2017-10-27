@@ -2,7 +2,23 @@
   display: flex;
   flex-direction: column;
 
-  .switch {
-    cursor: pointer;
+  .menu {
+    align-items: center;
+    display: flex;
+    height: 10%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+
+    .switch {
+      cursor: pointer;
+    }
+  }
+
+  .activeContent {
+    height: 90%;
+    margin-top: 10px;
+    overflow-x: hidden; 
+    overflow-y: auto;
   }
 }

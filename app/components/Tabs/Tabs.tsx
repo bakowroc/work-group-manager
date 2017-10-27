@@ -9,9 +9,22 @@ const styles: any = require('./Tabs.scss');
 export class Tabs extends React.Component<TabsProps> {
 
   public state = {
-    activeSwitch: this.props.items[0].label,
-    activeContent: this.props.items[0].content,
+    activeSwitch: '',
+    activeContent: ''
   };
+
+  public componentWillMount() {
+    this.state = {
+      activeSwitch: this.props.items[0].label,
+      activeContent: this.props.items[0].content
+    };
+  }
+
+  private getSwitchClassName = ({label}: Switch): string => {
+    const isActiveClass = `${this.state.activeSwitch === label ? this.props.activeSwitchClassName : ''}`;
+
+    return `${styles.switch} ${this.props.switchClassName} ${isActiveClass}`;
+  }
 
   private onContentChange = ({content, label}: Switch): void => {
     this.setState((prev: any) => ({
@@ -22,10 +35,10 @@ export class Tabs extends React.Component<TabsProps> {
   }
 
   private renderSwitches = (): JSX.Element => (
-    <Menu>
+    <Menu listClassName={ `${styles.menu} ${this.props.menuClassName}`}>
       { this.props.items.map((item: Switch) => (
         <MenuItem
-          labelClassName={ styles.switch }
+          labelClassName={ this.getSwitchClassName(item) }
           label={ item.label }
           onClick={ () => this.onContentChange(item) }
         />
@@ -41,7 +54,7 @@ export class Tabs extends React.Component<TabsProps> {
 
   public render(): JSX.Element {
     return (
-      <div className={ styles.content }>
+      <div className={ `${styles.content} ${this.props.contentClassName}` }>
         { this.renderSwitches() }
         { this.renderActiveContent() }
       </div>

@@ -2,23 +2,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Chat } from '../../components/Chat/Chat';
+import { Menu } from '../../components/Menu';
+import { MenuItem } from '../../components/Menu/MenuItem';
 import { Tabs } from '../../components/Tabs/Tabs';
 import { Switch } from '../../components/Tabs/TabsProps';
+import { getMyTasks } from '../../data/selectors/dataSelectors';
+import { MainChatDispatchProps,  MainChatStateProps } from './MainChatProps';
 
 const styles: any = require('./MainChat.scss');
 
-const CHAT_TABS: Array<Switch> = [
-  {
-    label: 'Casual',
-    content: 'dupa'
-  },
-  {
-    label: 'Tasks',
-    content: 'tasks'
-  }
-];
-
-class MainChatComponent extends React.Component<{}> {
+class MainChatComponent extends React.Component<MainChatStateProps & MainChatDispatchProps> {
 
   public state = {
     chatRoom: {
@@ -26,6 +19,17 @@ class MainChatComponent extends React.Component<{}> {
       title: ''
     }
   };
+
+  private getChatTabs = (): Array<Switch> => [
+    {
+      label: 'General rooms',
+      content: 'dupa'
+    },
+    {
+      label: 'Tasks rooms',
+      content: this.renderTasksChatRoomsList()
+    }
+  ]
 
   private renderChatRoom = (): JSX.Element => (
     <Chat
@@ -42,7 +46,24 @@ class MainChatComponent extends React.Component<{}> {
   )
 
   private renderSidebar = (): JSX.Element => (
-    <Tabs items={ CHAT_TABS } />
+    <Tabs
+      menuClassName={ styles.tabsMenu }
+      switchClassName={ styles.tabsSwitch }
+      activeSwitchClassName={ styles.tabsActiveSwitch }
+      items={ this.getChatTabs() }
+    />
+  )
+
+  private renderTasksChatRoomsList = (): JSX.Element => (
+    <Menu vertical={ true } >
+      { this.props.myTasks.map((task: any) => (
+        <MenuItem
+          label={ `@ ${task.name}` }
+          labelClassName={ styles.tasksChatRoomsListLabel }
+          linkTo={ `/chat/${task._id}` }
+        />
+      )) }
+    </Menu>
   )
 
   public render(): JSX.Element {
@@ -59,7 +80,12 @@ class MainChatComponent extends React.Component<{}> {
   }
 }
 
-export const MainChat = connect<any, any, any>(
-  null,
+const mapStateToProps = (state: any): MainChatStateProps => ({
+  me: state.data.me,
+  myTasks: getMyTasks(state)
+});
+
+export const MainChat = connect<MainChatStateProps, MainChatDispatchProps, any>(
+  mapStateToProps,
   null
 )(MainChatComponent);

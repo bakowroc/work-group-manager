@@ -6,8 +6,11 @@ const styles: any = require('./Menu.scss');
 
 export class Menu extends React.Component<MenuProps> {
 
-  private getMenuClassName = (): string => this.props.vertical ? styles.menuVertical : styles.menuHorizontal;
+  private getMenuClassName = (): string => {
+    const ulStyle = this.props.vertical ? styles.menuVertical : styles.menuHorizontal;
 
+    return `${ulStyle} ${this.props.listClassName}`;
+  }
   public render(): JSX.Element {
     return (
       <div className={ `${styles.content} ${this.props.menuClassName}` }>
