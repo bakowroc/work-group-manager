@@ -37,6 +37,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
   )
 
   public render() {
+    console.log(this.props.isDataFetching);
     return (
       <div>
       <div className={ styles.content} >
@@ -55,7 +56,8 @@ const mapStateToProps = (state: any): WorkspaceStateProps => ({
   isAddTaskFormOpen: state.addTaskForm.isOpen,
   addTaskAssignedBoard: state.addTaskForm.board,
   isTaskDetailsOpen: state.taskDetails.isOpen,
-  currentTaskDetails: state.taskDetails.currentTask
+  currentTaskDetails: state.taskDetails.currentTask,
+  isDataFetching: state.data.isDataFetching
 });
 
 const mapDispatchToProps = (dispatch: any): WorkspaceDispatchProps => bindActionCreators({

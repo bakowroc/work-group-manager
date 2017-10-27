@@ -36,8 +36,9 @@ export class Tabs extends React.Component<TabsProps> {
 
   private renderSwitches = (): JSX.Element => (
     <Menu listClassName={ `${styles.menu} ${this.props.menuClassName}`}>
-      { this.props.items.map((item: Switch) => (
+      { this.props.items.map((item: Switch, key: number) => (
         <MenuItem
+          key={ key }
           labelClassName={ this.getSwitchClassName(item) }
           label={ item.label }
           onClick={ () => this.onContentChange(item) }

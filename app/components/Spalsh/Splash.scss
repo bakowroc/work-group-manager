@@ -1,0 +1,21 @@
+@import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
+
+.content {
+  align-items: center;
+  background: $color-main-blue;
+  color: $color-main-white;
+  display: flex;
+  font-size: $font-main-title;
+  font-weight: 500;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  visibility: hidden;
+  width: 100vw;
+  z-index: $index-splash;
+
+  &.show {
+    visibility: visible;
+  }
+}

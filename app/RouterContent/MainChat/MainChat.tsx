@@ -56,8 +56,9 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
 
   private renderTasksChatRoomsList = (): JSX.Element => (
     <Menu vertical={ true } >
-      { this.props.myTasks.map((task: any) => (
+      { this.props.myTasks.map((task: any, key: number) => (
         <MenuItem
+          key={key }
           label={ `@ ${task.name}` }
           labelClassName={ styles.tasksChatRoomsListLabel }
           linkTo={ `/chat/${task._id}` }

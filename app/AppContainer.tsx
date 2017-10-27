@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
-
 import { Snackbar } from './components/Snackbar';
+import { Splash } from './components/Spalsh';
 import { Navigation } from './Navigation/Navigation';
 import { Notification } from './Notification/Notification';
 import { Main } from './RouterContent/Main/Main';
@@ -25,6 +25,7 @@ export class AppContainer extends React.Component<{}> {
     return (
       <Router>
         <div className={ styles.content }>
+          <Splash />
           <Snackbar />
           <Notification />
           <Sidebar />
