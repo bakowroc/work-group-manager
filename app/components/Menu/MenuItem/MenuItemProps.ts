@@ -5,6 +5,7 @@ export interface MenuItemProps {
   iconColor?: IconColor;
   iconClassName?: string;
   linkTo?: string;
+  onClick?: () => void;
 }
 
 export enum IconColor {

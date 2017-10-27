@@ -1,5 +1,3 @@
-import { TaskState } from './../../data/task/TaskState';
-
 export interface ChatProps {
   chatClassName?: string;
   inputClassName?: string;
@@ -9,4 +7,5 @@ export interface ChatProps {
   messageTextClassName?: string;
   chatRoomId: string;
   title: string;
+  placeholder?: string;
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { InputEdit } from '../InputEdit/InputEdit';
 import { ChatMessage } from './ChatMessage/ChatMessage';
 import { ChatProps } from './ChatProps';
 
@@ -41,6 +42,10 @@ const exampleChatHistory: Array<any> = [
 
 export class Chat extends React.Component<ChatProps> {
 
+  private onLeave = (data: any) => {
+    alert(data);
+  }
+
   private renderChatHistory = (): Array<JSX.Element> =>
     exampleChatHistory.map((messageProps: any, key: number) => (
       <ChatMessage
@@ -58,7 +63,14 @@ export class Chat extends React.Component<ChatProps> {
         <div className={ `${styles.history} ${this.props.historyClassName}` }>
           { this.renderChatHistory() }
         </div>
-        <textarea className={ `${styles.input} ${this.props.inputClassName}` } placeholder="@type some shit" />
+        <InputEdit
+          text={ 'Message goes here'}
+          inputClassName={ `${styles.input} ${this.props.inputClassName}` }
+          useEnterToLeave={ true }
+          blockOutClickLeave={ true }
+          placeholder={ this.props.placeholder || '' }
+          onLeave={ this.onLeave }
+        />
       </div>
     );
   }

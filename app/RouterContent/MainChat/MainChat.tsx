@@ -2,23 +2,30 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Chat } from '../../components/Chat/Chat';
-import { MainChatDispatchProps, MainChatStateProps } from './MainChatProps';
+import { Tabs } from '../../components/Tabs/Tabs';
+import { Switch } from '../../components/Tabs/TabsProps';
 
 const styles: any = require('./MainChat.scss');
 
-const CHAT_MESSAGE_OBJECT: any = {
-  author: styles.chatMessageAuthor,
-  message: styles.chatMessageText
-};
+const CHAT_TABS: Array<Switch> = [
+  {
+    label: 'Casual',
+    content: 'dupa'
+  },
+  {
+    label: 'Tasks',
+    content: 'tasks'
+  }
+];
 
-class MainChatComponent extends React.Component<MainChatStateProps & MainChatDispatchProps> {
+class MainChatComponent extends React.Component<{}> {
 
   public state = {
     chatRoom: {
       id: '',
       title: ''
     }
-  }
+  };
 
   private renderChatRoom = (): JSX.Element => (
     <Chat
@@ -30,7 +37,12 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
       messageAuthorClassName={ styles.chatMessageAuthor }
       title={ this.state.chatRoom.title }
       chatRoomId={ this.state.chatRoom.id }
+      placeholder="Share your thoughts!"
     />
+  )
+
+  private renderSidebar = (): JSX.Element => (
+    <Tabs items={ CHAT_TABS } />
   )
 
   public render(): JSX.Element {
@@ -39,12 +51,15 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
         <div className={ styles.chatRoom }>
         { this.renderChatRoom() }
       </div>
+      <div className={ styles.chatSidebar }>
+        { this.renderSidebar() }
+      </div>
       </div>
     );
   }
 }
 
-export const MainChat = connect<MainChatStateProps, MainChatDispatchProps, any>(
+export const MainChat = connect<any, any, any>(
   null,
   null
 )(MainChatComponent);

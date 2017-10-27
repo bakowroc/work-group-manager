@@ -7,7 +7,6 @@ const styles: any = require('./ChatMessage.scss');
 
 export class ChatMessage extends React.Component<ChatMessageProps> {
 
-
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>

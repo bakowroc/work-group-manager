@@ -26,7 +26,10 @@ export class MenuItem extends React.Component<MenuItemProps> {
 
   private renderMenuItem = (): JSX.Element => {
       const template: JSX.Element = (
-        <li className={ this.props.labelClassName }>
+        <li
+          onClick={ this.props.onClick }
+          className={ this.props.labelClassName }
+        >
           { this.props.icon && this.renderItemIcon() }
           <span className={ styles.listItemLabel }>
             { this.props.label }

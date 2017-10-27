@@ -3,6 +3,9 @@
 
 .content {
   color: $color-main-white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   overflow: hidden;
   position: relative;
   width: 30%;

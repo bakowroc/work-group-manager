@@ -37,7 +37,8 @@ export class InputEdit extends React.Component<InputEditProps> {
   }
 
   private onChange = (event: any): void => {
-    const isTooMuchLetters = event.currentTarget.value.length < this.props.maxInputLength;
+    const maxLength = this.props.maxInputLength ? this.props.maxInputLength : 130;
+    const isTooMuchLetters = event.currentTarget.value.length < maxLength;
     if (isTooMuchLetters) {
       this.setState((prev: any) => ({
         ...prev,
