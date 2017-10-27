@@ -5,8 +5,8 @@
   .menu {
     align-items: center;
     display: flex;
-    height: 10%;
     flex-direction: row;
+    height: 10%;
     justify-content: space-around;
     padding: 10px;
 
@@ -18,7 +18,7 @@
   .activeContent {
     height: 90%;
     margin-top: 10px;
-    overflow-x: hidden; 
+    overflow-x: hidden;
     overflow-y: auto;
   }
 }
