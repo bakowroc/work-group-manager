@@ -72,7 +72,7 @@
   color: $color-main-white;
   cursor: pointer;
   display: flex;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: $font-paragraph - 1;
   font-weight: 500;
   margin: 0;
@@ -115,3 +115,16 @@
   }
 }
 
+@mixin input {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid $color-gray-2;
+  color: $color-main-gray;
+  font-weight: 600;
+  outline: none;
+  padding: 8px 0;
+
+  &:focus {
+    border-color: $color-main-blue;
+  }
+}

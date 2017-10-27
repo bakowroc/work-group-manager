@@ -3,7 +3,7 @@ import { TagState } from '../tag/TagState';
 import { UserState } from '../user/UserState';
 
 export interface TaskState {
-  id: number;
+  _id: string;
   name: string;
   description: string;
   author: UserState;

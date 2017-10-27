@@ -42,7 +42,14 @@ const exampleChatHistory: Array<any> = [
 export class Chat extends React.Component<ChatProps> {
 
   private renderChatHistory = (): Array<JSX.Element> =>
-    exampleChatHistory.map((messageProps: any, key: number) => <ChatMessage key={ key } { ...messageProps } />)
+    exampleChatHistory.map((messageProps: any, key: number) => (
+      <ChatMessage
+        key={ key }
+        messageAuthorClassName={ this.props.messageAuthorClassName }
+        messageTextClassName={ this.props.messageTextClassName }
+        { ...messageProps }
+      />
+    ))
 
   public render(): JSX.Element {
     return(

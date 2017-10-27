@@ -5,6 +5,7 @@ import { Snackbar } from './components/Snackbar';
 import { Navigation } from './Navigation/Navigation';
 import { Notification } from './Notification/Notification';
 import { Main } from './RouterContent/Main/Main';
+import { MainChat } from './RouterContent/MainChat/MainChat';
 import { Workspace } from './RouterContent/Workspace/Workspace';
 import { Sidebar } from './Sidebar/Sidebar';
 
@@ -16,6 +17,7 @@ export class AppContainer extends React.Component<{}> {
     <div className={ styles.container }>
       <Route exact={ true } path="/" component={ Main } />
       <Route path="/workspace" component={ Workspace } />
+      <Route path="/chat" component={ MainChat } />
     </div>
   )
 

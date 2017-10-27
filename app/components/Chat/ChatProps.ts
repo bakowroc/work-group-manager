@@ -5,6 +5,8 @@ export interface ChatProps {
   inputClassName?: string;
   titleClassName?: string;
   historyClassName?: string;
-  relatedToTask: TaskState;
+  messageAuthorClassName?: string;
+  messageTextClassName?: string;
+  chatRoomId: string;
   title: string;
 }

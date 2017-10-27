@@ -31,7 +31,7 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
   private renderTaskChatroom = (): JSX.Element => (
     <Chat
       title="Chat room"
-      relatedToTask={ this.props.task }
+      chatRoomId = { this.props.task._id }
       historyClassName={ styles.historyChat }
       chatClassName={ styles.taskChatroom }
       titleClassName={ styles.title }

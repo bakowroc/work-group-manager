@@ -1,0 +1,32 @@
+@import '../../consts/styles/colors';
+@import '../../consts/styles/shadows';
+@import '../../consts/styles/sizes';
+@import '../../consts/styles/utils';
+
+.content {
+  padding: 20px;
+
+  .chatRoom {
+    @include content-box;
+    @include shadow-depth-1;
+    height: 100%;
+
+    .chatContent {
+      height: 100%;
+      width: 100%;
+
+      .chatInput {
+        @include input;
+      }
+    }
+
+    .chatMessageAuthor {
+      color: $color-main-gray;
+      font-weight: 500;
+    }
+
+    .chatMessageText {
+      color: $color-gray-4;
+    }
+  }
+}

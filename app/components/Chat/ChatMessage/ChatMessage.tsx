@@ -6,10 +6,12 @@ import { ChatMessageProps } from './ChatMessageProps';
 const styles: any = require('./ChatMessage.scss');
 
 export class ChatMessage extends React.Component<ChatMessageProps> {
+
+
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
-        <div className={ styles.author }>
+        <div className={ `${styles.author} ${this.props.messageAuthorClassName}` }>
           <div className={ styles.authorAvatar }>
             { this.props.author[0] }
           </div>
@@ -23,7 +25,7 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
             />
           </div>
         </div>
-        <p className={ styles.message }>
+        <p className={ `${styles.message} ${this.props.messageTextClassName}` }>
           { this.props.messageContent }
         </p>
       </div>

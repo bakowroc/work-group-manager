@@ -1,6 +1,7 @@
 @import '../../../consts/styles/colors';
 @import '../../../consts/styles/sizes';
 @import '../../../consts/styles/shadows';
+@import '../../../consts/styles/utils';
 
 .content {
   display: flex;
@@ -14,16 +15,6 @@
   }
 
   .input {
-    background: none;
-    border: 0;
-    border-bottom: 2px solid $color-gray-2;
-    color: $color-main-gray;
-    font-weight: 600;
-    outline: none;
-    padding: 8px 0;
-
-    &:focus {
-      border-color: $color-main-blue;
-    }
+   @include input;
   }
 }
