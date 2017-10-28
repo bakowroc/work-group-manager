@@ -61,6 +61,10 @@
 
     .text {
       color: $color;
+      height: 40px;
+      overflow: hidden;
+      padding: 7px 10px;
+      padding-bottom: 0;
       width: 90%;
     }
 

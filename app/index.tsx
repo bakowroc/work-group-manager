@@ -15,8 +15,9 @@ import {
     watchFetchProject,
     watchFetchTasks ,
     watchFetchUsers,
-    watchUpdateBoard,
     watchReceiveDataFetching,
+    watchUpdateBoard,
+    watchUpdateTask
 } from './utils/axios/axios.duck';
 
 import { fetchProjectAction } from './utils/axios/requests/ProjectActions';
@@ -31,6 +32,7 @@ sagaMiddleware.run(watchFetchProject);
 sagaMiddleware.run(watchFetchBoards);
 sagaMiddleware.run(watchUpdateBoard);
 sagaMiddleware.run(watchFetchTasks);
+sagaMiddleware.run(watchUpdateTask);
 sagaMiddleware.run(watchAddTask);
 sagaMiddleware.run(watchReceiveDataFetching);
 

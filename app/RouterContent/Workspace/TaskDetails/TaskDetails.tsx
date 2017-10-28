@@ -1,31 +1,82 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { Chat } from '../../../components/Chat';
 import { InputEdit } from '../../../components/InputEdit';
+import { NameList } from '../../../components/NameList';
+import { NameListItem } from '../../../components/NameList/NameListItem';
 import { Popup } from '../../../components/Popup';
-import { TaskDetailsProps } from './TaskDetailsProps';
+import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
+import { TaskDetailsDispatchProps, TaskDetailsProps } from './TaskDetailsProps';
 
 const styles: any = require('./TaskDetails.scss');
 
-export class TaskDetails extends React.Component<TaskDetailsProps> {
+export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchProps & TaskDetailsProps> {
 
-  private renderTaskDetails = (): JSX.Element => (
-    <div className={ styles.taskDetails }>
-      <div className={ styles.taskDesc }>
-        { this.props.task.description }
-      </div>
+  private onTitleInputLeave = (value: string): void => {
+    const updateTaskBody = {
+      slug: this.props.task.slug,
+      data: {name: value}
+    };
+    this.props.updateTaskAction(updateTaskBody);
+  }
+
+  private onDescriptionInputLeave = (value: string): void => {
+    const updateTaskBody = {
+      slug: this.props.task.slug,
+      data: {description: value}
+    };
+    this.props.updateTaskAction(updateTaskBody);
+  }
+
+  private renderTaskTitle = (): JSX.Element => (
+    <InputEdit
+      text={ this.props.task.name }
+      useEnterToLeave={ true }
+      onLeave={ this.onTitleInputLeave }
+      inputClassName={ styles.title }
+    />
+  )
+
+  private renderTaskDescription = (): JSX.Element => (
+    <div className={ styles.taskDesc }>
+      <InputEdit
+        text={ this.props.task.description }
+        useEnterToLeave={ true }
+        onLeave={ this.onDescriptionInputLeave }
+        inputClassName={ styles.description }
+      />
     </div>
   )
 
-  private renderButtons = (): JSX.Element => (
-  <div className={ styles.buttons }>
-    <Button
-      label="Close"
-      onClick={ this.props.onClose }
-      flat={ true }
-    />
-  </div>
+  private renderAdditionalInfo = (): JSX.Element => (
+    <NameList>
+      <NameListItem
+        label="Created at"
+        value={ this.props.task.createdAt }
+      />
+      <NameListItem
+        label="Author"
+        value={ this.props.task.author }
+      />
+      <NameListItem
+        label="Priority"
+        value={ this.props.task.prior }
+      />
+    </NameList>
+  )
+
+  private renderTaskDetails = (): JSX.Element => (
+    <div className={ styles.taskDetails }>
+     <div className={ styles.mainTaskDetails }>
+        { this.props.task.description && this.renderTaskDescription() }
+     </div>
+     <div className={ styles.additionalTaskDetails }>
+      { this.renderAdditionalInfo() }
+     </div>
+    </div>
   )
 
   private renderTaskChatroom = (): JSX.Element => (
@@ -39,18 +90,19 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
     />
   )
 
-  private onTitleInputLeave = (): void => {
-    // console.log('leave');
-  }
+  private renderButtons = (): JSX.Element => (
+    <div className={ styles.buttons }>
+      <Button
+        label="Close"
+        onClick={ this.props.onClose }
+        flat={ true }
+      />
+    </div>
+  )
 
   private renderDetailsContent = (): JSX.Element => (
     <div className={ styles.content }>
-      <InputEdit
-        text={ this.props.task.name }
-        useEnterToLeave={ true }
-        onLeave={ this.onTitleInputLeave }
-        inputClassName={ styles.title }
-      />
+      { this.props.task.name && this.renderTaskTitle() }
       <div className={ styles.taskBody }>
         { this.renderTaskDetails() }
         { this.renderTaskChatroom() }
@@ -68,3 +120,12 @@ export class TaskDetails extends React.Component<TaskDetailsProps> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  updateTaskAction
+}, dispatch);
+
+export const TaskDetails = connect<any, TaskDetailsDispatchProps, TaskDetailsProps>(
+  null,
+  mapDispatchToProps
+)(TaskDetailsComponent);

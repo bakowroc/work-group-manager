@@ -9,6 +9,8 @@ export interface TaskState {
   author: UserState;
   assigned: Array<UserState>;
   subtasks: Array<SubtaskState>;
+  slug: string;
   tags: Array<TagState>;
+  prior: string;
   createdAt: Date;
 }

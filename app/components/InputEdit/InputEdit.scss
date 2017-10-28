@@ -3,11 +3,14 @@
 .input {
   background: none;
   border: 0;
+  height: auto;
+  margin: 0;
   outline: none;
   padding: 10px;
+  resize: none;
   width: auto;
 }
 
 .focused {
-  background: $color-gray-3;
+  background: rgba(#000, .06);
 }

@@ -1,0 +1,20 @@
+@import '../../../consts/styles/colors';
+
+.content {
+  align-items: center;
+  border-bottom: 1px solid $color-gray-2;
+  color: $color-gray-4;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  width: 100%;
+
+  .label {
+    font-weight: 400;
+  }
+
+  .value {
+    font-weight: 300;
+  }
+}

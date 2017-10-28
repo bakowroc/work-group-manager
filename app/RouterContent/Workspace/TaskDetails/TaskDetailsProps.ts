@@ -5,3 +5,7 @@ export interface TaskDetailsProps {
   onClose: () => void;
   task: TaskState;
 }
+
+export interface TaskDetailsDispatchProps {
+  updateTaskAction: (body: any) => void;
+}

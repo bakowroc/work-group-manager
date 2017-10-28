@@ -8,7 +8,7 @@ const styles: any = require('./Splash.scss');
 class SplashComponent extends React.Component<SplashStateProps> {
   public render(): JSX.Element {
     return(
-      <div className={ `${styles.content} ${this.props.isDataFetching ? styles.show : ''}` }>
+      <div className={ `${styles.content} ${!this.props.isDataFetching ? styles.show : ''}` }>
         Loading data...
       </div>
     );

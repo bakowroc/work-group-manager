@@ -63,7 +63,7 @@ export class InputEdit extends React.Component<InputEditProps> {
 
   public render(): JSX.Element {
     return (
-      <input
+      <textarea
         className={ this.getInputClassName() }
         value={ this.state.value }
         onChange={ this.onChange }
