@@ -14,16 +14,8 @@
     font-weight: 500;
     justify-content: flex-end;
     padding: 20px 0;
-    width: calc(70% - 20px);
+    width: 100%;
   }
-}
-
-.title {
-  color: $color-main-white;
-  font-size: $font-secondary-title;
-  height: 50px;
-  margin-bottom: 20px;
-  overflow: hidden;
 }
 
 .taskBody {
@@ -35,15 +27,25 @@
   @include content-box;
   display: flex;
   flex-direction: row;
-  margin-right: 20px;
   padding: 0;
   transition: none;
-  width: calc(70% - 20px);
+  width: 70%;
 
   .mainTaskDetails {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 10px;
     width: 60%;
+
+    .title {
+      color: $color-main-gray;
+      font-size: $font-secondary-title;
+      height: 50px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: 100%;
+    }
 
     .description {
       height: 150px;
@@ -57,13 +59,37 @@
     height: 100%;
     padding: 20px;
     width: 40%;
+
+    .actionButtons {
+      display: flex;
+      flex-direction: column;
+
+      .deleteButton,
+      .doneButton {
+        margin-bottom: 20px;
+      }
+
+      .deleteButton {
+        background: $color-red;
+      }
+    }
   }
 }
 
 .taskChatroom {
+  background: $color-main-gray;
   height: 640px;
+  padding: 20px;
   position: relative;
   width: 30%;
+
+  .chatTitle {
+    color: $color-main-white;
+    font-size: $font-secondary-title;
+    margin-bottom: 20px;
+    overflow: hidden;
+    width: 100%;
+  }
 
   .historyChat {
     height: calc(640px - 70px);

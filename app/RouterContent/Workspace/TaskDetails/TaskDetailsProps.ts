@@ -8,4 +8,5 @@ export interface TaskDetailsProps {
 
 export interface TaskDetailsDispatchProps {
   updateTaskAction: (body: any) => void;
+  toggleConfirm: () => void;
 }

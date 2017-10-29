@@ -4,12 +4,14 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { Chat } from '../../../components/Chat';
+import { Confirm } from '../../../components/Confirm';
 import { InputEdit } from '../../../components/InputEdit';
 import { NameList } from '../../../components/NameList';
 import { NameListItem } from '../../../components/NameList/NameListItem';
 import { Popup } from '../../../components/Popup';
 import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { TaskDetailsDispatchProps, TaskDetailsProps } from './TaskDetailsProps';
+import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
 
 const styles: any = require('./TaskDetails.scss');
 
@@ -31,6 +33,8 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     this.props.updateTaskAction(updateTaskBody);
   }
 
+  private onTaskDeleteConfirm = () => console.log('confirmed');
+
   private renderTaskTitle = (): JSX.Element => (
     <InputEdit
       text={ this.props.task.name }
@@ -51,15 +55,32 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     </div>
   )
 
+  private renderActionButtons = (): JSX.Element => (
+    <div className={ styles.actionButtons }>
+      <Button
+        label="Mark as done"
+        buttonClassName={ styles.doneButton }
+        onClick={ null }
+        flat={ false }
+      />
+      <Button
+        label="Delete"
+        buttonClassName={ styles.deleteButton }
+        onClick={ this.props.toggleConfirm }
+        flat={ false }
+      />
+    </div>
+  )
+
   private renderAdditionalInfo = (): JSX.Element => (
     <NameList>
       <NameListItem
-        label="Created at"
-        value={ this.props.task.createdAt }
-      />
-      <NameListItem
         label="Author"
         value={ this.props.task.author }
+      />
+      <NameListItem
+        label="Date"
+        value={ this.props.task.createdAt }
       />
       <NameListItem
         label="Priority"
@@ -71,9 +92,11 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
   private renderTaskDetails = (): JSX.Element => (
     <div className={ styles.taskDetails }>
      <div className={ styles.mainTaskDetails }>
-        { this.props.task.description && this.renderTaskDescription() }
+      { this.props.task.name && this.renderTaskTitle() }
+      { this.props.task.description && this.renderTaskDescription() }
      </div>
      <div className={ styles.additionalTaskDetails }>
+      { this.renderActionButtons() }
       { this.renderAdditionalInfo() }
      </div>
     </div>
@@ -85,7 +108,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
       chatRoomId={ this.props.task._id }
       historyClassName={ styles.historyChat }
       chatClassName={ styles.taskChatroom }
-      titleClassName={ styles.title }
+      titleClassName={ styles.chatTitle }
       inputClassName={ styles.messageInputArea}
     />
   )
@@ -102,8 +125,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
 
   private renderDetailsContent = (): JSX.Element => (
     <div className={ styles.content }>
-      { this.props.task.name && this.renderTaskTitle() }
-      <div className={ styles.taskBody }>
+     <div className={ styles.taskBody }>
         { this.renderTaskDetails() }
         { this.renderTaskChatroom() }
       </div>
@@ -113,16 +135,24 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
 
   public render(): JSX.Element {
     return (
-      <Popup
-        isOpen={ this.props.isOpen }
-        content={ this.renderDetailsContent() }
-      />
+      <div>
+        <Confirm
+          label="Task deleting"
+          message="You re going to delete this task"
+          onConfirm={ this.onTaskDeleteConfirm }
+        />
+        <Popup
+          isOpen={ this.props.isOpen }
+          content={ this.renderDetailsContent() }
+        />
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-  updateTaskAction
+  updateTaskAction,
+  toggleConfirm
 }, dispatch);
 
 export const TaskDetails = connect<any, TaskDetailsDispatchProps, TaskDetailsProps>(

@@ -1,0 +1,46 @@
+@import '../../consts/styles/utils';
+@import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
+@import '../../consts/styles/shadows';
+
+.content {
+  @include content-box;
+  @include shadow-depth-5;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  margin: 0 auto;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 20%;
+  visibility: hidden;
+  width: 350px;
+  z-index: $index-splash - 1;
+
+  &.open {
+    visibility: visible;
+  }
+
+  .label {
+    font-size: $font-large-text;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-bottom: 0;
+  }
+
+  .message {
+    padding: 20px;
+    padding-top: 0;
+  }
+
+  .actionButtons {
+    background: $color-gray-1;
+    border-top: 1px solid $color-gray-2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+}
