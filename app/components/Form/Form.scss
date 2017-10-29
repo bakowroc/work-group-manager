@@ -1,0 +1,14 @@
+@import '../../consts/styles/utils';
+@import '../../consts/styles/colors';
+
+.form {
+  .inputButton {
+    @include button;
+    background: none;
+    border: 0;
+    color: $color-main-blue;
+    float: right;
+    outline: none;
+    padding: 8px;
+  }
+}

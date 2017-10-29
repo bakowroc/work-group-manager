@@ -35,7 +35,7 @@ const exampleChatHistory: Array<any> = [
   {
     author: 'Gregory House',
     messageContent: `I hate that solution. We should focus on data parsers more than
-                    creating new shiny components just to make something looks better. What about that one we spoke last week?`,
+                    creating new shiny components just to make something look better. What about that one we spoke last week?`,
     postedDate: new Date()
   }
 ];

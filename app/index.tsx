@@ -10,6 +10,7 @@ import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
 import {
     watchAddTask,
+    watchDeleteTask,
     watchFetchBoards,
     watchFetchMe,
     watchFetchProject,
@@ -32,8 +33,9 @@ sagaMiddleware.run(watchFetchProject);
 sagaMiddleware.run(watchFetchBoards);
 sagaMiddleware.run(watchUpdateBoard);
 sagaMiddleware.run(watchFetchTasks);
-sagaMiddleware.run(watchUpdateTask);
 sagaMiddleware.run(watchAddTask);
+sagaMiddleware.run(watchUpdateTask);
+sagaMiddleware.run(watchDeleteTask);
 sagaMiddleware.run(watchReceiveDataFetching);
 
 store.dispatch(fetchMeUserAction());

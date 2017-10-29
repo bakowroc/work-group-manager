@@ -10,7 +10,6 @@
 .author {
   align-items: center;
   display: flex;
-  margin-bottom: 5px;
 
   .postedDate {
     font-size: $font-subtitle;
@@ -19,9 +18,9 @@
 
   .authorAvatar {
     align-items: center;
-    background: $color-blue;
+    background: $color-main-blue;
     border-radius: 3px;
-    color: $color-main-white;
+    color: $color-main-white !important;
     display: flex;
     font-size: $font-subtitle;
     height: 30px;

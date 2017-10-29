@@ -1,3 +1,4 @@
+import { isUndefined } from 'lodash';
 import * as React from 'react';
 import { Icon } from 'react-fa';
 import { NavLink } from 'react-router-dom';
@@ -19,7 +20,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   )
 
   private renderItemIcon = (): JSX.Element => (
-    <span className={ `${styles.listItemIcon} ${this.props.iconColor}` }>
+    <span className={ `${styles.listItemIcon} ${this.props.iconClassName}` }>
     <Icon name={ this.props.icon } />
   </span>
   )
@@ -30,7 +31,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
           onClick={ this.props.onClick }
           className={ this.props.labelClassName }
         >
-          { this.props.icon && this.renderItemIcon() }
+          { !isUndefined(this.props.icon) && this.renderItemIcon() }
           <span className={ styles.listItemLabel }>
             { this.props.label }
           </span>

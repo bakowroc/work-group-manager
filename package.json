@@ -6,7 +6,7 @@
     "build": "webpack --progress --debug",
     "build:watch": "webpack --watch --progress --debug",
     "server": "nodemon ./build/server.js -- --harmony-async-await",
-    "lint": "tslint -p tsconfig.json --format stylish",
+    "lint": "tslint -p tsconfig.json -c tslint.json --format stylish --force",
     "sasslint": "sass-lint -c .sass-lint.yml --no-exit -v",
     "heroku-prebuild": "npm i -g webpack typescript",
     "heroku-postbuild": "yarn build"
@@ -50,6 +50,7 @@
     "react-redux": "5.0.6",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
+    "react-sortable-hoc": "^0.6.8",
     "redux": "3.7.2",
     "redux-actions": "2.2.1",
     "redux-axios": "0.0.2",
@@ -69,5 +70,8 @@
     "url-loader": "0.6.2",
     "webpack": "3.7.1",
     "webpack-node-externals": "1.6.0"
+  },
+  "dependencies": {
+    "@types/react-sortable-hoc": "^0.6.0"
   }
 }

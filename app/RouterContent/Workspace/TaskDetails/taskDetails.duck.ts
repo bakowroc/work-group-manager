@@ -7,7 +7,11 @@ export const toggleTaskDetails = createAction<TaskProps>(TOGGLE_TASK_DETAILS);
 
 const initialState = {
   isOpen: false,
-  currentTask: {}
+  currentTask: {
+    author: {
+      username: ''
+    }
+  }
 };
 
 export default handleActions({

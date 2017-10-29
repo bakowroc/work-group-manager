@@ -5,6 +5,7 @@ import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
 import { axios } from '../axios';
 import { fillCollection } from '../parsers/collection';
+import { toggleTaskDetails } from './../../../RouterContent/Workspace/TaskDetails/taskDetails.duck';
 
 import { fetchError } from '../requests/ErrorActions';
 import { updateBoardAction } from './BoardActions';
@@ -18,6 +19,9 @@ const addTaskAction = createAction<any>(ADD_TASK);
 
 const UPDATE_TASK = 'UPDATE_TASK';
 const updateTaskAction = createAction<any>(UPDATE_TASK);
+
+const DELETE_TASK = 'DELETE_TASK';
+const deleteTaskAction = createAction<any>(DELETE_TASK);
 
 const GET_TASKS = 'GET_TASKS';
 const getTasks = createAction<any>(GET_TASKS);
@@ -33,16 +37,21 @@ function* fetchTasks(action: Action<string>) {
 
 function* addTask(action: Action<any>) {
   try {
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.post, '/api/task', action.payload.task);
+    const {dataPayload, openDetails} = action.payload;
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.post, '/api/task', dataPayload.task);
     const toUpdateBoard = {
-      slug: action.payload.board.slug,
+      slug: dataPayload.board.slug,
       data: {
-        tasks: [...fillCollection(action.payload.board.tasks), data.responseData._id]
+        tasks: [...fillCollection(dataPayload.board.tasks), data.responseData._id]
       }
     };
 
     if (data.responseData._id) {
       yield put(updateBoardAction(toUpdateBoard));
+
+      if (openDetails) {
+        yield put(toggleTaskDetails(data.responseData));
+      }
     }
   } catch (error) {
     yield put(fetchError('error'));
@@ -53,6 +62,17 @@ function* updateTask(action: Action<any>) {
   try {
     yield [
       call(axios.put, `/api/task/${action.payload.slug}`, action.payload.data),
+      put(fetchProjectAction())
+    ];
+  } catch (error) {
+    yield fetchError('error');
+  }
+}
+
+function* deleteTask(action: Action<any>) {
+  try {
+    yield [
+      call(axios.delete, `/api/task/${action.payload.slug}`),
       put(fetchProjectAction())
     ];
   } catch (error) {
@@ -71,5 +91,8 @@ export {
   getTasks,
   UPDATE_TASK,
   updateTask,
-  updateTaskAction
+  updateTaskAction,
+  DELETE_TASK,
+  deleteTask,
+  deleteTaskAction
 };

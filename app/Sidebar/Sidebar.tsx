@@ -13,7 +13,8 @@ export class Sidebar extends React.Component<{}> {
       <div className={ styles.content }>
         <Profile />
         <Menu vertical={ true }>
-          { MENU_ELEMENTS.map((menuItemProps: MenuItemProps, key: number) => <MenuItem key={ key } { ...menuItemProps } />) }
+          { MENU_ELEMENTS.map((menuItemProps: MenuItemProps, key: number) =>
+            <MenuItem key={ key } { ...menuItemProps } />) }
         </Menu>
       </div>
     );

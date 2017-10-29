@@ -3,44 +3,63 @@
 @import '../../consts/styles/sizes';
 @import '../../consts/styles/shadows';
 
-.content {
-  @include content-box;
-  @include shadow-depth-5;
+.layer {
+  align-items: center;
+  background: rgba($color-red, .8);
+  bottom: 0;
   display: flex;
-  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
   left: 0;
-  margin: 0 auto;
-  padding: 0;
+  opacity: 0;
   position: fixed;
   right: 0;
-  top: 20%;
+  top: 0;
+  transition: opacity .2s ease;
   visibility: hidden;
-  width: 350px;
-  z-index: $index-splash - 1;
+  width: 100vw;
+  z-index: $index-splash - 2;
 
   &.open {
+    opacity: 1;
+    transition: opacity .2s ease;
     visibility: visible;
   }
 
-  .label {
-    font-size: $font-large-text;
-    font-weight: 500;
-    margin-bottom: 20px;
-    padding: 20px;
-    padding-bottom: 0;
-  }
-
-  .message {
-    padding: 20px;
-    padding-top: 0;
-  }
-
-  .actionButtons {
-    background: $color-gray-1;
-    border-top: 1px solid $color-gray-2;
+  .content {
+    @include content-box;
+    @include shadow-depth-5;
+    color: $color-main-gray;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
+    flex-direction: column;
+    padding: 0;
+    width: 700px;
+    z-index: $index-splash - 1;
+
+    .label {
+      font-size: $font-large-text;
+      font-weight: 500;
+      margin-bottom: 20px;
+      padding: 20px;
+      padding-bottom: 0;
+    }
+
+    .message {
+      padding: 20px;
+      padding-top: 0;
+    }
+
+    .actionButtons {
+      border-top: 1px solid $color-gray-1;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      padding: 10px;
+
+      .button {
+        color: $color-main-blue;
+        margin-left: 10px;
+      }
+    }
   }
 }

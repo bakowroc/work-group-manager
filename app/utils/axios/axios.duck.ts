@@ -1,10 +1,20 @@
-import { Action, handleActions, createAction } from 'redux-actions';
-import { takeLatest, put, takeEvery } from 'redux-saga/effects';
+import { Action, createAction, handleActions } from 'redux-actions';
+import { put, takeLatest } from 'redux-saga/effects';
 
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_ERROR, fetchError } from './requests/ErrorActions';
 import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
-import { ADD_TASK, addTask, FETCH_TASKS, fetchTasks, GET_TASKS, UPDATE_TASK, updateTask } from './requests/TaskActions';
+import {
+  ADD_TASK,
+  addTask,
+  DELETE_TASK,
+  deleteTask,
+  FETCH_TASKS,
+  fetchTasks,
+  GET_TASKS,
+  UPDATE_TASK,
+  updateTask
+} from './requests/TaskActions';
 import { FETCH_ME_USER, fetchMe, GET_ME_USER } from './requests/UserActions';
 import { FETCH_USERS, fetchUsers, GET_USERS } from './requests/UsersActions';
 
@@ -80,12 +90,16 @@ export function* watchFetchTasks() {
   yield takeLatest(FETCH_TASKS, fetchTasks);
 }
 
+export function* watchAddTask() {
+  yield takeLatest(ADD_TASK, addTask);
+}
+
 export function* watchUpdateTask() {
   yield takeLatest(UPDATE_TASK, updateTask);
 }
 
-export function* watchAddTask() {
-  yield takeLatest(ADD_TASK, addTask);
+export function* watchDeleteTask() {
+  yield takeLatest(DELETE_TASK, deleteTask);
 }
 
 export function* watchIsDataFetching() {

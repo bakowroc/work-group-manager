@@ -1,4 +1,4 @@
-import { orderBy } from 'lodash';
+import { get, groupBy, isEmpty, orderBy } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,7 +16,10 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
 
   private renderBoards = (): Array<JSX.Element> => this.props.boards.map((boardProps: any, key: number) => (
     <div key={ key } className={ styles.board }>
-      <Board { ...boardProps } />
+      <Board
+        { ...boardProps }
+        tasks={ get(this.props.tasks, boardProps._id, []) }
+      />
     </div>
   ))
 
@@ -37,14 +40,13 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
   )
 
   public render() {
-    console.log(this.props.isDataFetching);
     return (
       <div>
-      <div className={ styles.content} >
-        { this.props.boards && this.renderBoards() }
-      </div>
-      { this.renderTaskDetails() }
-      { this.renderAddTaskForm() }
+        <div className={ styles.content} >
+          { !isEmpty(this.props.boards) && this.renderBoards() }
+        </div>
+        { this.renderTaskDetails() }
+        { this.renderAddTaskForm() }
       </div>
     );
   }
@@ -53,6 +55,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
 const mapStateToProps = (state: any): WorkspaceStateProps => ({
   project: state.data.project,
   boards: orderBy(state.data.boards, ['order', 'createdAt', 'name']),
+  tasks: groupBy(state.data.tasks, 'board._id'),
   isAddTaskFormOpen: state.addTaskForm.isOpen,
   addTaskAssignedBoard: state.addTaskForm.board,
   isTaskDetailsOpen: state.taskDetails.isOpen,

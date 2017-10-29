@@ -7,7 +7,8 @@ const styles: any = require('./Input.scss');
 export class Input extends React.Component<InputProps> {
 
   public state = {
-    value: ''
+    value: '',
+    isFocused: false
   };
 
   private onChange = (event: any) => {

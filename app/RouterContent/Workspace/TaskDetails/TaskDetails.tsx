@@ -1,17 +1,23 @@
+import { isEmpty, isUndefined } from 'lodash';
 import * as React from 'react';
+import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { Chat } from '../../../components/Chat';
 import { Confirm } from '../../../components/Confirm';
+import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
 import { InputEdit } from '../../../components/InputEdit';
+import { Menu } from '../../../components/Menu';
+import { MenuItem } from '../../../components/Menu/MenuItem';
 import { NameList } from '../../../components/NameList';
 import { NameListItem } from '../../../components/NameList/NameListItem';
 import { Popup } from '../../../components/Popup';
-import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
+import { toggleSnackbar } from '../../../components/Snackbar/snackbar.duck';
+import { SnackbarMessage } from '../../../components/Snackbar/SnackbarProps';
+import { deleteTaskAction, updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { TaskDetailsDispatchProps, TaskDetailsProps } from './TaskDetailsProps';
-import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
 
 const styles: any = require('./TaskDetails.scss');
 
@@ -33,7 +39,14 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     this.props.updateTaskAction(updateTaskBody);
   }
 
-  private onTaskDeleteConfirm = () => console.log('confirmed');
+  private onTaskDeleteConfirm = () => {
+    const deleteTaskBody = {
+      slug: this.props.task.slug
+    };
+    this.props.deleteTaskAction(deleteTaskBody);
+    this.props.onClose();
+    this.props.toggleSnackbar(SnackbarMessage.TASK_DELETE_SUCCESS);
+  }
 
   private renderTaskTitle = (): JSX.Element => (
     <InputEdit
@@ -76,11 +89,19 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     <NameList>
       <NameListItem
         label="Author"
-        value={ this.props.task.author }
+        value={
+          !isUndefined(this.props.task.author)
+          && this.props.task.author.username
+        }
       />
       <NameListItem
         label="Date"
-        value={ this.props.task.createdAt }
+        value={
+          <Moment
+            format="MM/DD/YYYY"
+            date={ this.props.task.createdAt }
+          />
+        }
       />
       <NameListItem
         label="Priority"
@@ -89,15 +110,28 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     </NameList>
   )
 
+  private renderAssignedUsers = (): JSX.Element => (
+    <Menu vertical={ true }>
+    { this.props.task.assigned.map((user: any) => (
+      <MenuItem
+        linkTo={ `/user/${user.slug}` }
+        icon="user"
+        iconClassName={ styles.assignedUserIcon }
+        label={ user.username }
+      />)) }
+    </Menu>
+  )
+
   private renderTaskDetails = (): JSX.Element => (
     <div className={ styles.taskDetails }>
      <div className={ styles.mainTaskDetails }>
-      { this.props.task.name && this.renderTaskTitle() }
-      { this.props.task.description && this.renderTaskDescription() }
+      { !isUndefined(this.props.task.name) && this.renderTaskTitle() }
+      { !isUndefined(this.props.task.description) && this.renderTaskDescription() }
      </div>
      <div className={ styles.additionalTaskDetails }>
       { this.renderActionButtons() }
       { this.renderAdditionalInfo() }
+      { !isEmpty(this.props.task.assigned) && this.renderAssignedUsers() }
      </div>
     </div>
   )
@@ -126,7 +160,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
   private renderDetailsContent = (): JSX.Element => (
     <div className={ styles.content }>
      <div className={ styles.taskBody }>
-        { this.renderTaskDetails() }
+        { !isEmpty(this.props.task) && this.renderTaskDetails() }
         { this.renderTaskChatroom() }
       </div>
       { this.renderButtons() }
@@ -138,7 +172,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
       <div>
         <Confirm
           label="Task deleting"
-          message="You re going to delete this task"
+          message={ `"${this.props.task.name}" will be permanently deleted` }
           onConfirm={ this.onTaskDeleteConfirm }
         />
         <Popup
@@ -152,7 +186,9 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   updateTaskAction,
-  toggleConfirm
+  deleteTaskAction,
+  toggleConfirm,
+  toggleSnackbar
 }, dispatch);
 
 export const TaskDetails = connect<any, TaskDetailsDispatchProps, TaskDetailsProps>(

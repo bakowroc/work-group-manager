@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { FormProps } from './FormProps';
 
+const styles: any = require('./Form.scss');
 export class Form extends React.Component<FormProps> {
 
   constructor(props: FormProps) {
@@ -23,9 +24,16 @@ export class Form extends React.Component<FormProps> {
 
   public render() {
     return (
-      <form onSubmit={ this.onSubmit }>
+      <form
+        className={ styles.form }
+        onSubmit={ this.onSubmit }
+      >
         { this.props.children }
-      <input type="submit" value="Submit" />
+      <input
+        className={ styles.inputButton }
+        type="submit"
+        value="Submit"
+      />
       </form>
     );
   }

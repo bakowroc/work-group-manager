@@ -1,3 +1,4 @@
+import { isUndefined } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,25 +26,29 @@ class ConfirmComponent extends React.Component<ConfirmProps & ConfirmStateProps 
     <div className={ styles.actionButtons }>
       <Button
         label="Confirm"
+        buttonClassName={ styles.button }
         onClick={ this.onConfirm }
-        flat={ false }
+        flat={ true }
       />
       <Button
         label="Discard"
+        buttonClassName={ styles.button }
         onClick={ this.props.toggleConfirm }
-        flat={ false }
+        flat={ true }
       />
     </div>
   )
 
   public render(): JSX.Element {
     return (
-      <div className={ `${styles.content} ${this.props.isOpen ? styles.open : ''}` }>
-        <div className={ styles.label }>
-          { this.props.label }
+      <div className={ `${styles.layer} ${this.props.isOpen ? styles.open : ''}` }>
+        <div className={ styles.content }>
+          <div className={ styles.label }>
+            { this.props.label }
+          </div>
+          { !isUndefined(this.props.message) && this.renderMessage() }
+          { this.renderActionButtons() }
         </div>
-        { this.props.message && this.renderMessage() }
-        { this.renderActionButtons() }
       </div>
     );
   }

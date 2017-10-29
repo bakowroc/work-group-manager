@@ -50,6 +50,17 @@ class APIRequest {
       }
     }
 
+  public DELETE = (DataModel: Model<any>): ResponseHandler =>
+    async (request: Request, response: Response): Promise<void> => {
+      try {
+        const slug: number = request.params.slug;
+        const data = await DataModel.findOneAndRemove({slug});
+        this.JSONResponse(response, data);
+      } catch (error) {
+        this.JSONResponse(response, error);
+      }
+    }
+
   private JSONResponse = <T>(requestResponse: Response, responseData: T): void => {
     const status: number = requestResponse.statusCode;
     requestResponse.json({

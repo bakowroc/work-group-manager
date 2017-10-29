@@ -24,7 +24,8 @@ class TaskController {
   private getManyElementRoutes = (): void => {
     this.router.route('/:slug')
       .get(APIRequest.GET_SINGLE(TaskModel, this.getPopulateQuery()))
-      .put(APIRequest.UPDATE(TaskModel));
+      .put(APIRequest.UPDATE(TaskModel))
+      .delete(APIRequest.DELETE(TaskModel));
   }
 
   private getSingleElementRoutes = (): void => {

@@ -1,3 +1,4 @@
+import { capitalize } from 'lodash';
 import * as React from 'react';
 
 import { InputProps } from '../Input/InputProps';
@@ -20,7 +21,7 @@ export class Select extends React.Component<InputProps & SelectProps> {
   }
 
   private renderOptions = (): Array<JSX.Element> => this.props.options.map((option: any, key: number) =>
-    <option key={ key } value={ option } children={ option }/>
+    <option key={ key } value={ option } children={ capitalize(option) }/>
   )
 
   public render(): JSX.Element {

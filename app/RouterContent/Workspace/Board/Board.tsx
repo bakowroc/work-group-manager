@@ -1,3 +1,4 @@
+import { isEmpty, isUndefined } from 'lodash';
 import * as React from 'react';
 import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
@@ -6,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
+import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { toggleAddTaskForm } from '../AddTaskForm/addTaskForm.duck';
 import { toggleTaskDetails } from '../TaskDetails/taskDetails.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
@@ -74,9 +76,9 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
   private renderTasksBoard = (): JSX.Element => (
     <div>
       <div className={ styles.tasks }>
-        { this.props.tasks
-        ? this.renderWorkspaceTasks()
-        : this.renderNoTasksInfo() }
+        { isEmpty(this.props.tasks)
+        ? this.renderNoTasksInfo()
+        : this.renderWorkspaceTasks() }
       </div>
       { this.renderAddTask() }
     </div>
@@ -85,7 +87,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
-        { this.props.name && this.renderBoardTitle() }
+        { !isUndefined(this.props.name) && this.renderBoardTitle() }
         { this.renderTasksBoard() }
       </div>
     );
@@ -98,6 +100,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   updateBoardAction,
+  updateTaskAction,
   toggleAddTaskForm,
   toggleTaskDetails
 }, dispatch);
