@@ -60,7 +60,7 @@ export class SortableList extends React.Component<SortableListProps> {
         >
           { this.props.items }
         </div>
-        { !this.state.items && this.props.noDataInfo }
+        { isEmpty(this.state.items) && this.props.noDataInfo }
       </div>
     );
   }

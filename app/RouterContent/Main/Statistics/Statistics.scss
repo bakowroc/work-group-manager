@@ -1,0 +1,41 @@
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/utils';
+@import '../../../consts/styles/sizes';
+@import '../../../consts/styles/shadows';
+
+.content {
+  display: flex;
+  width: 75%;
+
+  .statBox {
+    @include content-box;
+    @include shadow-depth-2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    padding: 20px;
+    width: 33%;
+
+    .title {
+      font-size: $font-standard-heading;
+      font-weight: 600;
+      text-transform: uppercase;
+      width: 100%;
+    }
+
+    .value {
+      color: $color-gray-3;
+      font-size: 48px;
+    }
+
+    .icon {
+      color: $color-gray-3;
+      font-size: 48px;
+      margin-left: auto;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

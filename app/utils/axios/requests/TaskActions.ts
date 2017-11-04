@@ -60,7 +60,7 @@ function* addTask(action: Action<any>) {
 
 function* updateTask(action: Action<any>) {
   try {
-    yield call(axios.put, `/api/task/${action.payload.slug}`, action.payload.data)
+    yield call(axios.put, `/api/task/${action.payload.slug}`, action.payload.data);
 
     if (!action.payload.noUpdate) {
       yield put(fetchProjectAction());

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
 import { SortableList } from '../../../components/SortableContainer/SortableList';
+import { getDifferences } from '../../../utils/axios/parsers/collection';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { toggleAddTaskForm } from '../AddTaskForm/addTaskForm.duck';
@@ -14,7 +15,6 @@ import { toggleTaskDetails } from '../TaskDetails/taskDetails.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
-import { getDifferences } from '../../../utils/axios/parsers/collection';
 
 const styles: any = require('./Board.scss');
 
