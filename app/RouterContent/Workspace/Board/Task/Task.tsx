@@ -32,6 +32,7 @@ export class Task extends React.Component<TaskProps> {
     return(
       <div
         className={ this.getTaskClassName() }
+        id={ this.props.slug }
         onClick={ this.onTaskClick }
       >
         <div className={ styles.title }>

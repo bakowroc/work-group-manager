@@ -1,5 +1,5 @@
 import { Action, createAction, handleActions } from 'redux-actions';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_ERROR, fetchError } from './requests/ErrorActions';
@@ -83,7 +83,7 @@ export function* watchFetchBoards() {
 }
 
 export function* watchUpdateBoard() {
-  yield takeLatest(UPDATE_BOARD, updateBoard);
+  yield takeEvery(UPDATE_BOARD, updateBoard);
 }
 
 export function* watchFetchTasks() {
@@ -95,7 +95,7 @@ export function* watchAddTask() {
 }
 
 export function* watchUpdateTask() {
-  yield takeLatest(UPDATE_TASK, updateTask);
+  yield takeEvery(UPDATE_TASK, updateTask);
 }
 
 export function* watchDeleteTask() {

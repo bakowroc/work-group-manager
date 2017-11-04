@@ -1,6 +1,7 @@
 import { TaskPrior } from './TaskPrior';
 
 export interface TaskProps {
+  _id: string;
   name: string;
   description: string;
   author: string;
@@ -8,4 +9,5 @@ export interface TaskProps {
   category?: string;
   onDetailsClick?: (task: any) => any;
   prior?: TaskPrior;
+  slug: string;
 }

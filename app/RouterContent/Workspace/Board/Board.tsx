@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { InputEdit } from '../../../components/InputEdit';
+import { SortableList } from '../../../components/SortableContainer/SortableList';
 import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { toggleAddTaskForm } from '../AddTaskForm/addTaskForm.duck';
@@ -13,6 +14,7 @@ import { toggleTaskDetails } from '../TaskDetails/taskDetails.duck';
 import { BoardDispatchProps, BoardProps, BoardStateProps } from './BoardProps';
 import { Task } from './Task/Task';
 import { TaskProps } from './Task/TaskProps';
+import { getDifferences } from '../../../utils/axios/parsers/collection';
 
 const styles: any = require('./Board.scss');
 
@@ -27,6 +29,23 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
   }
 
   private onAddTask = (): void => this.props.toggleAddTaskForm(this.props);
+
+  private onTaskSortEnd = (data: any) => {
+    getDifferences(data.old, data.updated, 'key').map((task: any, index: number) =>
+      !isUndefined(task) && this.props.updateTaskAction({
+        slug: task.props.slug, data: {order: index},
+        noUpdate: true
+      })
+   );
+  }
+  private onBoardChange = (data: any) => {
+    const task = data.item;
+    this.props.updateTaskAction({
+      slug: task.id,
+      data: {board: data.to},
+      noUpdate: true
+    });
+  }
 
   private renderBoardIcon = (): JSX.Element => (
     <span className={ styles.titleIcon }>
@@ -46,11 +65,20 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
       />
     </div>
   )
+  private renderWorkspaceList = (): JSX.Element => (
+    <SortableList
+      listElementId={ this.props._id }
+      onSortFinish={ this.onTaskSortEnd }
+      onListChange={ this.onBoardChange }
+      items={ this.renderWorkspaceTasks()}
+      noDataInfo={ this.renderNoTasksInfo() }
+    />
+  )
 
   private renderWorkspaceTasks = (): Array<JSX.Element> =>
     this.props.tasks.map((taskProps: TaskProps, key: number) => (
       <Task
-        key={ key }
+        key={ `${this.props._id}-${taskProps._id}-${key}` }
         onDetailsClick={ this.props.toggleTaskDetails }
         { ...taskProps }
       />
@@ -76,9 +104,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
   private renderTasksBoard = (): JSX.Element => (
     <div>
       <div className={ styles.tasks }>
-        { isEmpty(this.props.tasks)
-        ? this.renderNoTasksInfo()
-        : this.renderWorkspaceTasks() }
+        { !isEmpty(this.props.tasks) && !isUndefined(this.props._id) && this.renderWorkspaceList() }
       </div>
       { this.renderAddTask() }
     </div>

@@ -18,7 +18,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
     <div key={ key } className={ styles.board }>
       <Board
         { ...boardProps }
-        tasks={ get(this.props.tasks, boardProps._id, []) }
+        tasks={ orderBy(get(this.props.tasks, boardProps._id, []), 'order') }
       />
     </div>
   ))
