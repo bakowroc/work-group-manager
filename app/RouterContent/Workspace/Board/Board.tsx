@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
+import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
+import { DropdownMenu } from '../../../components/DropdownMenu';
+import { DropdownItem } from '../../../components/DropdownMenu/DropdownItem';
 import { InputEdit } from '../../../components/InputEdit';
 import { SortableList } from '../../../components/SortableContainer/SortableList';
 import { getDifferences } from '../../../utils/axios/parsers/collection';
@@ -19,6 +22,10 @@ import { TaskProps } from './Task/TaskProps';
 const styles: any = require('./Board.scss');
 
 export class BoardComponent extends React.Component<BoardProps & BoardDispatchProps & BoardStateProps> {
+
+  public state = {
+    isBoardSettingsMenuOpen: false
+  };
 
   private onTitleInputLeave = (value: string): void => {
     const updateBoardBody = {
@@ -47,10 +54,39 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     });
   }
 
+  private onBoardSettingsClick = (): void => {
+    this.setState((prev: any) => ({...prev, isBoardSettingsMenuOpen: !prev.isBoardSettingsMenuOpen}));
+  }
+
+  private prepareConfirmPayload = () => {
+    const message = {
+      label: 'Board deleting',
+      message: 'This action will delete board permanently',
+      onConfirm: alert
+    };
+
+    this.props.toggleConfirm(message);
+  }
+
   private renderBoardIcon = (): JSX.Element => (
     <span className={ styles.titleIcon }>
       <Icon name={ this.props.icon || 'check' } />
     </span>
+  )
+
+  private renderBoardMenuButton = (): JSX.Element => (
+    <Button
+      label={ <Icon name="sort-desc" /> }
+      flat={ true }
+      buttonClassName={ styles.titleIcon }
+      onClick={ this.onBoardSettingsClick }
+    />
+  )
+
+  private renderBoardMenu = (): JSX.Element => (
+    <DropdownMenu isOpen={ this.state.isBoardSettingsMenuOpen } >
+      <DropdownItem label="Delete" onClick={ this.prepareConfirmPayload } />
+    </DropdownMenu>
   )
 
   private renderBoardTitle = (): JSX.Element => (
@@ -63,6 +99,8 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
         inputClassName={ styles.text }
         maxInputLength={ 20 }
       />
+      { this.renderBoardMenuButton() }
+      { this.renderBoardMenu() }
     </div>
   )
   private renderWorkspaceList = (): JSX.Element => (
@@ -128,6 +166,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   updateBoardAction,
   updateTaskAction,
   toggleAddTaskForm,
+  toggleConfirm,
   toggleTaskDetails
 }, dispatch);
 

@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { Chat } from '../../../components/Chat';
-import { Confirm } from '../../../components/Confirm';
 import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
 import { InputEdit } from '../../../components/InputEdit';
 import { Menu } from '../../../components/Menu';
@@ -48,6 +47,16 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     this.props.toggleSnackbar(SnackbarMessage.TASK_DELETE_SUCCESS);
   }
 
+  private prepareConfirmPayload = (): void => {
+    const message = {
+      label: 'Task deleting',
+      message: 'This action will delete this task permanently',
+      onConfirm: this.onTaskDeleteConfirm
+    };
+
+    this.props.toggleConfirm(message);
+  }
+
   private renderTaskTitle = (): JSX.Element => (
     <InputEdit
       text={ this.props.task.name }
@@ -79,7 +88,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
       <Button
         label="Delete"
         buttonClassName={ styles.deleteButton }
-        onClick={ this.props.toggleConfirm }
+        onClick={ this.prepareConfirmPayload }
         flat={ false }
       />
     </div>
@@ -170,11 +179,6 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
   public render(): JSX.Element {
     return (
       <div>
-        <Confirm
-          label="Task deleting"
-          message={ `"${this.props.task.name}" will be permanently deleted` }
-          onConfirm={ this.onTaskDeleteConfirm }
-        />
         <Popup
           isOpen={ this.props.isOpen }
           content={ this.renderDetailsContent() }
