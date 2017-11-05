@@ -1,0 +1,40 @@
+@import '../../../consts/styles/utils';
+@import '../../../consts/styles/shadows';
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/sizes';
+
+.content {
+  @include content-box;
+  @include shadow-depth-2;
+  margin-right: 20px;
+  padding-bottom: 40px;
+  position: relative;
+
+  &:last-child {
+    margin: 0;
+  }
+
+  &.oneCol {
+    width: calc(33% - 10px);
+  }
+
+  &.twoCol {
+    width: 66%;
+  }
+
+  &.threeCol {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .navlink {
+    background: none;
+    bottom: 10px;
+    cursor: default;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: auto;
+  }
+
+}

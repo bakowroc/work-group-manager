@@ -1,0 +1,23 @@
+@import '../../consts/styles/colors';
+
+.content {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  width: 100%;
+
+  thead,
+  tbody {
+    text-align: left;
+
+    td,
+    th {
+      border-bottom: 1px solid $color-gray-2 !important;
+      padding: 10px 0;
+    }
+  }
+
+  thead {
+    color: $color-main-gray;
+    margin-bottom: 30px;
+  }
+}

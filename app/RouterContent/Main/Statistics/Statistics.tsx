@@ -1,38 +1,14 @@
 import * as React from 'react';
 import { Icon } from 'react-fa';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { StatisticsDispatchProps, StatisticsStateProps } from './StatisticsProps';
+import { StatisticsProps } from './StatisticsProps';
 
 const styles: any = require('./Statistics.scss');
 
-export class StatisticsComponent extends React.Component<StatisticsStateProps & StatisticsDispatchProps> {
+export class Statistics extends React.Component<StatisticsProps> {
 
-  private statData: Array<any> = [];
-
-  public componentDidMount() {
-    this.statData = [
-      {
-        title: 'Active tasks',
-        value: this.props.tasks.length,
-        icon: 'tasks'
-      },
-      {
-        title: 'Users',
-        value: this.props.users.length,
-        icon: 'users'
-      },
-      {
-        title: 'Total time spent',
-        value: this.props.tasks.length,
-        icon: 'clock-o'
-      },
-    ];
-  }
-
-  private renderStatBox = ({title, value, icon}: any) => (
-    <div className={ styles.statBox }>
+  private renderStatBox = ({title, value, icon, key}: any) => (
+    <div className={ styles.statBox } key={ key }>
       <div className={ styles.title }>
         { title }
       </div>
@@ -48,22 +24,8 @@ export class StatisticsComponent extends React.Component<StatisticsStateProps & 
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
-        { this.props && this.statData.map(this.renderStatBox) }
+        { this.props.data.map(this.renderStatBox) }
       </div>
     );
   }
 }
-
-const mapStateToProps = (state: any): StatisticsStateProps => ({
-  users: state.data.users,
-  tasks: state.data.tasks,
-});
-
-const mapDispatchToProps = (dispatch: any): StatisticsDispatchProps => bindActionCreators({
-
-}, dispatch);
-
-export const Statistics = connect<StatisticsStateProps, StatisticsDispatchProps, any>(
-  mapStateToProps,
-  mapDispatchToProps
-)(StatisticsComponent);

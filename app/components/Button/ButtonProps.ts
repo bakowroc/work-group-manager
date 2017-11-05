@@ -4,5 +4,5 @@ export interface ButtonProps {
   contentClassName?: string;
   flat: boolean;
   type?: string;
-  onClick: (event: any) => void;
+  onClick?: (event: any) => void;
 }
