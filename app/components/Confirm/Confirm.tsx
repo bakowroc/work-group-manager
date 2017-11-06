@@ -54,14 +54,14 @@ class ConfirmComponent extends React.Component<ConfirmStateProps & ConfirmDispat
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: any): ConfirmStateProps => ({
   isOpen: state.confirm.isOpen,
   message: state.confirm.message,
   label: state.confirm.label,
   onConfirm: state.confirm.onConfirm
 });
 
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+const mapDispatchToProps = (dispatch: any): ConfirmDispatchProps => bindActionCreators({
   toggleConfirm
 }, dispatch);
 
