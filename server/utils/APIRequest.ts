@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
 import { Model } from 'mongoose';
 
+import { Config } from '../config';
 import { PopulateQuery, ResponseHandler } from '../types/typings';
 
 class APIRequest {
@@ -58,6 +60,40 @@ class APIRequest {
         this.JSONResponse(response, data);
       } catch (error) {
         this.JSONResponse(response, error);
+      }
+    }
+
+  public AUTHENTICATE = (User: Model<any>, Project: Model<any>): ResponseHandler =>
+    async (request: Request, response: Response): Promise<void> => {
+      try {
+        const project = await Project.findOne({name: request.body.project});
+        const user = await User.findOne({
+          email: request.body.email,
+          password: request.body.password
+        });
+
+        const jwtData = {
+          user,
+          project,
+          jwttoken: jwt.sign({slug: user.slug}, Config.SECRET, {expiresIn: 1440})
+        };
+        this.JSONResponse(response, jwtData);
+      } catch (error) {
+        this.JSONResponse(response, error);
+      }
+    }
+
+  public VERIFY = (): any =>
+    (request: Request, response: Response, next: any): void => {
+      try {
+        const token = request.body.token || request.query.token || request.headers['x-access-token'];
+        jwt.verify(token, Config.SECRET);
+        next();
+      } catch (error) {
+        this.JSONResponse(response, {
+          success: false,
+          error
+        });
       }
     }
 

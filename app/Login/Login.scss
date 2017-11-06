@@ -1,0 +1,67 @@
+@import '../consts/styles/colors';
+@import '../consts/styles/shadows';
+@import '../consts/styles/sizes';
+@import '../consts/styles/utils';
+
+.container {
+  align-items: center;
+  background: linear-gradient(to right,  $color-main-blue ,  $color-red);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+
+  .background {
+    bottom: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    overflow: hidden;
+    // padding: 100px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 50vw;
+    z-index: 9999;
+
+    .chip {
+      background: $color-blue;
+      border-radius: 20px;
+      height: 15px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      opacity: .1;
+
+      &:nth-child(2n) {
+        background: $color-red;
+      }
+
+      &:nth-child(3n) {
+        background: $color-main-gray;
+      }
+
+      &:nth-child(5n) {
+        background: $color-green;
+      }
+
+      &:nth-child(7n) {
+        background: $color-orange;
+      }
+    }
+  }
+
+  .content {
+    @include content-box;
+    @include shadow-depth-2;
+    padding: 40px;
+    width: 400px;
+    z-index: 999999;
+
+
+    .title {
+      font-size: $font-large-text;
+      margin-bottom: 40px;
+    }
+  }
+}

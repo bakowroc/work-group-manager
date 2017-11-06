@@ -1,6 +1,7 @@
 import { Action, createAction, handleActions } from 'redux-actions';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
+import { AUTHENTICATE, authenticateUser } from './requests/AuthActions';
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_ERROR, fetchError } from './requests/ErrorActions';
 import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
@@ -108,4 +109,8 @@ export function* watchIsDataFetching() {
 
 export function* watchReceiveDataFetching() {
   yield takeLatest(RECEIVE_DATA_FETCHED, dataWasFetched);
+}
+
+export function* watchAuthenticate() {
+  yield takeLatest(AUTHENTICATE, authenticateUser);
 }

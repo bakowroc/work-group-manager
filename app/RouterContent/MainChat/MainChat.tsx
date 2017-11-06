@@ -20,6 +20,14 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
     }
   };
 
+  public componentDidMount() {
+    const task: any = '';
+    this.setState((prev: any) => ({
+      ...prev,
+      chatRoom: {id: task, title: this.props.myTasks[task]}
+    }));
+  }
+
   private getChatTabs = (): Array<Switch> => [
     {
       label: 'General rooms',

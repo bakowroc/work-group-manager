@@ -23,6 +23,7 @@ export class Input extends React.Component<InputProps> {
       <div className={ styles.content } >
         <label className={ styles.label } >{ this.props.label }</label>
         <input
+          type={ this.props.type || 'input' }
           className={ styles.input }
           name={ this.props.name }
           onChange={ this.onChange }

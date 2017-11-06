@@ -10,6 +10,7 @@ import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
 import {
     watchAddTask,
+    watchAuthenticate,
     watchDeleteTask,
     watchFetchBoards,
     watchFetchMe,
@@ -20,7 +21,7 @@ import {
     watchUpdateBoard,
     watchUpdateTask
 } from './utils/axios/axios.duck';
-
+import { isLogged } from './utils/axios/parsers/query';
 import { fetchProjectAction } from './utils/axios/requests/ProjectActions';
 import { fetchMeUserAction } from './utils/axios/requests/UserActions';
 import { fetchUsersAction } from './utils/axios/requests/UsersActions';
@@ -37,10 +38,13 @@ sagaMiddleware.run(watchAddTask);
 sagaMiddleware.run(watchUpdateTask);
 sagaMiddleware.run(watchDeleteTask);
 sagaMiddleware.run(watchReceiveDataFetching);
+sagaMiddleware.run(watchAuthenticate);
 
-store.dispatch(fetchMeUserAction());
-store.dispatch(fetchUsersAction());
-store.dispatch(fetchProjectAction());
+if (isLogged()) {
+    store.dispatch(fetchMeUserAction());
+    store.dispatch(fetchUsersAction());
+    store.dispatch(fetchProjectAction());
+}
 
 ReactDOM.render(
     <Provider store={ store }>

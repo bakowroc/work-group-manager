@@ -6,25 +6,23 @@
   align-items: center;
   background: $color-main-gray;
   display: flex;
-  flex-direction: column;
-  height: 240px;
+  flex-direction: row;
+  height: 80px;
   justify-content: space-around;
   overflow: hidden;
-  padding: 20px;
   position: relative;
 }
 
 .userAvatar {
-  @include shadow-depth-3;
   align-items: center;
-  background: $color-orange;
+  background: $color-green;
   border-radius: 100%;
   display: flex;
-  font-size: $font-main-title;
-  height: 100px;
+  font-size: $font-large-text;
+  height: 50px;
   justify-content: center;
   text-transform: uppercase;
-  width: 100px;
+  width: 50px;
   z-index: $index-on-top;
 }
 
@@ -36,13 +34,14 @@
 
   .userName {
     color: $color-main-white;
-    font-size: $font-large-text;
+    font-size: $font-paragraph;
     font-weight: 500;
     margin-bottom: 5px;
     z-index: $index-on-top;
   }
 
   .userEmail {
-    color: $color-gray-5;
+    color: $color-gray-3;
+    font-size: $font-subtitle;
   }
 }

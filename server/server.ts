@@ -10,6 +10,7 @@ import ProjectRoutes from './router/controllers/ProjectController';
 import TaskRoutes from './router/controllers/TaskController';
 import UserRoutes from './router/controllers/UserController';
 import { Route } from './router/routes';
+import APIRequest from './utils/APIRequest';
 
 class Server {
   public app: Application;
@@ -32,6 +33,7 @@ class Server {
   }
 
   private routes = (): void => {
+    this.app.use(Config.API_PATH + 'board', APIRequest.VERIFY());
     this.app.use(Config.API_PATH + Route.BOARD, BoardRoutes);
     this.app.use(Config.API_PATH + Route.TASK, TaskRoutes);
     this.app.use(Config.API_PATH + Route.USER, UserRoutes);

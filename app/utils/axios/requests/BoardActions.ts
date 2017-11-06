@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
-import { axios } from '../axios';
+import { axios, headers } from '../axios';
 import { createReqQuery } from '../parsers/query';
 import { fetchError } from '../requests/ErrorActions';
 import { fetchProjectAction } from './ProjectActions';
@@ -21,7 +21,7 @@ const getBoards = createAction<any>(GET_BOARDS);
 function* fetchBoards(action: Action<string>) {
   try {
     const project = action.payload;
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/board?project=${project}`);
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/board?project=${project}`, {headers});
     const boards = data.responseData;
     const getTaskQuery = createReqQuery(boards, 'board');
     yield [

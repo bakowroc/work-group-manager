@@ -1,3 +1,4 @@
+import * as jwtdecode from 'jwt-decode';
 import { createAction } from 'redux-actions';
 import { call, put } from 'redux-saga/effects';
 
@@ -15,7 +16,8 @@ const getMeUser = createAction<any>(GET_ME_USER);
 
 function* fetchMe() {
   try {
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, '/api/user/papa');
+    const {slug} = jwtdecode(localStorage.getItem('jwttoken'));
+    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `api/user/${slug}`);
     yield put(getMeUser(data.responseData));
   } catch {
     yield put(fetchError('error'));

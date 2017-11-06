@@ -2,7 +2,21 @@
 @import '../consts/styles/shadows';
 
 .content {
+  @include shadow-depth-5;
   background: $color-main-white;
   color: $color-main-white;
   grid-area: sidebar;
+  position: relative;
+
+  .logoutButton {
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+
+    .button {
+      color: $color-red;
+    }
+  }
 }
