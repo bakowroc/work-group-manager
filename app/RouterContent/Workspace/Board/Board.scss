@@ -8,6 +8,10 @@
   @include board-box($color-gray-5);
   height: 100%;
 
+  .title {
+    position: relative;
+  }
+
   .noTasksInfo {
     color: $color-gray-4;
     display: flex;

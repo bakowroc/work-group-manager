@@ -11,5 +11,5 @@ export interface TaskDetailsDispatchProps {
   toggleSnackbar: (message: SnackbarMessage) => void;
   deleteTaskAction: (body: any) => void;
   updateTaskAction: (body: any) => void;
-  toggleConfirm: () => void;
+  toggleConfirm: (payload: any) => void;
 }

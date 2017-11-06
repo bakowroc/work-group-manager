@@ -1,0 +1,21 @@
+@import '../../consts/styles/utils';
+@import '../../consts/styles/sizes';
+
+.content {
+  @include content-box;
+  border-radius: 0;
+  bottom: calc(-100% + 13px);
+  position: absolute;
+  right: 0;
+  z-index: $index-on-top;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.close {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

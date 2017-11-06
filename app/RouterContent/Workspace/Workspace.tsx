@@ -1,8 +1,10 @@
 import { get, groupBy, isEmpty, orderBy } from 'lodash';
 import * as React from 'react';
+import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { FloatingButton } from '../../components/FloatingButton/FloatingButton';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 import { Board } from './Board/Board';
@@ -39,6 +41,14 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
     />
   )
 
+  private renderAddBoardButton = (): JSX.Element => (
+    <FloatingButton
+      label={ <Icon name="plus" /> }
+      onClick={ this.props.toggleAddTaskForm }
+      flat={ false }
+    />
+  )
+
   public render() {
     return (
       <div>
@@ -47,6 +57,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
         </div>
         { this.renderTaskDetails() }
         { this.renderAddTaskForm() }
+        { this.renderAddBoardButton() }
       </div>
     );
   }

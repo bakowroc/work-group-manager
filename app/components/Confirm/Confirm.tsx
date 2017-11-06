@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '../Button';
 import { toggleConfirm } from './confirm.duck';
-import { ConfirmDispatchProps, ConfirmProps, ConfirmStateProps } from './ConfirmProps';
+import { ConfirmDispatchProps, ConfirmStateProps } from './ConfirmProps';
 
 const styles: any = require('./Confirm.scss');
 
-class ConfirmComponent extends React.Component<ConfirmProps & ConfirmStateProps & ConfirmDispatchProps> {
+class ConfirmComponent extends React.Component<ConfirmStateProps & ConfirmDispatchProps> {
 
   private onConfirm = (): void => {
     this.props.onConfirm();
@@ -55,14 +55,17 @@ class ConfirmComponent extends React.Component<ConfirmProps & ConfirmStateProps 
 }
 
 const mapStateToProps = (state: any) => ({
-  isOpen: state.confirm.isOpen
+  isOpen: state.confirm.isOpen,
+  message: state.confirm.message,
+  label: state.confirm.label,
+  onConfirm: state.confirm.onConfirm
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   toggleConfirm
 }, dispatch);
 
-export const Confirm = connect<ConfirmStateProps, ConfirmDispatchProps, ConfirmProps>(
+export const Confirm = connect<ConfirmStateProps, ConfirmDispatchProps, any>(
   mapStateToProps,
   mapDispatchToProps
 )(ConfirmComponent);

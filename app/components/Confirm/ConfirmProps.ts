@@ -1,11 +1,9 @@
-export interface ConfirmProps {
-  label?: string;
-  message?: string;
-  onConfirm: () => void;
-}
 export interface ConfirmDispatchProps {
-  toggleConfirm: () => void;
+  toggleConfirm: (payload?: any) => void;
 }
 export interface ConfirmStateProps {
   isOpen: boolean;
+  label?: string;
+  message?: string;
+  onConfirm: () => void;
 }
