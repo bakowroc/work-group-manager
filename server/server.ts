@@ -1,7 +1,9 @@
 import * as bodyParser from 'body-parser';
 import { Application, Router } from 'express';
 import * as Express from 'express';
+import { Server as HTTPServer } from 'http';
 import * as path from 'path';
+import * as socket from 'socket.io';
 
 import { Config } from './config';
 import Database from './database';
@@ -48,4 +50,5 @@ class Server {
   }
 }
 
-export default new Server().app;
+const app = new Server().app;
+export default new HTTPServer(app);

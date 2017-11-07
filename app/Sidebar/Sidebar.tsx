@@ -6,10 +6,16 @@ import { MenuItem, MenuItemProps } from '../components/Menu/MenuItem';
 import { logout } from '../utils/axios/parsers/query';
 import { Profile } from './Profile/Profile';
 import { MENU_ELEMENTS } from './SidebarData';
+import { socketMiddleware } from '../middleware/socket';
 
 const styles: any = require('./Sidebar.scss');
 
 export class Sidebar extends React.Component<{}> {
+
+  private emit = () => {
+    console.log('calling emitter');
+    socketMiddleware.emit('input', [{dupa: 'dddd'}]);
+  }
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
@@ -22,6 +28,12 @@ export class Sidebar extends React.Component<{}> {
           <Button
             label="Logout"
             onClick={ logout }
+            flat={ true }
+            buttonClassName={ styles.button }
+          />
+          <Button
+            label="Emit"
+            onClick={ this.emit }
             flat={ true }
             buttonClassName={ styles.button }
           />

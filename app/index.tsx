@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 
 import { AppContainer } from './AppContainer';
 import { sagaMiddleware } from './middleware/saga';
+import { socketMiddleware } from './middleware/socket';
 import configure from './store';
 import {
     watchAddTask,
@@ -40,6 +41,8 @@ sagaMiddleware.run(watchDeleteTask);
 sagaMiddleware.run(watchReceiveDataFetching);
 sagaMiddleware.run(watchAuthenticate);
 
+socketMiddleware.on('output', (data: any) => alert(data));
+
 if (isLogged()) {
     store.dispatch(fetchMeUserAction());
     store.dispatch(fetchUsersAction());
@@ -47,7 +50,7 @@ if (isLogged()) {
 }
 
 ReactDOM.render(
-    <Provider store={ store }>
+    <Provider store={ store } >
       <AppContainer />
      </Provider>,
     document.getElementById('root')
