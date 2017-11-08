@@ -1,7 +1,7 @@
 export interface ChatMessageProps {
   author: string;
-  postedDate: Date;
-  messageContent: string;
+  createdAt: Date;
+  message: string;
   messageAuthorClassName?: string;
   messageTextClassName?: string;
 }

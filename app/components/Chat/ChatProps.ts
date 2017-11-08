@@ -8,4 +8,6 @@ export interface ChatProps {
   chatRoomId: string;
   title: string;
   placeholder?: string;
+  onMessageSent: (data: any) => void;
+  data: Array<any>;
 }

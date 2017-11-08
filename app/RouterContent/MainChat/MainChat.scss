@@ -16,6 +16,13 @@
     height: 100%;
     width: 75%;
 
+    .chatTitle {
+      color: $color-main-gray;
+      font-size: $font-main-title;
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+
     .chatContent {
       height: 100%;
       padding: 20px;

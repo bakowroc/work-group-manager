@@ -3,6 +3,7 @@ import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { AUTHENTICATE, authenticateUser } from './requests/AuthActions';
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
+import { FETCH_CHATS, fetchChats, GET_CHATS } from './requests/ChatActions';
 import { FETCH_ERROR, fetchError } from './requests/ErrorActions';
 import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
 import {
@@ -38,6 +39,9 @@ const initialState = {
   tasks: [
     {}
   ],
+  chats: [
+    {}
+  ],
   isDataFetching: true
 };
 
@@ -47,6 +51,7 @@ export default handleActions({
   [GET_PROJECT]: (state: any, action: Action<any>) => ({...state, project: action.payload}),
   [GET_BOARDS]: (state: any, action: Action<any>) => ({...state, boards: action.payload}),
   [GET_TASKS]: (state: any, action: Action<any>) => ({...state, tasks: action.payload}),
+  [GET_CHATS]: (state: any, action: Action<any>) => ({...state, chats: action.payload}),
   [FETCH_ERROR]: (state: any, action: Action<any>) => ({...state, error: action.payload}),
   [SET_DATA_WAS_FETCHED]: (state: any) => ({...state, isDataFetching: false})
 }, initialState);
@@ -85,6 +90,10 @@ export function* watchFetchBoards() {
 
 export function* watchUpdateBoard() {
   yield takeEvery(UPDATE_BOARD, updateBoard);
+}
+
+export function* watchFetchChats() {
+  yield takeLatest(FETCH_CHATS, fetchChats);
 }
 
 export function* watchFetchTasks() {

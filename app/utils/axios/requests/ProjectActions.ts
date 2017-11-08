@@ -8,6 +8,7 @@ import { axios } from '../axios';
 import { ProjectState } from '../../../data/project/ProjectState';
 import { fetchError } from '../requests/ErrorActions';
 import { fetchBoardsAction } from './BoardActions';
+import { fetchChatsAction } from './ChatActions';
 
 const FETCH_PROJECT = 'FETCH_PROJECT';
 const fetchProjectAction = createAction(FETCH_PROJECT);
@@ -30,7 +31,8 @@ function* fetchProject() {
     const project = data.responseData[0];
     yield [
       put(getProject(project)),
-      put(fetchBoardsAction(project._id))
+      put(fetchBoardsAction(project._id)),
+      put(fetchChatsAction(project._id))
     ];
   } catch {
     yield put(fetchError('error'));

@@ -1,6 +1,8 @@
 import { Server } from 'http';
 import * as socketClient from 'socket.io';
-import TaskModel from './models/TaskModel';
+import ChatMessageModel from './models/ChatMessageModel';
+import ChatModel from './models/ChatModel';
+import ProjectModel from './models/ProjectModel';
 
 class Socket {
 
@@ -13,18 +15,34 @@ class Socket {
 
   public connect = (server: Server): void => {
     this.server = server;
-    this.listen();
+    this.emitter();
   }
 
-  private listen = (): void => {
-    this.client
-      .listen(this.server)
-      .sockets
-      .on('connection', this.emitter);
+  private listen = (): any => this.client.listen(this.server);
+
+  private emitter = (): void => {
+    this.listen().on('connection', this.chatEmitter);
   }
 
-  private emitter = (socket: any): void => {
-    socket.on('input', (data: Array<any>) => socket.broadcast.emit('output', {data}));
+  private chatEmitter =  (socket: any): void => {
+    try {
+      socket.on('joinChatRoom', async (room: string) => {
+        socket.removeAllListeners();
+        socket.leave();
+        socket.join(room);
+        socket.broadcast.to(room).emit('someoneJoins', room);
+
+        const messages = await ChatMessageModel.find();
+        socket.emit('returnChatMessage', messages);
+
+        socket.on('newMessageEmit', (data: Array<any>) => {
+          new ChatMessageModel(data).save();
+          socket.to(room).emit('returnChatMessage', data);
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

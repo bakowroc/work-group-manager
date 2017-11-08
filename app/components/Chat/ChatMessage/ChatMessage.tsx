@@ -12,20 +12,20 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
       <div className={ styles.content }>
         <div className={ `${styles.author} ${this.props.messageAuthorClassName}` }>
           <div className={ styles.authorAvatar }>
-            { this.props.author[0] }
+            { this.props.author }
           </div>
           <div className={ styles.authorName }>
             { this.props.author }
           </div>
-          <div className={ styles.postedDate }>
+          <div className={ styles.createdAt }>
             <Moment
               format="hh:mm"
-              date={ this.props.postedDate }
+              date={ this.props.createdAt }
             />
           </div>
         </div>
         <p className={ `${styles.message} ${this.props.messageTextClassName}` }>
-          { this.props.messageContent }
+          { this.props.message }
         </p>
       </div>
     );

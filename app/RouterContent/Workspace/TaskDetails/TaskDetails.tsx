@@ -153,6 +153,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
       chatClassName={ styles.taskChatroom }
       titleClassName={ styles.chatTitle }
       inputClassName={ styles.messageInputArea}
+      onMessageSent={alert}
     />
   )
 

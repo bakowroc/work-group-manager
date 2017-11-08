@@ -8,6 +8,7 @@ import * as socket from 'socket.io';
 import { Config } from './config';
 import Database from './database';
 import BoardRoutes from './router/controllers/BoardController';
+import ChatRoutes from './router/controllers/ChatController';
 import ProjectRoutes from './router/controllers/ProjectController';
 import TaskRoutes from './router/controllers/TaskController';
 import UserRoutes from './router/controllers/UserController';
@@ -37,6 +38,7 @@ class Server {
   private routes = (): void => {
     this.app.use(Config.API_PATH + 'board', APIRequest.VERIFY());
     this.app.use(Config.API_PATH + Route.BOARD, BoardRoutes);
+    this.app.use(Config.API_PATH + Route.CHAT, ChatRoutes);
     this.app.use(Config.API_PATH + Route.TASK, TaskRoutes);
     this.app.use(Config.API_PATH + Route.USER, UserRoutes);
     this.app.use(Config.API_PATH + Route.PROJECT, ProjectRoutes);
