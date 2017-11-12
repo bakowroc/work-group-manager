@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Button } from '../components/Button';
 import { Form } from '../components/Form';
 import { Input } from '../components/Form/Input';
 import { authenticateAction } from '../utils/axios/requests/AuthActions';
@@ -30,16 +31,31 @@ export class LoginComponent extends React.Component<LoginDispatchProps> {
     return (
       <div className={ styles.container }>
         { this.renderBackground() }
-        <div className={ styles.content }>
-          <div className={ styles.title }>
-            Sign in to your workspace
+          <div className={ styles.applicationHeader }>
+            <div className={ styles.logo }/>
+            <div className={ styles.appName }>
+              <h1>Work group manager</h1>
+              <h3>Keep your stuff together</h3>
+            </div>
+            <div className={ styles.registerButton }>
+              <Button
+                label="Make a fresh start"
+                flat={ false }
+                onClick={ () => location.replace('/register') }
+                buttonClassName={ styles.button }
+              />
+            </div>
           </div>
-          <Form onSubmit={ this.props.authenticateAction } >
-            <Input name="project" label="Project name" />
-            <Input type="email" name="email" label="Email address" />
-            <Input type="password" name="password" label="Password" />
-          </Form>
-        </div>
+          <div className={ styles.formContent }>
+            <div className={ styles.title }>
+              Sign in to your workspace
+            </div>
+            <Form onSubmit={ this.props.authenticateAction } >
+              <Input name="project" label="Project name" />
+              <Input type="email" name="email" label="Email address" />
+              <Input type="password" name="password" label="Password" />
+            </Form>
+          </div>
       </div>
     );
   }

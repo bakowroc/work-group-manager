@@ -51,9 +51,44 @@
     }
   }
 
-  .content {
+  .applicationHeader {
+    margin-right: 120px;
+
+    .appName {
+      h1,
+      h3 {
+        color: $color-main-white;
+      }
+
+      h1 {
+        font-size: $font-main-title;
+        font-weight: 500;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        font-size: $font-large-text;
+        font-weight: 300;
+        margin: 0;
+      }
+    }
+
+    .registerButton {
+      margin-top: 40px;
+      display: flex;
+      width: auto;
+
+      .button {
+        background: $color-main-white;
+        color: $color-main-blue;
+      }
+    }
+  }
+
+  .formContent {
     @include content-box;
-    @include shadow-depth-2;
+    @include shadow-depth-5;
     padding: 40px;
     width: 400px;
     z-index: 999999;

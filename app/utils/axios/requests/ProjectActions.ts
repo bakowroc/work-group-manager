@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { Action, createAction } from 'redux-actions';
 import { call, put } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
@@ -12,6 +12,9 @@ import { fetchChatsAction } from './ChatActions';
 
 const FETCH_PROJECT = 'FETCH_PROJECT';
 const fetchProjectAction = createAction(FETCH_PROJECT);
+
+const ADD_PROJECT = 'ADD_PROJECT';
+const addProjectAction = createAction(ADD_PROJECT);
 
 const GET_PROJECT = 'GET_PROJECT';
 const getProject = createAction<any>(GET_PROJECT);
@@ -39,9 +42,20 @@ function* fetchProject() {
   }
 }
 
+function* addProject(action: Action<any>) {
+  try {
+    yield call(axios.post, '/api/user', action.payload);
+  } catch (error) {
+    yield put(fetchError(error));
+  }
+}
+
 export {
   DEFAULT_PROJECT_STATE,
   FETCH_PROJECT,
+  ADD_PROJECT,
+  addProject,
+  addProjectAction,
   fetchProject,
   fetchProjectAction,
   GET_PROJECT,

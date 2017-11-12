@@ -1,4 +1,5 @@
 import { isUndefined } from 'lodash';
+import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,11 +14,11 @@ const styles: any = require('./Chat.scss');
 
 export class ChatComponent extends React.Component<ChatStateProps & ChatProps & ChatDispatchProps> {
 
-  public state = {
+  public state: any = {
     id: location.search.split('?')[1],
     title: '',
     description: '',
-    history: [{}]
+    history: []
   };
 
   private watchChatActivity = (): void => {
@@ -52,7 +53,7 @@ export class ChatComponent extends React.Component<ChatStateProps & ChatProps & 
   }
 
   private renderChatHistory = (): Array<JSX.Element> =>
-    this.state.history.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    this.state.history.reverse()
       .filter((message: any) => !isUndefined(message._id))
       .map((messageProps: any, key: number) => (
         <ChatMessage

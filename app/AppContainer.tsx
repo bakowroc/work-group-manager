@@ -8,6 +8,7 @@ import { Login } from './Login/Login';
 import history from './middleware/history';
 import { Navigation } from './Navigation/Navigation';
 import { Notification } from './Notification/Notification';
+import { Register } from './Register/Register';
 import { Main } from './RouterContent/Main/Main';
 import { MainChat } from './RouterContent/MainChat/MainChat';
 import { Workspace } from './RouterContent/Workspace/Workspace';
@@ -40,7 +41,8 @@ export class AppContainer extends React.Component<{}> {
 
   private renderNoAuthContent = (): JSX.Element => (
     <div>
-      <Route exact={ false } path="/" component={ Login } />
+      <Route exact={ true } path="/" component={ Login } />
+      <Route exact={ true } path="/register" component={ Register } />
     </div>
   )
 

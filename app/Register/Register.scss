@@ -1,0 +1,23 @@
+@import '../consts/styles/utils';
+@import '../consts/styles/colors';
+
+.container {
+  align-items: center;
+  background: $color-main-blue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+
+  .content {
+    @include content-box;
+    @include shadow-depth-5;
+    padding: 40px;
+    width: 400px;
+  }
+
+  .backToLoginButton {
+    margin-top: 20px;
+  }
+}

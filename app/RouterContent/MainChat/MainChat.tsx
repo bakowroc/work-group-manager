@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty, isUndefined } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,10 +16,6 @@ import { MainChatDispatchProps,  MainChatStateProps } from './MainChatProps';
 const styles: any = require('./MainChat.scss');
 
 class MainChatComponent extends React.Component<MainChatStateProps & MainChatDispatchProps> {
-
-  public state = {
-   chat: [{}]
-  };
 
   private getChatTabs = (): Array<Switch> => [
     {
@@ -49,25 +45,19 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
     />
   )
 
-  private renderSidebar = (): JSX.Element => {
-   return this.props.chats.length > 0
-   && this.props.myTasks.length > 0
-   && (
-   <Tabs
-    menuClassName={ styles.tabsMenu }
-    switchClassName={ styles.tabsSwitch }
-    activeSwitchClassName={ styles.tabsActiveSwitch }
-    items={ this.getChatTabs() }
-   />);
-  }
+  private renderSidebar = (): JSX.Element => (
+    <Tabs
+      menuClassName={ styles.tabsMenu }
+      switchClassName={ styles.tabsSwitch }
+      activeSwitchClassName={ styles.tabsActiveSwitch }
+      items={ this.getChatTabs() }
+    />
+  )
 
   private renderChatRoomLabel = (chat: ChatState, key: number): JSX.Element => (
     <MenuItem
       key={ key }
-      labelClassName={
-        `${styles.tasksChatRoomsListLabel}
-         ${chat._id === location.search.split('?')[1] || chat.name === 'random' ? styles.activeTabMenuLabel : ''}`
-      }
+      labelClassName={ styles.tasksChatRoomsListLabel }
       label={ `@ ${chat.name}` }
       linkTo={ `/chat?${chat._id}`}
       onClick={ () => this.onChatRoomChange(chat) }
@@ -75,10 +65,12 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
   )
 
   private renderTasksChatRoomsList = (): Array<JSX.Element> =>
-    !isEmpty(this.props.myTasks[0]) && this.props.myTasks.map(({chat}, key) => this.renderChatRoomLabel(chat, key))
+    !isEmpty(this.props.myTasks) && this.props.myTasks
+      .filter(({chat}) => !isUndefined(chat))
+      .map(({chat}, key) => this.renderChatRoomLabel(chat, key))
 
   private renderChatRoomsList = (): Array<JSX.Element> =>
-    !isEmpty(this.props.chats[0]) && this.props.chats
+    !isEmpty(this.props.chats) && this.props.chats
         .filter((chat) => chat.type === 'public')
         .map(this.renderChatRoomLabel)
 
@@ -86,7 +78,7 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
     return(
       <div className={ styles.content }>
         <div className={ styles.chatRoom }>
-        { this.renderChatRoom() }
+        { !isEmpty(this.props.chats) && this.renderChatRoom() }
       </div>
       <div className={ styles.chatSidebar }>
         { this.renderSidebar() }

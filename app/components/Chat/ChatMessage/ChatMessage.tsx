@@ -13,7 +13,7 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
         <div className={ styles.postedDate }>
           { moment(this.props.createdAt).fromNow() }
         </div>
-        <div className={ styles.authorName }>
+        <div className={ `${styles.authorName} ${this.props.messageAuthorClassName}` }>
           { this.props.author.username }
         </div>
       </div>
@@ -29,7 +29,7 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
     return (
       <div className={ styles.content }>
         { !isUndefined(this.props.author) && this.renderAuthorAvatar() }
-        <div className={ `${styles.right} ${this.props.messageAuthorClassName}` }>
+        <div className={ styles.right }>
           { !isUndefined(this.props.author) && this.renderAuthorDetails() }
           <p className={ `${styles.message} ${this.props.messageTextClassName}` }>
             { this.props.message }

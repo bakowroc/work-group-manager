@@ -5,7 +5,7 @@ import { AUTHENTICATE, authenticateUser } from './requests/AuthActions';
 import { FETCH_BOARDS, fetchBoards, GET_BOARDS, UPDATE_BOARD, updateBoard } from './requests/BoardActions';
 import { FETCH_CHATS, fetchChats, GET_CHATS } from './requests/ChatActions';
 import { FETCH_ERROR, fetchError } from './requests/ErrorActions';
-import { DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
+import { ADD_PROJECT, addProject, DEFAULT_PROJECT_STATE, FETCH_PROJECT, fetchProject, GET_PROJECT } from './requests/ProjectActions';
 import {
   ADD_TASK,
   addTask,
@@ -18,7 +18,7 @@ import {
   updateTask
 } from './requests/TaskActions';
 import { FETCH_ME_USER, fetchMe, GET_ME_USER } from './requests/UserActions';
-import { FETCH_USERS, fetchUsers, GET_USERS } from './requests/UsersActions';
+import { ADD_USER, addUser, FETCH_USERS, fetchUsers, GET_USERS } from './requests/UsersActions';
 
 const RECEIVE_DATA_FETCHED = 'RECEIVE_DATA_FETCHED';
 const receiveDataFetched = createAction(RECEIVE_DATA_FETCHED);
@@ -26,22 +26,14 @@ const receiveDataFetched = createAction(RECEIVE_DATA_FETCHED);
 const SET_DATA_WAS_FETCHED = 'SET_DATA_WAS_FETCHED';
 const setDataWasFetched = createAction(SET_DATA_WAS_FETCHED);
 
-const initialState = {
+const initialState: any = {
   error: '',
   me: {},
-  users: [
-    {}
-  ],
+  users: [],
   project: DEFAULT_PROJECT_STATE,
-  boards: [
-    {}
-  ],
-  tasks: [
-    {}
-  ],
-  chats: [
-    {}
-  ],
+  boards: [],
+  tasks: [],
+  chats: [],
   isDataFetching: true
 };
 
@@ -80,8 +72,16 @@ export function* watchFetchUsers() {
   yield takeLatest(FETCH_USERS, fetchUsers);
 }
 
+export function* watchAddUser() {
+  yield takeLatest(ADD_USER, addUser);
+}
+
 export function* watchFetchProject() {
   yield takeLatest(FETCH_PROJECT, fetchProject);
+}
+
+export function* watchAddProject() {
+  yield takeLatest(ADD_PROJECT, addProject);
 }
 
 export function* watchFetchBoards() {
