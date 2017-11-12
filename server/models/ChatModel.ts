@@ -1,7 +1,5 @@
 import { model, Schema } from 'mongoose';
 
-import { generateRandomSlug } from './../utils/helpers';
-
 const ChatSchema = new Schema({
   name: {
     required: true,
@@ -26,13 +24,7 @@ const ChatSchema = new Schema({
     default: new Date(),
     required: true,
     type: Date
-  },
-  slug: {
-    default: generateRandomSlug(),
-    required: true,
-    type: String,
-    unique: true
-  },
+  }
 });
 
 export default model('Chat', ChatSchema);

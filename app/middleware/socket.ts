@@ -5,8 +5,7 @@ class SocketMiddleware {
   private socketListener: any;
 
   constructor() {
-    this.socketListener = SocketIO('http://localhost:3000');
-    this.socketListener.removeAllListeners();
+    this.socketListener = SocketIO(location.origin);
   }
 
   public watch = (eventIdentifier: string, callback: any): void => {

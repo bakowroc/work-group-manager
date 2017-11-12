@@ -1,5 +1,7 @@
+import { UserState } from './../../../data/user/UserState';
+
 export interface ChatMessageProps {
-  author: string;
+  author: UserState;
   createdAt: Date;
   message: string;
   messageAuthorClassName?: string;

@@ -9,16 +9,9 @@ const styles: any = require('./Tabs.scss');
 export class Tabs extends React.Component<TabsProps> {
 
   public state = {
-    activeSwitch: '',
-    activeContent: ''
+    activeSwitch: this.props.items[0].label,
+    activeContent: this.props.items[0].content
   };
-
-  public componentWillMount() {
-    this.state = {
-      activeSwitch: this.props.items[0].label,
-      activeContent: this.props.items[0].content
-    };
-  }
 
   private getSwitchClassName = ({label}: Switch): string => {
     const isActiveClass = `${this.state.activeSwitch === label ? this.props.activeSwitchClassName : ''}`;

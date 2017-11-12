@@ -10,11 +10,10 @@ const JOIN_CHAT = 'JOIN_CHAT';
 export const joinChatAction = createAction<any>(JOIN_CHAT);
 
 function sendChatMessage(action: any) {
-  socketMiddleware.emit('newMessageEmit', action.payload);
+  socketMiddleware.emit('newChatMessageIncome', action.payload);
 }
 
 function joinChat(action: any) {
-  console.log('calling join')
   socketMiddleware.emit('joinChatRoom', action.payload);
 }
 

@@ -20,7 +20,6 @@
       color: $color-main-gray;
       font-size: $font-main-title;
       font-weight: 500;
-      margin-bottom: 40px;
     }
 
     .chatContent {
@@ -78,5 +77,13 @@
       color: $color-main-white;
     }
   }
+}
 
+.activeTabMenuLabel {
+  background: $color-green;
+
+  &:hover {
+    background: $color-green;
+    pointer-events: none;
+  }
 }

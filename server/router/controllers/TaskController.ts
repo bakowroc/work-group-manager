@@ -19,6 +19,7 @@ class TaskController {
     {path: 'board', select: ''},
     {path: 'subtasks', select: ''},
     {path: 'tags', select: ''},
+    {path: 'chat', select: ''},
   ])
 
   private getManyElementRoutes = (): void => {

@@ -87,6 +87,10 @@
   position: relative;
   width: 30%;
 
+  .chatMessageAuthor {
+    color: $color-main-white !important;
+  }
+
   .chatTitle {
     color: $color-main-white;
     font-size: $font-secondary-title;

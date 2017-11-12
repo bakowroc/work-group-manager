@@ -17,9 +17,10 @@ export class InputEdit extends React.Component<InputEditProps> {
   };
 
   public componentDidMount() {
+    const value = this.props.text ? this.props.text : '';
     this.setState((prev: any) => ({
       ...prev,
-      value: this.props.text
+      value
     }));
   }
 
@@ -53,6 +54,10 @@ export class InputEdit extends React.Component<InputEditProps> {
     }));
 
     this.props.onLeave(event.currentTarget.value);
+
+    if (this.props.eraseOnLeave) {
+      event.currentTarget.value = null;
+    }
   }
 
   private getInputClassName = (): string => {

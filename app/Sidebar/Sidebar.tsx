@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Button } from '../components/Button';
 import { Menu } from '../components/Menu';
 import { MenuItem, MenuItemProps } from '../components/Menu/MenuItem';
-import { socketMiddleware } from '../middleware/socket';
 import { logout } from '../utils/axios/parsers/query';
 import { Profile } from './Profile/Profile';
 import { MENU_ELEMENTS } from './SidebarData';

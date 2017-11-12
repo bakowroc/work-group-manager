@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 
 import { AppContainer } from './AppContainer';
 import { sagaMiddleware } from './middleware/saga';
-import { socketMiddleware } from './middleware/socket';
 import configure from './store';
 import {
     watchAddTask,

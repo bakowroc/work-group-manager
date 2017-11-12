@@ -10,4 +10,5 @@ export interface ChatState {
   project: ProjectState;
   createdAt: Date;
   slug: string;
+  type: string;
 }

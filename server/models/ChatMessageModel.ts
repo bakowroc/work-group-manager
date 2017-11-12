@@ -1,7 +1,5 @@
 import { model, Schema } from 'mongoose';
 
-import { generateRandomSlug } from './../utils/helpers';
-
 const ChatMessageSchema = new Schema({
   author: {
     ref: 'User',
@@ -19,13 +17,7 @@ const ChatMessageSchema = new Schema({
   chat: {
     ref: 'Chat',
     type: Schema.Types.ObjectId
-  },
-  slug: {
-    default: generateRandomSlug(),
-    required: true,
-    type: String,
-    unique: true
-  },
+  }
 });
 
 export default model('ChatMessage', ChatMessageSchema);

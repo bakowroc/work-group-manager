@@ -148,12 +148,13 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
   private renderTaskChatroom = (): JSX.Element => (
     <Chat
       title="Chat room"
-      chatRoomId={ this.props.task._id }
+      noDescription={ true }
+      messageAuthorClassName={ styles.chatMessageAuthor }
       historyClassName={ styles.historyChat }
       chatClassName={ styles.taskChatroom }
       titleClassName={ styles.chatTitle }
-      inputClassName={ styles.messageInputArea}
-      onMessageSent={alert}
+      inputClassName={ styles.messageInputArea }
+      default={ this.props.task.chat }
     />
   )
 
@@ -171,7 +172,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     <div className={ styles.content }>
      <div className={ styles.taskBody }>
         { !isEmpty(this.props.task) && this.renderTaskDetails() }
-        { this.renderTaskChatroom() }
+        { !isUndefined(this.props.task.chat) && this.renderTaskChatroom() }
       </div>
       { this.renderButtons() }
     </div>

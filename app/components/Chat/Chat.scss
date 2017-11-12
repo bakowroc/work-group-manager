@@ -10,7 +10,17 @@
   position: relative;
   width: 30%;
 
+  .chatDescription {
+    color: $color-gray-4;
+    font-size: $font-large-text;
+    font-weight: 300;
+  }
+
   .history {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 10px;
+    max-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
   }

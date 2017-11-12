@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route  } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 
 import { Confirm } from './components/Confirm';
 import { Snackbar } from './components/Snackbar';
 import { Splash } from './components/Spalsh';
 import { Login } from './Login/Login';
+import history from './middleware/history';
 import { Navigation } from './Navigation/Navigation';
 import { Notification } from './Notification/Notification';
 import { Main } from './RouterContent/Main/Main';
@@ -45,7 +46,7 @@ export class AppContainer extends React.Component<{}> {
 
   public render() {
     return (
-      <Router>
+      <Router history={ history } >
         { isLogged()
           ? this.renderAuthContent()
           : this.renderNoAuthContent() }

@@ -3,7 +3,6 @@ import { Application, Router } from 'express';
 import * as Express from 'express';
 import { Server as HTTPServer } from 'http';
 import * as path from 'path';
-import * as socket from 'socket.io';
 
 import { Config } from './config';
 import Database from './database';
@@ -13,7 +12,6 @@ import ProjectRoutes from './router/controllers/ProjectController';
 import TaskRoutes from './router/controllers/TaskController';
 import UserRoutes from './router/controllers/UserController';
 import { Route } from './router/routes';
-import APIRequest from './utils/APIRequest';
 
 class Server {
   public app: Application;
@@ -36,7 +34,6 @@ class Server {
   }
 
   private routes = (): void => {
-    this.app.use(Config.API_PATH + 'board', APIRequest.VERIFY());
     this.app.use(Config.API_PATH + Route.BOARD, BoardRoutes);
     this.app.use(Config.API_PATH + Route.CHAT, ChatRoutes);
     this.app.use(Config.API_PATH + Route.TASK, TaskRoutes);

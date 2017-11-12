@@ -2,46 +2,43 @@ import { Server } from 'http';
 import * as socketClient from 'socket.io';
 import ChatMessageModel from './models/ChatMessageModel';
 import ChatModel from './models/ChatModel';
-import ProjectModel from './models/ProjectModel';
 
 class Socket {
 
-  private client: SocketIOStatic;
-  private server: Server;
-
-  constructor() {
-    this.client = socketClient;
-  }
+  private io: any;
 
   public connect = (server: Server): void => {
-    this.server = server;
+    this.io = socketClient.listen(server);
     this.emitter();
   }
 
-  private listen = (): any => this.client.listen(this.server);
-
   private emitter = (): void => {
-    this.listen().on('connection', this.chatEmitter);
+    this.io.sockets.on('connection', this.chatEmitter);
   }
 
-  private chatEmitter =  (socket: any): void => {
+  private chatEmitter = (socket: any): void => {
     try {
+      const chatRoom: string = socket.handshake.headers.referer.split('?')[1];
       socket.on('joinChatRoom', async (room: string) => {
-        socket.removeAllListeners();
-        socket.leave();
-        socket.join(room);
-        socket.broadcast.to(room).emit('someoneJoins', room);
+        if (!(room in socket.rooms)) {
+          socket.join(room);
+        }
 
-        const messages = await ChatMessageModel.find();
-        socket.emit('returnChatMessage', messages);
-
-        socket.on('newMessageEmit', (data: Array<any>) => {
-          new ChatMessageModel(data).save();
-          socket.to(room).emit('returnChatMessage', data);
-        });
+        const chat: any = await ChatModel.findOne({_id: room});
+        const messages = await ChatMessageModel.find({chat: room}).populate('author');
+        socket.emit('returnChatMessages', {...chat._doc, messages});
       });
+
+      socket.on('newChatMessageIncome', async (data: any) => {
+        const {_id} = await new ChatMessageModel(data).save();
+        const message = await ChatMessageModel.findOne({_id}).populate('author');
+        this.io.in(chatRoom).emit('returnChatMessages', {messages: [message]});
+      });
+
     } catch (error) {
+      /*tslint:disable */
       console.log(error);
+       /*tslint:enable */
     }
   }
 }

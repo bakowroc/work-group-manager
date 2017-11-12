@@ -1,16 +1,16 @@
+import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button } from '../../components/Button';
 import { Chat } from '../../components/Chat/Chat';
 import { Menu } from '../../components/Menu';
 import { MenuItem } from '../../components/Menu/MenuItem';
 import { Tabs } from '../../components/Tabs/Tabs';
 import { Switch } from '../../components/Tabs/TabsProps';
+import { ChatState } from '../../data/chat/ChatState';
 import { getMyTasks } from '../../data/selectors/dataSelectors';
-import { socketMiddleware } from '../../middleware/socket';
-import { joinChatAction, sendChatMessageAction } from '../../utils/socket/socket.duck';
+import { joinChatAction } from '../../utils/socket/socket.duck';
 import { MainChatDispatchProps,  MainChatStateProps } from './MainChatProps';
 
 const styles: any = require('./MainChat.scss');
@@ -18,39 +18,21 @@ const styles: any = require('./MainChat.scss');
 class MainChatComponent extends React.Component<MainChatStateProps & MainChatDispatchProps> {
 
   public state = {
-    id: location.search,
-    title: '',
-    history: [{}]
+   chat: [{}]
   };
 
   private getChatTabs = (): Array<Switch> => [
     {
       label: 'General rooms',
-      content: this.renderChatRoomsList()
+      content: <Menu vertical={ true }>{ this.renderChatRoomsList() }</Menu>
     },
     {
       label: 'Tasks rooms',
-      content: this.renderTasksChatRoomsList()
+      content: <Menu vertical={ true }>{ this.renderTasksChatRoomsList() }</Menu>
     }
   ]
 
-  private onSendMessage = (data: any) => {
-    const message = {
-      author: this.props.me._id,
-      message: data,
-      chat: '5a03149271efd9ba9067cf7a',
-    };
-
-    this.props.sendChatMessageAction(message);
-  }
-
-  private onChangeRoom = (chat: any) => {
-    this.setState((prev) => ({
-      ...prev,
-      id: chat.id,
-      title: chat.title
-    }));
-
+  private onChatRoomChange = (chat: any): void => {
     this.props.joinChatAction(chat._id);
   }
 
@@ -62,59 +44,45 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
       chatClassName={ styles.chatContent }
       messageTextClassName={ styles.chatMessageText }
       messageAuthorClassName={ styles.chatMessageAuthor }
-      title={ this.state.title }
-      chatRoomId={ this.state.id }
       placeholder="Share your thoughts!"
-      onMessageSent={ this.onSendMessage }
-      data={ this.state.history }
+      default={ this.props.chats[0] }
     />
   )
 
-  private renderSidebar = (): JSX.Element => (
-    <Tabs
-      menuClassName={ styles.tabsMenu }
-      switchClassName={ styles.tabsSwitch }
-      activeSwitchClassName={ styles.tabsActiveSwitch }
-      items={ this.getChatTabs() }
-    />
-  )
-
-  private renderTasksChatRoomsList = (): JSX.Element => (
-    <div>
-      { this.props.myTasks.map((task, key: number) => (
-        <Button
-          key={key }
-          label={ `@ ${task.name}` }
-          flat={ true }
-          onClick={ () => this.onChangeRoom({id: task._id, title: task.name}) }
-        />
-      )) }
-    </div>
-  )
-
-  private renderChatRoomsList = (): Array<JSX.Element> => this.props.chats.map((chat, key: number) => (
-    <div key={ key } >
-      { chat.name }
-    </div>
-  ))
-
-  private watchChatActivity = () => {
-    socketMiddleware.watch('someoneJoins', console.log);
-    socketMiddleware.watch('returnChatMessage', (data: any) => {
-      this.setState((prev: any) => ({
-        ...prev,
-        history: [ ...prev.history, ...data]
-      }));
-    });
+  private renderSidebar = (): JSX.Element => {
+   return this.props.chats.length > 0
+   && this.props.myTasks.length > 0
+   && (
+   <Tabs
+    menuClassName={ styles.tabsMenu }
+    switchClassName={ styles.tabsSwitch }
+    activeSwitchClassName={ styles.tabsActiveSwitch }
+    items={ this.getChatTabs() }
+   />);
   }
 
+  private renderChatRoomLabel = (chat: ChatState, key: number): JSX.Element => (
+    <MenuItem
+      key={ key }
+      labelClassName={
+        `${styles.tasksChatRoomsListLabel}
+         ${chat._id === location.search.split('?')[1] || chat.name === 'random' ? styles.activeTabMenuLabel : ''}`
+      }
+      label={ `@ ${chat.name}` }
+      linkTo={ `/chat?${chat._id}`}
+      onClick={ () => this.onChatRoomChange(chat) }
+    />
+  )
+
+  private renderTasksChatRoomsList = (): Array<JSX.Element> =>
+    !isEmpty(this.props.myTasks[0]) && this.props.myTasks.map(({chat}, key) => this.renderChatRoomLabel(chat, key))
+
+  private renderChatRoomsList = (): Array<JSX.Element> =>
+    !isEmpty(this.props.chats[0]) && this.props.chats
+        .filter((chat) => chat.type === 'public')
+        .map(this.renderChatRoomLabel)
+
   public render(): JSX.Element {
-    if (this.state.id.length > 0) {
-      this.props.joinChatAction(this.state.id);
-    }
-
-    this.watchChatActivity();
-
     return(
       <div className={ styles.content }>
         <div className={ styles.chatRoom }>
@@ -129,13 +97,11 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
 }
 
 const mapStateToProps = (state: any): MainChatStateProps => ({
-  me: state.data.me,
   myTasks: getMyTasks(state),
   chats: state.data.chats
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-  sendChatMessageAction,
   joinChatAction
 }, dispatch);
 

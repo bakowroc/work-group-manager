@@ -19,6 +19,10 @@ const TaskSchema = new Schema({
     required: true,
     default: 0
   },
+  chat: {
+    ref: 'Chat',
+    type: Schema.Types.ObjectId
+  },
   author: {
     ref: 'User',
     type: Schema.Types.ObjectId

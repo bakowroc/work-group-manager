@@ -1,43 +1,103 @@
+import { isUndefined } from 'lodash';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { socketMiddleware } from '../../middleware/socket';
+import { joinChatAction, sendChatMessageAction } from '../../utils/socket/socket.duck';
 import { InputEdit } from '../InputEdit/InputEdit';
 import { ChatMessage } from './ChatMessage/ChatMessage';
-import { ChatProps } from './ChatProps';
+import { ChatDispatchProps, ChatProps, ChatStateProps } from './ChatProps';
 
 const styles: any = require('./Chat.scss');
 
-export class Chat extends React.Component<ChatProps> {
+export class ChatComponent extends React.Component<ChatStateProps & ChatProps & ChatDispatchProps> {
 
-  private onLeave = (data: any) => {
-    this.props.onMessageSent(data);
+  public state = {
+    id: location.search.split('?')[1],
+    title: '',
+    description: '',
+    history: [{}]
+  };
+
+  private watchChatActivity = (): void => {
+    socketMiddleware.watch('returnChatMessages', (data: any) => {
+      this.setState((prev: any) => ({
+        ...prev,
+        title: data.name || prev.title,
+        description: data.description || prev.description,
+        history: data.name === prev.name ? [...prev.history, ...data.messages] : [...data.messages]
+      }));
+    });
+  }
+
+  public componentDidMount() {
+    this.watchChatActivity();
+
+    if (this.state.id) {
+      this.props.joinChatAction(this.state.id);
+    } else {
+      this.props.joinChatAction(this.props.default._id);
+    }
+  }
+
+  private onInputLeave = (data: any) => {
+    const message = {
+      author: this.props.me._id,
+      message: data,
+      chat: this.state.id || this.props.default._id
+    };
+
+    this.props.sendChatMessageAction(message);
   }
 
   private renderChatHistory = (): Array<JSX.Element> =>
-    this.props.data.map((messageProps: any, key: number) => (
-      <ChatMessage
-        key={ key }
-        messageAuthorClassName={ this.props.messageAuthorClassName }
-        messageTextClassName={ this.props.messageTextClassName }
-        { ...messageProps }
-      />
+    this.state.history.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .filter((message: any) => !isUndefined(message._id))
+      .map((messageProps: any, key: number) => (
+        <ChatMessage
+          key={ key }
+          messageAuthorClassName={ this.props.messageAuthorClassName }
+          messageTextClassName={ this.props.messageTextClassName }
+          { ...messageProps }
+        />
     ))
 
   public render(): JSX.Element {
     return(
       <div className={ `${styles.content} ${this.props.chatClassName}`  }>
-        <div className={ `${styles.title} ${this.props.titleClassName}` }>{ this.props.title }</div>
-        <div className={ `${styles.history} ${this.props.historyClassName}` }>
-          { this.props.data && this.renderChatHistory() }
+        <div className={ `${styles.title} ${this.props.titleClassName}` }>
+          { this.props.title || this.state.title }
+        </div>
+        <div className={ styles.chatDescription }>
+          { !this.props.noDescription && this.state.description || '' }
+        </div>
+        <div id="historyChat" className={ `${styles.history} ${this.props.historyClassName}` }>
+          { this.state.history && this.renderChatHistory() }
         </div>
         <InputEdit
-          text={ 'Message goes here'}
           inputClassName={ `${styles.input} ${this.props.inputClassName}` }
           useEnterToLeave={ true }
           blockOutClickLeave={ true }
           placeholder={ this.props.placeholder || '' }
-          onLeave={ this.onLeave }
+          onLeave={ this.onInputLeave }
+          eraseOnLeave={ true }
         />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state: any) => ({
+  me: state.data.me
+});
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  sendChatMessageAction,
+  joinChatAction
+}, dispatch);
+
+export const Chat = connect<ChatStateProps , ChatDispatchProps, ChatProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatComponent);

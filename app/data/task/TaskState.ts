@@ -1,3 +1,4 @@
+import { ChatState } from '../chat/ChatState';
 import { SubtaskState } from '../subtask/SubtaskState';
 import { TagState } from '../tag/TagState';
 import { UserState } from '../user/UserState';
@@ -13,4 +14,5 @@ export interface TaskState {
   tags: Array<TagState>;
   prior: string;
   createdAt: Date;
+  chat: ChatState;
 }
