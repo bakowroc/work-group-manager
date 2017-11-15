@@ -3,7 +3,7 @@ import { Route, Router } from 'react-router-dom';
 
 import { Confirm } from './components/Confirm';
 import { Snackbar } from './components/Snackbar';
-import { Splash } from './components/Spalsh';
+import { Splash } from './components/Splash';
 import { Login } from './Login/Login';
 import history from './middleware/history';
 import { Navigation } from './Navigation/Navigation';
@@ -11,6 +11,7 @@ import { Notification } from './Notification/Notification';
 import { Register } from './Register/Register';
 import { Main } from './RouterContent/Main/Main';
 import { MainChat } from './RouterContent/MainChat/MainChat';
+import { User } from './RouterContent/User/User';
 import { Workspace } from './RouterContent/Workspace/Workspace';
 import { Sidebar } from './Sidebar/Sidebar';
 import { isLogged } from './utils/axios/parsers/query';
@@ -23,14 +24,14 @@ export class AppContainer extends React.Component<{}> {
     <div className={ styles.container }>
       <Route exact={ true } path="/" component={ Main } />
       <Route path="/workspace" component={ Workspace } />
-      <Route path="/chat/:task_id?" component={ MainChat } />
+      <Route path="/chat" component={ MainChat } />
+      <Route exact={ true } path="/user" component={ User } />
     </div>
   )
 
   private renderAuthContent = (): JSX.Element => (
     <div className={ styles.content }>
       <Confirm />
-      <Splash />
       <Snackbar />
       <Notification />
       <Sidebar />
@@ -48,11 +49,13 @@ export class AppContainer extends React.Component<{}> {
 
   public render() {
     return (
-      <Router history={ history } >
-        { isLogged()
-          ? this.renderAuthContent()
-          : this.renderNoAuthContent() }
-      </Router>
+      <Splash>
+        <Router history={ history } >
+          { isLogged()
+            ? this.renderAuthContent()
+            : this.renderNoAuthContent() }
+        </Router>
+      </Splash>
     );
   }
 }

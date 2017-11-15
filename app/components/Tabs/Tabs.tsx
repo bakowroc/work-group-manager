@@ -41,7 +41,7 @@ export class Tabs extends React.Component<TabsProps> {
   )
 
   private renderActiveContent = (): JSX.Element => (
-    <div className={ styles.activeContent }>
+    <div className={ `${styles.activeContent} ${this.props.activeContentClassName}` }>
       { this.state.activeContent }
     </div>
   )

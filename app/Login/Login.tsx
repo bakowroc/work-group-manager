@@ -65,4 +65,7 @@ const mapDispatchToProps = (dispatch: any): LoginDispatchProps => bindActionCrea
   authenticateAction
 }, dispatch);
 
-export const Login = connect<any, LoginDispatchProps, any>(null, mapDispatchToProps)(LoginComponent);
+export const Login = connect<any, LoginDispatchProps, any>(
+  null,
+  mapDispatchToProps)
+(LoginComponent);

@@ -14,5 +14,6 @@ export interface TaskState {
   tags: Array<TagState>;
   prior: string;
   createdAt: Date;
+  isDone: boolean;
   chat: ChatState;
 }

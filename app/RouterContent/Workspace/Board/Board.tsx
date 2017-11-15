@@ -159,7 +159,7 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
 }
 
 const mapStateToProps = (state: any) => ({
-  me: state.data.me
+  me: state.users.me
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

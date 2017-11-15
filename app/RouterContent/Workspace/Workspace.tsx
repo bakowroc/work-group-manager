@@ -1,4 +1,4 @@
-import { get, groupBy, isEmpty, orderBy } from 'lodash';
+import { get, groupBy, orderBy } from 'lodash';
 import * as React from 'react';
 import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
@@ -53,7 +53,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
     return (
       <div>
         <div className={ styles.content} >
-          { !isEmpty(this.props.boards) && this.renderBoards() }
+          { this.renderBoards() }
         </div>
         { this.renderTaskDetails() }
         { this.renderAddTaskForm() }
@@ -64,14 +64,13 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
 }
 
 const mapStateToProps = (state: any): WorkspaceStateProps => ({
-  project: state.data.project,
-  boards: orderBy(state.data.boards, ['order', 'createdAt', 'name']),
-  tasks: groupBy(state.data.tasks, 'board._id'),
+  project: state.projects.self,
+  boards: orderBy(state.boards.data, ['order', 'createdAt', 'name']),
+  tasks: groupBy(state.tasks.data, 'board._id'),
   isAddTaskFormOpen: state.addTaskForm.isOpen,
   addTaskAssignedBoard: state.addTaskForm.board,
   isTaskDetailsOpen: state.taskDetails.isOpen,
-  currentTaskDetails: state.taskDetails.currentTask,
-  isDataFetching: state.data.isDataFetching
+  currentTaskDetails: state.taskDetails.currentTask
 });
 
 const mapDispatchToProps = (dispatch: any): WorkspaceDispatchProps => bindActionCreators({

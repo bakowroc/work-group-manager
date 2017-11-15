@@ -14,6 +14,11 @@ const TaskSchema = new Schema({
   prior: {
     type: String
   },
+  isDone: {
+    required: true,
+    type: Boolean,
+    default: false,
+  },
   order: {
     type: Number,
     required: true,

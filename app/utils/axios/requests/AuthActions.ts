@@ -1,14 +1,14 @@
 import { isEmpty } from 'lodash';
 import { Action, createAction } from 'redux-actions';
-import { call } from 'redux-saga/effects';
+import { call, takeLatest } from 'redux-saga/effects';
 
 import { axios } from '../axios';
 import { fetchError } from '../requests/ErrorActions';
 
-const AUTHENTICATE = 'AUTHENTICATE';
-const authenticateAction = createAction<any>(AUTHENTICATE);
+export const AUTHENTICATE = 'AUTHENTICATE';
+export const authenticateAction = createAction<any>(AUTHENTICATE);
 
-function* authenticateUser(action: Action<any>) {
+export function* authenticateUser(action: Action<any>) {
   try {
     const {data} = yield call(axios.post, `/api/user/auth`, action.payload);
     const response = data.responseData;
@@ -21,8 +21,6 @@ function* authenticateUser(action: Action<any>) {
   }
 }
 
-export {
-  AUTHENTICATE,
-  authenticateAction,
-  authenticateUser
-};
+export function* watchAuthenticate() {
+  yield takeLatest(AUTHENTICATE, authenticateUser);
+}

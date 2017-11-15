@@ -2,8 +2,13 @@ import { MenuItemProps } from '../components/Menu/MenuItem';
 
 export const MENU_ELEMENTS: Array<MenuItemProps> = [
   {
+    icon: 'user',
+    label: 'Profile',
+    linkTo: '/user'
+  },
+  {
     icon: 'eye',
-    label: 'Main',
+    label: 'Dashboard',
     linkTo: '/'
   },
   {
@@ -15,10 +20,5 @@ export const MENU_ELEMENTS: Array<MenuItemProps> = [
     icon: 'comment-o',
     label: 'Chat',
     linkTo: '/chat'
-  },
-  {
-    icon: 'cog',
-    label: 'Settings',
-    linkTo: '/setings'
   }
 ];

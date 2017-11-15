@@ -40,7 +40,7 @@ class NavigationComponent extends React.Component<NavigationStateProps & Navigat
 }
 
 const mapStateToProps = (state: any) => ({
-  project: state.data.project
+  project: state.projects.data[0]
 });
 
 const mapDispatchToProps = (dispatch: any): NavigationDispatchProps => bindActionCreators({

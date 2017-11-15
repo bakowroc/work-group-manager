@@ -17,7 +17,9 @@ export class Task extends React.Component<TaskProps> {
       [TaskPrior.NONE]: styles.prior0
     };
 
-    return `${styles.content} ${priorClass[prior]}`;
+    const isDone = this.props.isDone ? styles.done : '';
+
+    return `${styles.content} ${priorClass[prior]} ${isDone}`;
   }
 
   private onTaskClick = (): void => this.props.onDetailsClick(this.props);

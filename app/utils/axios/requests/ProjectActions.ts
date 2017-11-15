@@ -1,63 +1,86 @@
-import { Action, createAction } from 'redux-actions';
-import { call, put } from 'redux-saga/effects';
+import * as jwtdecode from 'jwt-decode';
+import { Action, createAction, handleActions } from 'redux-actions';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
 import { axios } from '../axios';
 
-import { ProjectState } from '../../../data/project/ProjectState';
 import { fetchError } from '../requests/ErrorActions';
 import { fetchBoardsAction } from './BoardActions';
 import { fetchChatsAction } from './ChatActions';
 
-const FETCH_PROJECT = 'FETCH_PROJECT';
-const fetchProjectAction = createAction(FETCH_PROJECT);
+export const FETCH_PROJECTS = 'FETCH_PROJECTS';
+export const fetchProjectsAction = createAction(FETCH_PROJECTS);
 
-const ADD_PROJECT = 'ADD_PROJECT';
-const addProjectAction = createAction(ADD_PROJECT);
+export const FETCH_MY_PROJECT = 'FETCH_MY_PROJECT';
+export const fetchMyProjectAction = createAction(FETCH_MY_PROJECT);
 
-const GET_PROJECT = 'GET_PROJECT';
-const getProject = createAction<any>(GET_PROJECT);
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const addProjectAction = createAction<any>(ADD_PROJECT);
 
-const DEFAULT_PROJECT_STATE: ProjectState = {
-  id: 0,
-  name: '',
-  description: '',
-  members: [],
-  boards: [],
-  createdAt: undefined
+export const GET_PROJECTS = 'GET_PROJECTS';
+export const getProjects = createAction<any>(GET_PROJECTS);
+
+export const GET_MY_PROJECT = 'GET_MY_PROJECT';
+export const getMyProject = createAction<any>(GET_MY_PROJECT);
+
+const IS_PROJECTS_FETCHING = 'IS_PROJECTS_FETCHING';
+const isProjectsFetching = createAction<any>(IS_PROJECTS_FETCHING);
+
+export const initialState: any = {
+  data: [],
+  self: {},
+  isFetching: true
 };
 
-function* fetchProject() {
+export default handleActions({
+  [GET_PROJECTS]: (state: any, action: Action<any>) => ({...state, data: action.payload, isFetching: false}),
+  [GET_MY_PROJECT]: (state: any, action: Action<any>) => ({...state, self: action.payload, isFetching: false}),
+  [IS_PROJECTS_FETCHING]: (state: any, action: Action<any>) => ({...state, isFetching: action.payload}),
+}, initialState);
+
+export function* fetchMyProject() {
   try {
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, '/api/project');
-    const project = data.responseData[0];
+    yield put(isProjectsFetching(true));
+    const {project: {id, slug}} = jwtdecode(localStorage.getItem('jwttoken'));
+    const {data: {responseData}}: AxiosResponse<Response<any>> = yield call(axios.get, `api/project/${slug}`);
     yield [
-      put(getProject(project)),
-      put(fetchBoardsAction(project._id)),
-      put(fetchChatsAction(project._id))
+      put(getMyProject(responseData)),
+      put(fetchBoardsAction(id)),
+      put(fetchChatsAction(id))
     ];
   } catch {
     yield put(fetchError('error'));
   }
 }
 
-function* addProject(action: Action<any>) {
+export function* fetchProjects() {
   try {
-    yield call(axios.post, '/api/user', action.payload);
+    yield put(isProjectsFetching(true));
+    const {data: {responseData}}: AxiosResponse<Response<any>> = yield call(axios.get, `api/project`);
+    yield put(getProjects(responseData));
+  } catch {
+    yield put(fetchError('error'));
+  }
+}
+
+export function* addProject(action: Action<any>) {
+  try {
+    yield call(axios.post, '/api/project', action.payload);
   } catch (error) {
     yield put(fetchError(error));
   }
 }
 
-export {
-  DEFAULT_PROJECT_STATE,
-  FETCH_PROJECT,
-  ADD_PROJECT,
-  addProject,
-  addProjectAction,
-  fetchProject,
-  fetchProjectAction,
-  GET_PROJECT,
-  getProject
-};
+export function* watchFetchProject() {
+  yield takeLatest(FETCH_PROJECTS, fetchProjects);
+}
+
+export function* watchFetchMyProject() {
+  yield takeLatest(FETCH_MY_PROJECT, fetchMyProject);
+}
+
+export function* watchAddProject() {
+  yield takeLatest(ADD_PROJECT, addProject);
+}

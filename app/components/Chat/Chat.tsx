@@ -1,5 +1,5 @@
 import { isUndefined } from 'lodash';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -74,7 +74,7 @@ export class ChatComponent extends React.Component<ChatStateProps & ChatProps & 
           { !this.props.noDescription && this.state.description || '' }
         </div>
         <div id="historyChat" className={ `${styles.history} ${this.props.historyClassName}` }>
-          { this.state.history && this.renderChatHistory() }
+          { this.renderChatHistory() }
         </div>
         <InputEdit
           inputClassName={ `${styles.input} ${this.props.inputClassName}` }
@@ -90,7 +90,7 @@ export class ChatComponent extends React.Component<ChatStateProps & ChatProps & 
 }
 
 const mapStateToProps = (state: any) => ({
-  me: state.data.me
+  me: state.users.me
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

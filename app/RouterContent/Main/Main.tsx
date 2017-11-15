@@ -28,16 +28,6 @@ class MainComponent extends React.Component<MainStateProps> {
       }
   ])
 
-  private generateTasksLogData = (): any => ({
-    keys: ['name', 'prior', 'createdAt'],
-    data: this.props.tasks
-  })
-
-  private generateUsersLogData = (): any => ({
-    keys: ['username', 'createdAt'],
-    data: this.props.users
-  })
-
   public render() {
     return (
       <div className={ styles.content} >
@@ -47,12 +37,12 @@ class MainComponent extends React.Component<MainStateProps> {
           </div>
           <div className={ styles.mainActivityContent }>
             <Activity
-              content={ <LogTable data={ this.generateTasksLogData() } />}
+              content={ <LogTable data={ this.props.tasks }  keys={ ['name', 'prior', 'createdAt'] }/>}
               linkTo="/workspace"
               width="2col"
             />
             <Activity
-              content={ <LogTable data={ this.generateUsersLogData() } />}
+              content={ <LogTable data={ this.props.users } keys={ ['username', 'createdAt'] }/>}
               linkTo="/users"
               width="1col"
             />
@@ -64,9 +54,9 @@ class MainComponent extends React.Component<MainStateProps> {
 }
 
 const mapStateToProps = (state: any): MainStateProps => ({
-  users: state.data.users,
-  tasks: state.data.tasks,
-  boards: state.data.boards
+  users: state.users.data,
+  tasks: state.tasks.data,
+  boards: state.boards.data
 });
 
 export const Main = connect<MainStateProps, any, any>(

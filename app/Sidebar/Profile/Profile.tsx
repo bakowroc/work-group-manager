@@ -39,7 +39,7 @@ export class ProfileComponent extends React.Component<ProfileStateProps> {
 }
 
 const mapStateToProps = (state: any): ProfileStateProps => ({
-  me: state.data.me
+  me: state.users.me
 });
 
 export const Profile = connect<ProfileStateProps, {}, {}>(

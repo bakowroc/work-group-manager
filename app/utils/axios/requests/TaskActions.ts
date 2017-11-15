@@ -1,5 +1,5 @@
-import { Action, createAction} from 'redux-actions';
-import { call, put } from 'redux-saga/effects';
+import { Action, createAction, handleActions } from 'redux-actions';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
@@ -9,25 +9,39 @@ import { toggleTaskDetails } from './../../../RouterContent/Workspace/TaskDetail
 
 import { fetchError } from '../requests/ErrorActions';
 import { updateBoardAction } from './BoardActions';
-import { fetchProjectAction } from './ProjectActions';
+import { fetchMyProjectAction } from './ProjectActions';
 
 const FETCH_TASKS = 'FETCH_TASKS';
-const fetchTasksAction = createAction<string>(FETCH_TASKS);
+export const fetchTasksAction = createAction<string>(FETCH_TASKS);
 
 const ADD_TASK = 'ADD_TASK';
-const addTaskAction = createAction<any>(ADD_TASK);
+export const addTaskAction = createAction<any>(ADD_TASK);
 
 const UPDATE_TASK = 'UPDATE_TASK';
-const updateTaskAction = createAction<any>(UPDATE_TASK);
+export const updateTaskAction = createAction<any>(UPDATE_TASK);
 
 const DELETE_TASK = 'DELETE_TASK';
-const deleteTaskAction = createAction<any>(DELETE_TASK);
+export const deleteTaskAction = createAction<any>(DELETE_TASK);
 
 const GET_TASKS = 'GET_TASKS';
 const getTasks = createAction<any>(GET_TASKS);
 
-function* fetchTasks(action: Action<string>) {
+const IS_TASKS_FETCHING = 'IS_TASKS_FETCHING';
+const isTasksFetching = createAction<any>(IS_TASKS_FETCHING);
+
+const initialState: any = {
+  data: [],
+  isFetching: true
+};
+
+export default handleActions({
+  [GET_TASKS]: (state: any, action: Action<any>) => ({...state, data: action.payload, isFetching: false}),
+  [IS_TASKS_FETCHING]: (state: any, action: Action<any>) => ({...state, isFetching: action.payload}),
+}, initialState);
+
+export function* fetchTasks(action: Action<string>) {
   try {
+    yield put(isTasksFetching(true));
     const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/task${action.payload}`);
     yield put(getTasks(data.responseData));
   } catch {
@@ -35,7 +49,7 @@ function* fetchTasks(action: Action<string>) {
   }
 }
 
-function* addTask(action: Action<any>) {
+export function* addTask(action: Action<any>) {
   try {
     const {dataPayload, openDetails} = action.payload;
     const {data}: AxiosResponse<Response<any>> = yield call(axios.post, '/api/task', dataPayload.task);
@@ -58,42 +72,41 @@ function* addTask(action: Action<any>) {
   }
 }
 
-function* updateTask(action: Action<any>) {
+export function* updateTask(action: Action<any>) {
   try {
     yield call(axios.put, `/api/task/${action.payload.slug}`, action.payload.data);
 
     if (!action.payload.noUpdate) {
-      yield put(fetchProjectAction());
+      yield put(fetchMyProjectAction());
     }
   } catch (error) {
     yield fetchError('error');
   }
 }
 
-function* deleteTask(action: Action<any>) {
+export function* deleteTask(action: Action<any>) {
   try {
     yield [
       call(axios.delete, `/api/task/${action.payload.slug}`),
-      put(fetchProjectAction())
+      put(fetchMyProjectAction())
     ];
   } catch (error) {
     yield fetchError('error');
   }
 }
 
-export {
-  ADD_TASK,
-  addTask,
-  addTaskAction,
-  FETCH_TASKS,
-  fetchTasks,
-  fetchTasksAction,
-  GET_TASKS,
-  getTasks,
-  UPDATE_TASK,
-  updateTask,
-  updateTaskAction,
-  DELETE_TASK,
-  deleteTask,
-  deleteTaskAction
-};
+export function* watchFetchTasks() {
+  yield takeLatest(FETCH_TASKS, fetchTasks);
+}
+
+export function* watchAddTask() {
+  yield takeLatest(ADD_TASK, addTask);
+}
+
+export function* watchUpdateTask() {
+  yield takeEvery(UPDATE_TASK, updateTask);
+}
+
+export function* watchDeleteTask() {
+  yield takeLatest(DELETE_TASK, deleteTask);
+}

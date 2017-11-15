@@ -1,4 +1,3 @@
-import { isUndefined } from 'lodash';
 import * as moment from 'moment';
 import * as React from 'react';
 
@@ -28,9 +27,9 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
-        { !isUndefined(this.props.author) && this.renderAuthorAvatar() }
+        { this.renderAuthorAvatar() }
         <div className={ styles.right }>
-          { !isUndefined(this.props.author) && this.renderAuthorDetails() }
+          { this.renderAuthorDetails() }
           <p className={ `${styles.message} ${this.props.messageTextClassName}` }>
             { this.props.message }
           </p>

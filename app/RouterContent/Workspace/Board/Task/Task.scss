@@ -44,4 +44,18 @@
   &.prior0 {
     border-color: $color-gray-3;
   }
+
+  &.done {
+    background: $color-green !important;
+    border: 0;
+    opacity: .6;
+
+    .title {
+      color: $color-main-white;
+    }
+
+    .paragraph {
+      color: $color-main-white;
+    }
+  }
 }

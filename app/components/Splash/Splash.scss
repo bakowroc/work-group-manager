@@ -1,0 +1,72 @@
+@import '../../consts/styles/colors';
+@import '../../consts/styles/sizes';
+
+%center {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 0;
+}
+
+.content {
+  align-items: center;
+  background: $color-gray-1;
+  color: $color-main-white;
+  display: flex;
+  font-size: $font-main-title;
+  font-weight: 500;
+  height: 100vh;
+  justify-content: center;
+  position: fixed;
+  visibility: hidden;
+  width: 100vw;
+  z-index: $index-splash;
+
+  &.show {
+    visibility: visible;
+  }
+
+    $offset: 187;
+    $duration: 1.4s;
+
+    .spinner {
+      animation: rotator $duration linear infinite;
+    }
+
+    @keyframes rotator {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(270deg); }
+    }
+
+    .path {
+      animation: dash $duration ease-in-out infinite, colors ($duration*4) ease-in-out infinite;
+      stroke-dasharray: $offset;
+      stroke-dashoffset: 0;
+      transform-origin: center;
+    }
+
+    @keyframes colors {
+      0% { stroke: $color-blue; }
+      25% { stroke: $color-red; }
+      50% { stroke: $color-orange; }
+      75% { stroke: $color-green; }
+      100% { stroke: $color-main-gray; }
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dashoffset: $offset;
+      }
+
+      50% {
+        stroke-dashoffset: $offset/4;
+        transform:rotate(135deg);
+      }
+
+      100% {
+        stroke-dashoffset: $offset;
+        transform:rotate(450deg);
+      }
+    }
+  }

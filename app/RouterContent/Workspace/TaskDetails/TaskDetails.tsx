@@ -16,11 +16,11 @@ import { Popup } from '../../../components/Popup';
 import { toggleSnackbar } from '../../../components/Snackbar/snackbar.duck';
 import { SnackbarMessage } from '../../../components/Snackbar/SnackbarProps';
 import { deleteTaskAction, updateTaskAction } from '../../../utils/axios/requests/TaskActions';
-import { TaskDetailsDispatchProps, TaskDetailsProps } from './TaskDetailsProps';
+import { TaskDetailsDispatchProps, TaskDetailsProps, TaskDetailsStateProps } from './TaskDetailsProps';
 
 const styles: any = require('./TaskDetails.scss');
 
-export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchProps & TaskDetailsProps> {
+export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps & TaskDetailsDispatchProps & TaskDetailsProps> {
 
   private onTitleInputLeave = (value: string): void => {
     const updateTaskBody = {
@@ -57,6 +57,16 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
     this.props.toggleConfirm(message);
   }
 
+  private onChangeDoneStatus = () => {
+    const updateTaskBody = {
+      slug: this.props.task.slug,
+      data: {isDone: !this.props.task.isDone}
+    };
+
+    this.props.updateTaskAction(updateTaskBody);
+    this.props.onClose();
+  }
+
   private renderTaskTitle = (): JSX.Element => (
     <InputEdit
       text={ this.props.task.name }
@@ -79,17 +89,28 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
 
   private renderActionButtons = (): JSX.Element => (
     <div className={ styles.actionButtons }>
+      { !this.props.task.isDone ?
       <Button
         label="Mark as done"
         buttonClassName={ styles.doneButton }
-        onClick={ null }
+        onClick={ this.onChangeDoneStatus }
         flat={ false }
+        disabled={ ![this.props.task.author._id].includes(this.props.me._id) }
       />
+      :
+      <Button
+        label="Mark as not finished"
+        buttonClassName={ styles.doneButton }
+        onClick={ this.onChangeDoneStatus }
+        flat={ false }
+        disabled={ ![this.props.task.author._id].includes(this.props.me._id) }
+      /> }
       <Button
         label="Delete"
         buttonClassName={ styles.deleteButton }
         onClick={ this.prepareConfirmPayload }
         flat={ false }
+        disabled={ ![this.props.task.author._id].includes(this.props.me._id) }
       />
     </div>
   )
@@ -138,7 +159,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
       { !isUndefined(this.props.task.description) && this.renderTaskDescription() }
      </div>
      <div className={ styles.additionalTaskDetails }>
-      { this.renderActionButtons() }
+      { !isEmpty(this.props.task.author)  && this.renderActionButtons() }
       { this.renderAdditionalInfo() }
       { !isEmpty(this.props.task.assigned) && this.renderAssignedUsers() }
      </div>
@@ -190,6 +211,10 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsDispatchPr
   }
 }
 
+const mapStateToProps = (state: any) => ({
+  me: state.users.me
+});
+
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   updateTaskAction,
   deleteTaskAction,
@@ -197,7 +222,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   toggleSnackbar
 }, dispatch);
 
-export const TaskDetails = connect<any, TaskDetailsDispatchProps, TaskDetailsProps>(
-  null,
+export const TaskDetails = connect<TaskDetailsStateProps, TaskDetailsDispatchProps, TaskDetailsProps>(
+  mapStateToProps,
   mapDispatchToProps
 )(TaskDetailsComponent);

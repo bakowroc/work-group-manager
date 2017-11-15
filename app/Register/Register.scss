@@ -1,5 +1,6 @@
 @import '../consts/styles/utils';
 @import '../consts/styles/colors';
+@import '../consts/styles/sizes';
 
 .container {
   align-items: center;
@@ -15,6 +16,16 @@
     @include shadow-depth-5;
     padding: 40px;
     width: 400px;
+
+    .nextButton {
+      color: $color-main-blue;
+    }
+
+    .errorMessage {
+      color: $color-red;
+      font-size: $font-subtitle;
+      margin-bottom: 5px;
+    }
   }
 
   .backToLoginButton {

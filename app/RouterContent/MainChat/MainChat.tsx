@@ -1,4 +1,4 @@
-import { isEmpty, isUndefined } from 'lodash';
+import { isUndefined } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -65,12 +65,12 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
   )
 
   private renderTasksChatRoomsList = (): Array<JSX.Element> =>
-    !isEmpty(this.props.myTasks) && this.props.myTasks
+    this.props.myTasks
       .filter(({chat}) => !isUndefined(chat))
       .map(({chat}, key) => this.renderChatRoomLabel(chat, key))
 
   private renderChatRoomsList = (): Array<JSX.Element> =>
-    !isEmpty(this.props.chats) && this.props.chats
+    this.props.chats
         .filter((chat) => chat.type === 'public')
         .map(this.renderChatRoomLabel)
 
@@ -78,7 +78,7 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
     return(
       <div className={ styles.content }>
         <div className={ styles.chatRoom }>
-        { !isEmpty(this.props.chats) && this.renderChatRoom() }
+        { this.renderChatRoom() }
       </div>
       <div className={ styles.chatSidebar }>
         { this.renderSidebar() }
@@ -90,7 +90,7 @@ class MainChatComponent extends React.Component<MainChatStateProps & MainChatDis
 
 const mapStateToProps = (state: any): MainChatStateProps => ({
   myTasks: getMyTasks(state),
-  chats: state.data.chats
+  chats: state.chats.data
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

@@ -11,7 +11,6 @@ export interface WorkspaceStateProps {
   addTaskAssignedBoard: BoardState;
   isTaskDetailsOpen: boolean;
   currentTaskDetails: TaskState;
-  isDataFetching: boolean;
 }
 
 export interface WorkspaceDispatchProps {

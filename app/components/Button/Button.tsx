@@ -12,8 +12,9 @@ export class Button extends React.Component<ButtonProps> {
 
   private getClassName = (): string => {
     const buttonClassName = this.props.flat ? styles.flat : styles.raised;
+    const isDisabled = this.props.disabled ? styles.disabled : '';
 
-    return `${styles.button} ${buttonClassName} ${this.props.buttonClassName}`;
+    return `${styles.button} ${buttonClassName} ${this.props.buttonClassName} ${isDisabled}`;
   }
 
   private onMouseDown = (): void => {

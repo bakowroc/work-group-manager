@@ -77,7 +77,7 @@ class AddTaskFormComponent extends React.Component<AddTaskFormStateProps & AddTa
 }
 
 const mapStateToProps = (state: any): AddTaskFormStateProps => ({
-  me: state.data.me
+  me: state.users.me
 });
 
 const mapDispatchToProps = (dispatch: any): AddTaskFormDispatchProps => bindActionCreators({

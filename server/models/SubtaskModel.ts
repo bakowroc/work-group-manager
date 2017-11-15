@@ -7,7 +7,8 @@ const SubtaskSchema = new Schema({
   },
   isDone: {
     required: true,
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   task: {
     ref: 'Task',

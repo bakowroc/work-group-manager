@@ -1,3 +1,4 @@
 export interface LogTableProps {
-  data: any;
+  data: Array<any>;
+  keys: Array<string>;
 }

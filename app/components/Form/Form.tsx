@@ -1,4 +1,4 @@
-import { dropRight, toArray } from 'lodash';
+import { dropRight, isUndefined, toArray } from 'lodash';
 import * as React from 'react';
 
 import { FormProps } from './FormProps';
@@ -23,17 +23,20 @@ export class Form extends React.Component<FormProps> {
   }
 
   public render() {
+    let {isSubmitVisible} = this.props;
+    isSubmitVisible = isUndefined(isSubmitVisible) ? true : isSubmitVisible;
+
     return (
       <form
         className={ styles.form }
         onSubmit={ this.onSubmit }
       >
         { this.props.children }
-      <input
+      { isSubmitVisible && <input
         className={ styles.inputButton }
         type="submit"
         value="Submit"
-      />
+      /> }
       </form>
     );
   }

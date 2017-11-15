@@ -9,14 +9,14 @@ const styles: any = require('./LogTable.scss');
 export class LogTable extends React.Component<LogTableProps> {
 
   private renderThead = (): Array<JSX.Element> =>
-    this.props.data.keys.map((arrKey: any, key: number) => <th key={ key } >{ startCase(arrKey) }</th>)
+    this.props.keys.map((arrKey: any, key: number) => <th key={ key } >{ startCase(arrKey) }</th>)
 
   private renderTbody = (): Array<JSX.Element> =>
-    orderBy(this.props.data.data, 'createdAt', 'desc')
+    orderBy(this.props.data, 'createdAt', 'desc')
       .slice(0, 5)
-      .map((el: any) => (
-        <tr>
-          { this.props.data.keys.map((prop: any, key: number) => {
+      .map((el: any, key: number) => (
+        <tr key={ key } >
+          { this.props.keys.map((prop: any, index: number) => {
             let value = el[prop];
 
             if (prop === 'createdAt') {

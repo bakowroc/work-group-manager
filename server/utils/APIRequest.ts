@@ -75,7 +75,10 @@ class APIRequest {
         const jwtData = {
           user,
           project,
-          jwttoken: jwt.sign({slug: user.slug}, Config.SECRET, {expiresIn: '1d'})
+          jwttoken: jwt.sign({me: user.slug, project: {
+            slug: project.slug,
+            id: project._id
+          }}, Config.SECRET, {expiresIn: '1d'})
         };
         this.JSONResponse(response, jwtData);
       } catch (error) {

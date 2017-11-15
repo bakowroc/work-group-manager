@@ -4,4 +4,5 @@ export interface ButtonProps {
   flat: boolean;
   type?: string;
   onClick?: (event: any) => void;
+  disabled?: boolean;
 }

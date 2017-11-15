@@ -1,0 +1,102 @@
+@import "../../consts/styles/colors";
+@import "../../consts/styles/sizes";
+@import "../../consts/styles/shadows";
+
+.content {
+  display: flex;
+  height: 100%;
+
+  .userInfo {
+    align-items: center;
+    background: $color-gray-2;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 25%;
+
+    .background {
+      background: $color-main-gray;
+      height: 200px;
+      width: 100%;
+    }
+
+    .userMain {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 20px;
+
+      .username {
+        color: $color-main-white;
+        font-size: $font-main-title;
+        font-weight: 300;
+      }
+
+      .email {
+        color: $color-main-white;
+        font-size: $font-subtitle + 2;
+        font-weight: 300;
+        margin: 20px 0;
+      }
+
+      .avatar {
+        align-items: center;
+        background: $color-red;
+        border: 7px solid $color-main-white;
+        border-radius: 100%;
+        color: $color-main-white;
+        display: flex;
+        font-size: $font-main-title;
+        height: 180px;
+        justify-content: center;
+        width: 180px;
+      }
+    }
+  }
+
+  .info {
+    margin-top: 100px;
+    padding: 40px;
+    width: 100%;
+  }
+
+  .tabs {
+    height: 100%;
+    overflow-y: auto;
+    width: 75%;
+
+    .switchMenu {
+      @include shadow-depth-1;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .activeSwitch {
+      border-bottom-color: $color-main-blue !important;
+    }
+
+    .activeContent {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .switch {
+      background: $color-main-white;
+      border-bottom: 2px solid $color-main-white;
+      border-right: 1px solid $color-gray-1;
+      color: $color-gray-4;
+      font-weight: 500;
+      margin: 0;
+      padding: 15px;
+      padding-top: 17px;
+      text-transform: uppercase;
+      width: calc(100% / 3);
+    }
+
+    .tabContent {
+      padding: 10px;
+    }
+  }
+}

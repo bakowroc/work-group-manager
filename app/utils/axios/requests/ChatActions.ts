@@ -1,5 +1,5 @@
-import { Action, createAction } from 'redux-actions';
-import { call, put } from 'redux-saga/effects';
+import { Action, createAction, handleActions } from 'redux-actions';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
@@ -7,14 +7,28 @@ import { axios } from '../axios';
 
 import { fetchError } from '../requests/ErrorActions';
 
-const FETCH_CHATS = 'FETCH_CHATS';
-const fetchChatsAction = createAction<any>(FETCH_CHATS);
+export const FETCH_CHATS = 'FETCH_CHATS';
+export const fetchChatsAction = createAction<any>(FETCH_CHATS);
 
-const GET_CHATS = 'GET_CHATS';
-const getChats = createAction<any>(GET_CHATS);
+export const GET_CHATS = 'GET_CHATS';
+export const getChats = createAction<any>(GET_CHATS);
 
-function* fetchChats(action: Action<string>) {
+const IS_CHATS_FETCHING = 'IS_CHATS_FETCHING';
+const isChatsFetching = createAction<any>(IS_CHATS_FETCHING);
+
+const initialState: any = {
+  data: [],
+  isFetching: true
+};
+
+export default handleActions({
+  [GET_CHATS]: (state: any, action: Action<any>) => ({...state, data: action.payload, isFetching: false}),
+  [IS_CHATS_FETCHING]: (state: any, action: Action<any>) => ({...state, isFetching: action.payload}),
+}, initialState);
+
+export function* fetchChats(action: Action<string>) {
   try {
+    yield put(isChatsFetching(true));
     const {data}: AxiosResponse<Response<Array<any>>> = yield call(axios.get, `/api/chat`);
     yield put(getChats(data.responseData));
   } catch {
@@ -22,10 +36,6 @@ function* fetchChats(action: Action<string>) {
   }
 }
 
-export {
-  FETCH_CHATS,
-  fetchChats,
-  fetchChatsAction,
-  GET_CHATS,
-  getChats
-};
+export function* watchFetchChats() {
+  yield takeLatest(FETCH_CHATS, fetchChats);
+}

@@ -4,6 +4,7 @@ export interface TabsProps {
   switchClassName?: string;
   activeSwitchClassName: string;
   menuClassName?: string;
+  activeContentClassName?: string;
 }
 
 export interface Switch {
