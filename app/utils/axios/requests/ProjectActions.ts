@@ -31,7 +31,7 @@ const isProjectsFetching = createAction<any>(IS_PROJECTS_FETCHING);
 export const initialState: any = {
   data: [],
   self: {},
-  isFetching: true
+  isFetching: false
 };
 
 export default handleActions({

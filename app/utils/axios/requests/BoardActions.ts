@@ -23,7 +23,7 @@ const isBoardFetching = createAction<any>(IS_BOARDS_FETCHING);
 
 const initialState: any = {
   data: [],
-  isFetching: true
+  isFetching: false
 };
 
 export default handleActions({

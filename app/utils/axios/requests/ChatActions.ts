@@ -18,7 +18,7 @@ const isChatsFetching = createAction<any>(IS_CHATS_FETCHING);
 
 const initialState: any = {
   data: [],
-  isFetching: true
+  isFetching: false
 };
 
 export default handleActions({

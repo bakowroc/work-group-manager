@@ -29,7 +29,7 @@ const isUsersFetching = createAction<any>(IS_USERS_FETCHING);
 const initialState: any = {
   me: {},
   data: [],
-  isFetching: true
+  isFetching: false
 };
 
 export default handleActions({

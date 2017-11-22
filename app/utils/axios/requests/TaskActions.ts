@@ -31,7 +31,7 @@ const isTasksFetching = createAction<any>(IS_TASKS_FETCHING);
 
 const initialState: any = {
   data: [],
-  isFetching: true
+  isFetching: false
 };
 
 export default handleActions({
