@@ -1,5 +1,5 @@
 import { isUndefined } from 'lodash';
-// import * as moment from 'moment';
+import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -53,7 +53,9 @@ export class ChatComponent extends React.Component<ChatStateProps & ChatProps & 
   }
 
   private renderChatHistory = (): Array<JSX.Element> =>
-    this.state.history.reverse()
+    this.state.history
+      .sort((a, b) => moment.utc(a.createdAt.timeStamp).diff(moment.utc(b.timeStamp)))
+      .reverse()
       .filter((message: any) => !isUndefined(message._id))
       .map((messageProps: any, key: number) => (
         <ChatMessage

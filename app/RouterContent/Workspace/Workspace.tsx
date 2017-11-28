@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { FloatingButton } from '../../components/FloatingButton/FloatingButton';
+import { AddBoardForm } from './AddBoardForm/AddBoardForm';
+import { toggleAddBoardForm } from './AddBoardForm/addBoardForm.duck';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { toggleAddTaskForm } from './AddTaskForm/addTaskForm.duck';
 import { Board } from './Board/Board';
@@ -33,6 +35,13 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
     />
   )
 
+  private renderAddBoardForm = (): JSX.Element => (
+    <AddBoardForm
+      isOpen={ this.props.isAddBoardFormOpen }
+      onSubmit={ this.props.toggleAddBoardForm}
+    />
+  )
+
   private renderTaskDetails = (): JSX.Element => (
     <TaskDetails
       isOpen={ this.props.isTaskDetailsOpen }
@@ -44,7 +53,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
   private renderAddBoardButton = (): JSX.Element => (
     <FloatingButton
       label={ <Icon name="plus" /> }
-      onClick={ this.props.toggleAddTaskForm }
+      onClick={ this.props.toggleAddBoardForm }
       flat={ false }
     />
   )
@@ -56,6 +65,7 @@ export class WorkspaceComponent extends React.Component<WorkspaceStateProps & Wo
           { this.renderBoards() }
         </div>
         { this.renderTaskDetails() }
+        { this.renderAddBoardForm() }
         { this.renderAddTaskForm() }
         { this.renderAddBoardButton() }
       </div>
@@ -68,6 +78,7 @@ const mapStateToProps = (state: any): WorkspaceStateProps => ({
   boards: orderBy(state.boards.data, ['order', 'createdAt', 'name']),
   tasks: groupBy(state.tasks.data, 'board._id'),
   isAddTaskFormOpen: state.addTaskForm.isOpen,
+  isAddBoardFormOpen: state.addBoardForm.isOpen,
   addTaskAssignedBoard: state.addTaskForm.board,
   isTaskDetailsOpen: state.taskDetails.isOpen,
   currentTaskDetails: state.taskDetails.currentTask
@@ -75,6 +86,7 @@ const mapStateToProps = (state: any): WorkspaceStateProps => ({
 
 const mapDispatchToProps = (dispatch: any): WorkspaceDispatchProps => bindActionCreators({
   toggleAddTaskForm,
+  toggleAddBoardForm,
   toggleTaskDetails
 }, dispatch);
 

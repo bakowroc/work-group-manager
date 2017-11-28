@@ -2,7 +2,6 @@ import { isUndefined } from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { Chat } from '../../components/Chat/Chat';
 import { Menu } from '../../components/Menu';
 import { MenuItem } from '../../components/Menu/MenuItem';

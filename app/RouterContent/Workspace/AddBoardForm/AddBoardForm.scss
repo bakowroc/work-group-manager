@@ -1,0 +1,17 @@
+@import '../../../consts/styles/colors';
+@import '../../../consts/styles/sizes';
+@import '../../../consts/styles/utils';
+
+.content {
+  @include content-box;
+  min-width: 400px;
+  padding: 20px;
+  width: 20vw;
+
+  .formHeader {
+    color: $color-main-gray;
+    font-size: $font-secondary-title;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+}

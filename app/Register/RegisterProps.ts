@@ -8,5 +8,4 @@ export interface RegisterStateProps {
 
 export interface RegisterDispatchProps {
   addUserAction: (payload: any) => void;
-  addProjectAction: (payload: any) => void;
 }

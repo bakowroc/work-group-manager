@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { Button } from '../components/Button';
 import { Form } from '../components/Form';
 import { Input } from '../components/Form/Input';
-import { addProjectAction } from '../utils/axios/requests/ProjectActions';
 import { addUserAction } from '../utils/axios/requests/UsersActions';
 import { ErrorMessage } from './ErrorMessage';
 import { RegisterDispatchProps, RegisterStateProps } from './RegisterProps';
@@ -40,6 +39,7 @@ class RegisterComponent extends React.Component<RegisterDispatchProps & Register
         user: {
           email: data.email,
           username: data.email,
+          slug: data.email.split('@')[0],
           password: data.password
         },
         project: {
@@ -47,7 +47,7 @@ class RegisterComponent extends React.Component<RegisterDispatchProps & Register
         }
       });
       this.setState({isValid: true});
-      setTimeout(() => location.replace('/'), 3000);
+      setTimeout(() => location.replace('/'), 2000);
     } else {
       this.setState({
         isValid: false,
@@ -115,7 +115,6 @@ const mapStateToProps = (state: any): RegisterStateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): RegisterDispatchProps => bindActionCreators({
-  addProjectAction,
   addUserAction
 }, dispatch);
 

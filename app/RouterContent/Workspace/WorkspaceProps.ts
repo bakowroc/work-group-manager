@@ -8,6 +8,7 @@ export interface WorkspaceStateProps {
   boards: Array<BoardState>;
   tasks: Dictionary<Array<TaskState>>;
   isAddTaskFormOpen: boolean;
+  isAddBoardFormOpen: boolean;
   addTaskAssignedBoard: BoardState;
   isTaskDetailsOpen: boolean;
   currentTaskDetails: TaskState;
@@ -15,5 +16,6 @@ export interface WorkspaceStateProps {
 
 export interface WorkspaceDispatchProps {
   toggleTaskDetails: (task?: any) => void;
+  toggleAddBoardForm: () => void;
   toggleAddTaskForm: (board?: any) => void;
 }

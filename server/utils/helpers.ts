@@ -1,1 +1,1 @@
-export const generateRandomSlug = (): string => new Date().getTime().toString();
+export const generateRandomSlug = (): string => (Math.random() * new Date().getTime()).toString();

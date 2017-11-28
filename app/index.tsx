@@ -10,22 +10,31 @@ import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
 import { isLogged } from './utils/axios/parsers/query';
 import { watchAuthenticate } from './utils/axios/requests/AuthActions';
-import { watchFetchBoards, watchUpdateBoard } from './utils/axios/requests/BoardActions';
-import { watchFetchChats } from './utils/axios/requests/ChatActions';
-import { fetchMyProjectAction, fetchProjectsAction, watchFetchMyProject, watchFetchProject } from './utils/axios/requests/ProjectActions';
+import { watchAddBoard, watchFetchBoards, watchUpdateBoard } from './utils/axios/requests/BoardActions';
+import { watchAddChats, watchFetchChats } from './utils/axios/requests/ChatActions';
+import { fetchMyProjectAction,
+    fetchProjectsAction,
+    watchAddProject,
+    watchFetchMyProject,
+    watchFetchProject
+} from './utils/axios/requests/ProjectActions';
 import { watchAddTask, watchDeleteTask, watchFetchTasks, watchUpdateTask,  } from './utils/axios/requests/TaskActions';
-import { fetchMeUserAction, fetchUsersAction, watchFetchMe, watchFetchUsers} from './utils/axios/requests/UsersActions';
+import { fetchMeUserAction, fetchUsersAction, watchAddUser, watchFetchMe, watchFetchUsers } from './utils/axios/requests/UsersActions';
 import { watchJoinChat, watchNewChatMessage } from './utils/socket/socket.duck';
 
 const store = configure();
 
 sagaMiddleware.run(watchFetchMe);
+sagaMiddleware.run(watchAddUser);
 sagaMiddleware.run(watchFetchUsers);
 sagaMiddleware.run(watchFetchProject);
+sagaMiddleware.run(watchAddProject);
 sagaMiddleware.run(watchFetchMyProject);
 sagaMiddleware.run(watchFetchBoards);
+sagaMiddleware.run(watchAddBoard);
 sagaMiddleware.run(watchUpdateBoard);
 sagaMiddleware.run(watchFetchChats);
+sagaMiddleware.run(watchAddChats);
 sagaMiddleware.run(watchFetchTasks);
 sagaMiddleware.run(watchAddTask);
 sagaMiddleware.run(watchUpdateTask);

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import confirm from '../components/Confirm/confirm.duck';
 import snackbar from '../components/Snackbar/snackbar.duck';
 import notification from '../Notification/notification.duck';
+import addBoardForm from '../RouterContent/Workspace/AddBoardForm/addBoardForm.duck';
 import addTaskForm from '../RouterContent/Workspace/AddTaskForm/addTaskForm.duck';
 import taskDetails from '../RouterContent/Workspace/TaskDetails/taskDetails.duck';
 import boards from '../utils/axios/requests/BoardActions';
@@ -12,6 +13,7 @@ import tasks from '../utils/axios/requests/TaskActions';
 import users from '../utils/axios/requests/UsersActions';
 
 export default combineReducers({
+  addBoardForm,
   addTaskForm,
   boards,
   chats,

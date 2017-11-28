@@ -6,11 +6,14 @@ import { Response } from '../../../data/RequestModel';
 import { axios, headers } from '../axios';
 import { createReqQuery } from '../parsers/query';
 import { fetchError } from '../requests/ErrorActions';
-import { fetchProjectsAction } from './ProjectActions';
+import { fetchMyProjectAction } from './ProjectActions';
 import { fetchTasksAction } from './TaskActions';
 
 export const FETCH_BOARDS = 'FETCH_BOARDS';
 export const fetchBoardsAction = createAction<string>(FETCH_BOARDS);
+
+export const ADD_BOARD = 'UPDATE_BOARD';
+export const addBoardAction = createAction<any>(ADD_BOARD);
 
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const updateBoardAction = createAction<any>(UPDATE_BOARD);
@@ -49,9 +52,20 @@ export function* fetchBoards(action: Action<string>) {
 export function* updateBoard(action: Action<any>) {
   try {
     yield [
-      put(isBoardFetching(true)),
       call(axios.put, `/api/board/${action.payload.slug}`, action.payload.data),
-      put(fetchProjectsAction())
+      put(fetchMyProjectAction())
+    ];
+  } catch (error) {
+    yield fetchError('error');
+  }
+}
+
+export function* addBoard(action: Action<any>) {
+  try {
+    yield [
+      put(isBoardFetching(true)),
+      call(axios.post, `/api/board`, action.payload),
+      put(fetchMyProjectAction())
     ];
   } catch (error) {
     yield fetchError('error');
@@ -60,6 +74,10 @@ export function* updateBoard(action: Action<any>) {
 
 export function* watchFetchBoards() {
   yield takeLatest(FETCH_BOARDS, fetchBoards);
+}
+
+export function* watchAddBoard() {
+  yield takeEvery(ADD_BOARD, addBoard);
 }
 
 export function* watchUpdateBoard() {

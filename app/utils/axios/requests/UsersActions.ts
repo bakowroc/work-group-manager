@@ -50,12 +50,12 @@ export function* fetchUsers() {
 
 export function* addUser(action: Action<any>) {
   try {
-    const {data: {responseData}} = yield call(axios.post, '/api/project', action.payload.user);
+    const {data: {responseData}} = yield call(axios.post, '/api/user', action.payload.user);
     const user = responseData;
-    yield addProjectAction({
+    yield put(addProjectAction({
       ...action.payload.project,
       members: [user._id]
-    });
+    }));
   } catch (error) {
     yield put(fetchError(error));
   }

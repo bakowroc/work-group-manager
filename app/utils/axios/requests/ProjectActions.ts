@@ -8,7 +8,7 @@ import { axios } from '../axios';
 
 import { fetchError } from '../requests/ErrorActions';
 import { fetchBoardsAction } from './BoardActions';
-import { fetchChatsAction } from './ChatActions';
+import { addChatAction, fetchChatsAction } from './ChatActions';
 
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 export const fetchProjectsAction = createAction(FETCH_PROJECTS);
@@ -30,7 +30,9 @@ const isProjectsFetching = createAction<any>(IS_PROJECTS_FETCHING);
 
 export const initialState: any = {
   data: [],
-  self: {},
+  self: {
+    name: ''
+  },
   isFetching: false
 };
 
@@ -43,12 +45,12 @@ export default handleActions({
 export function* fetchMyProject() {
   try {
     yield put(isProjectsFetching(true));
-    const {project: {id, slug}} = jwtdecode(localStorage.getItem('jwttoken'));
-    const {data: {responseData}}: AxiosResponse<Response<any>> = yield call(axios.get, `api/project/${slug}`);
+    const {project} = jwtdecode(localStorage.getItem('jwttoken'));
+    const {data: {responseData}}: AxiosResponse<Response<any>> = yield call(axios.get, `api/project/${project.slug}`);
     yield [
       put(getMyProject(responseData)),
-      put(fetchBoardsAction(id)),
-      put(fetchChatsAction(id))
+      put(fetchBoardsAction(project.id)),
+      put(fetchChatsAction(project.id))
     ];
   } catch {
     yield put(fetchError('error'));
@@ -67,7 +69,8 @@ export function* fetchProjects() {
 
 export function* addProject(action: Action<any>) {
   try {
-    yield call(axios.post, '/api/project', action.payload);
+    const {data: {responseData: {_id, members}}} = yield call(axios.post, '/api/project', action.payload);
+    yield put(addChatAction({project: _id, name: 'random', members}));
   } catch (error) {
     yield put(fetchError(error));
   }

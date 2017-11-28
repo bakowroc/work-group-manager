@@ -5,8 +5,7 @@ import { generateRandomSlug } from './../utils/helpers';
 const ProjectSchema = new Schema({
   name: {
     required: true,
-    type: String,
-    unique: true
+    type: String
   },
   description: {},
   boards: [{

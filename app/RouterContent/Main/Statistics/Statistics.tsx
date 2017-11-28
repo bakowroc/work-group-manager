@@ -8,7 +8,7 @@ const styles: any = require('./Statistics.scss');
 export class Statistics extends React.Component<StatisticsProps> {
 
   private renderStatBox = ({title, value, icon, key}: any) => (
-    <div className={ styles.statBox } key={ key }>
+    <div className={ styles.statBox } key={ `${title} ${key}` }>
       <div className={ styles.title }>
         { title }
       </div>

@@ -9,7 +9,7 @@ const styles: any = require('./LogTable.scss');
 export class LogTable extends React.Component<LogTableProps> {
 
   private renderThead = (): Array<JSX.Element> =>
-    this.props.keys.map((arrKey: any, key: number) => <th key={ key } >{ startCase(arrKey) }</th>)
+    this.props.keys.map((arrKey: any, key: number) => <th key={ `${arrKey} ${key}` } >{ startCase(arrKey) }</th>)
 
   private renderTbody = (): Array<JSX.Element> =>
     orderBy(this.props.data, 'createdAt', 'desc')
@@ -23,7 +23,7 @@ export class LogTable extends React.Component<LogTableProps> {
             value = moment(el[prop]).fromNow();
             }
 
-            return <td key={ key } >{ value }</td>;
+            return <td key={ index } >{ value }</td>;
           }) }
         </tr>
       ))
