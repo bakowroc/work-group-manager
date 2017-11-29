@@ -12,3 +12,9 @@
   display: flex;
   margin-bottom: 20px;
 }
+
+@media all and (max-width: 1440px) {
+  .infoContent {
+    width: 100%;
+  }
+}

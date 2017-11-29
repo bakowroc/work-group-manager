@@ -31,7 +31,8 @@ class AddTaskFormComponent extends React.Component<AddTaskFormStateProps & AddTa
         assigned: [this.props.me._id],
         board: this.props.board._id,
         slug: new Date().getTime().toString()
-      }
+      },
+      project: this.props.project._id
     };
 
     this.props.addTaskAction({dataPayload: toPostTask, openDetails: this.state.isCheckboxChecked});
@@ -77,7 +78,8 @@ class AddTaskFormComponent extends React.Component<AddTaskFormStateProps & AddTa
 }
 
 const mapStateToProps = (state: any): AddTaskFormStateProps => ({
-  me: state.users.me
+  me: state.users.me,
+  project: state.projects.self
 });
 
 const mapDispatchToProps = (dispatch: any): AddTaskFormDispatchProps => bindActionCreators({

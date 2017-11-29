@@ -12,7 +12,7 @@ import { fetchTasksAction } from './TaskActions';
 export const FETCH_BOARDS = 'FETCH_BOARDS';
 export const fetchBoardsAction = createAction<string>(FETCH_BOARDS);
 
-export const ADD_BOARD = 'UPDATE_BOARD';
+export const ADD_BOARD = 'ADD_BOARD';
 export const addBoardAction = createAction<any>(ADD_BOARD);
 
 export const UPDATE_BOARD = 'UPDATE_BOARD';

@@ -19,8 +19,10 @@ class AddBoardFormComponent extends React.Component<AddBoardFormStateProps & Add
   };
 
   private onAddBoardSubmit = (data: any): void => {
+    const icon = data.icon.length > 0 ? data.icon : 'check';
     const toPostBoard = {
-      ...data,
+      name: data.name,
+      icon,
       project: this.props.project
     };
 

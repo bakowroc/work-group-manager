@@ -70,7 +70,7 @@ export function* fetchProjects() {
 export function* addProject(action: Action<any>) {
   try {
     const {data: {responseData: {_id, members}}} = yield call(axios.post, '/api/project', action.payload);
-    yield put(addChatAction({project: _id, name: 'random', members}));
+    yield put(addChatAction({data: {project: _id, name: 'random', members}}));
   } catch (error) {
     yield put(fetchError(error));
   }

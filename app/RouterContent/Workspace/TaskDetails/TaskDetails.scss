@@ -27,6 +27,7 @@
   @include content-box;
   display: flex;
   flex-direction: row;
+  min-width: 750px;
   padding: 0;
   transition: none;
   width: 70%;
@@ -108,5 +109,12 @@
     background: rgba(#000, .1);
     font-size: $font-paragraph;
     font-weight: 400;
+  }
+
+  .chatRoomBoiler {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
   }
 }

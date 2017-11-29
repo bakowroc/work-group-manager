@@ -84,8 +84,7 @@ class RegisterComponent extends React.Component<RegisterDispatchProps & Register
   private renderSuccess = (): JSX.Element => (
     <div className={ styles.success }>
       Everything went great!
-      You're gonna be redirect to login page soon.
-      Or just do it by yourself. No difference
+      Now you're gonna be redirect to the login page.
     </div>
   )
 

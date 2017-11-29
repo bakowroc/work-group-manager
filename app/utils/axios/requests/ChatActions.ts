@@ -4,8 +4,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosResponse } from '../../../data/AxiosResponse';
 import { Response } from '../../../data/RequestModel';
 import { axios } from '../axios';
-
 import { fetchError } from '../requests/ErrorActions';
+import { updateTaskAction } from './TaskActions';
 
 export const FETCH_CHATS = 'FETCH_CHATS';
 export const fetchChatsAction = createAction<any>(FETCH_CHATS);
@@ -31,7 +31,13 @@ export default handleActions({
 
 export function* addChat(action: Action<any>) {
   try {
-    yield call(axios.post, `/api/chat`, action.payload);
+    const {data: {responseData}} = yield call(axios.post, `/api/chat`, action.payload.data);
+    if (action.payload.taskChatIncome) {
+      yield put(updateTaskAction({
+        slug: action.payload.taskChatIncome,
+        data: {chat: responseData._id}
+      }));
+    }
   } catch {
     yield put(fetchError('error'));
   }

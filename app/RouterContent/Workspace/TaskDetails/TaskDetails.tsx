@@ -15,6 +15,7 @@ import { NameListItem } from '../../../components/NameList/NameListItem';
 import { Popup } from '../../../components/Popup';
 import { toggleSnackbar } from '../../../components/Snackbar/snackbar.duck';
 import { SnackbarMessage } from '../../../components/Snackbar/SnackbarProps';
+import { addChatAction } from '../../../utils/axios/requests/ChatActions';
 import { deleteTaskAction, updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { TaskDetailsDispatchProps, TaskDetailsProps, TaskDetailsStateProps } from './TaskDetailsProps';
 
@@ -65,6 +66,21 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps
 
     this.props.updateTaskAction(updateTaskBody);
     this.props.onClose();
+  }
+
+  private onAddTaskChatRoom = (): void => {
+    const taskChatRoom = {
+      data: {
+        name: this.props.task.name,
+        description: `Default chat room for ${this.props.task.name}`,
+        type: 'task',
+        project: this.props.project,
+        members: [this.props.task.author]
+      },
+      taskChatIncome: this.props.task.slug
+    };
+
+    this.props.addChatAction(taskChatRoom);
   }
 
   private renderTaskTitle = (): JSX.Element => (
@@ -179,6 +195,19 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps
     />
   )
 
+  private renderTaskChatRoomBoiler = (): JSX.Element => (
+    <div className={ styles.taskChatroom }>
+      <div className={ styles.chatRoomBoiler }>
+        <Button
+          label="Create chat"
+          disabled={ !isEmpty(this.props.task.author) && ![this.props.task.author._id].includes(this.props.me._id) }
+          flat={ false }
+          onClick={ this.onAddTaskChatRoom }
+        />
+      </div>
+    </div>
+  )
+
   private renderButtons = (): JSX.Element => (
     <div className={ styles.buttons }>
       <Button
@@ -193,7 +222,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps
     <div className={ styles.content }>
      <div className={ styles.taskBody }>
         { !isEmpty(this.props.task) && this.renderTaskDetails() }
-        { !isUndefined(this.props.task.chat) && this.renderTaskChatroom() }
+        { !isUndefined(this.props.task.chat) ? this.renderTaskChatroom() : this.renderTaskChatRoomBoiler() }
       </div>
       { this.renderButtons() }
     </div>
@@ -212,10 +241,12 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps
 }
 
 const mapStateToProps = (state: any) => ({
-  me: state.users.me
+  me: state.users.me,
+  project: state.projects.self
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  addChatAction,
   updateTaskAction,
   deleteTaskAction,
   toggleConfirm,

@@ -62,7 +62,6 @@ export function* addTask(action: Action<any>) {
 
     if (data.responseData._id) {
       yield put(updateBoardAction(toUpdateBoard));
-
       if (openDetails) {
         yield put(toggleTaskDetails(data.responseData));
       }

@@ -33,6 +33,7 @@ class Socket {
         const {_id} = await new ChatMessageModel(data).save();
         const message = await ChatMessageModel.findOne({_id}).populate('author');
         this.io.in(chatRoom).emit('returnChatMessages', {messages: [message]});
+        socket.emit('returnChatMessages', {messages: [message]});
       });
 
     } catch (error) {

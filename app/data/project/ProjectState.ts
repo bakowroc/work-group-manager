@@ -2,7 +2,7 @@ import { BoardState } from '../board/BoardState';
 import { UserState } from '../user/UserState';
 
 export interface ProjectState {
-  id: number;
+  _id: number;
   name: string;
   description: string;
   boards: Array<BoardState>;
