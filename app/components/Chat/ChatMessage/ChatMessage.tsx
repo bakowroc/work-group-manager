@@ -27,9 +27,9 @@ export class ChatMessage extends React.Component<ChatMessageProps> {
   public render(): JSX.Element {
     return (
       <div className={ styles.content }>
-        { this.renderAuthorAvatar() }
+        { this.props.author && this.renderAuthorAvatar() }
         <div className={ styles.right }>
-          { this.renderAuthorDetails() }
+          { this.props.author && this.renderAuthorDetails() }
           <p className={ `${styles.message} ${this.props.messageTextClassName}` }>
             { this.props.message }
           </p>
