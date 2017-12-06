@@ -23,6 +23,7 @@ class AddBoardFormComponent extends React.Component<AddBoardFormStateProps & Add
     const toPostBoard = {
       name: data.name,
       icon,
+      slug: Math.random() * Math.random() * Math.random() + new Date().getSeconds(),
       project: this.props.project
     };
 
