@@ -18,13 +18,14 @@ class BoardController {
     {path: 'tasks', select: ''},
   ])
 
-  private getManyElementRoutes = (): void => {
+  private getSingleElementRoutes = (): void => {
     this.router.route('/:slug')
     .get(APIRequest.GET_SINGLE(BoardModel, this.getPopulateQuery()))
-    .put(APIRequest.UPDATE(BoardModel));
+    .put(APIRequest.UPDATE(BoardModel))
+    .delete(APIRequest.DELETE(BoardModel));
   }
 
-  private getSingleElementRoutes = (): void => {
+  private getManyElementRoutes = (): void => {
     this.router.route('/')
       .get(APIRequest.GET_MANY(BoardModel, this.getPopulateQuery()))
       .post(APIRequest.POST(BoardModel));

@@ -18,6 +18,9 @@ export const addBoardAction = createAction<any>(ADD_BOARD);
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const updateBoardAction = createAction<any>(UPDATE_BOARD);
 
+export const DELETE_BOARD = 'DELETE_BOARD';
+export const deleteBoardAction = createAction<any>(DELETE_BOARD);
+
 export const GET_BOARDS = 'GET_BOARDS';
 export const getBoards = createAction<any>(GET_BOARDS);
 
@@ -72,6 +75,18 @@ export function* addBoard(action: Action<any>) {
   }
 }
 
+export function* deleteBoard(action: Action<any>) {
+  try {
+    yield [
+      put(isBoardFetching(true)),
+      call(axios.delete, `/api/board/${action.payload.slug}`),
+      put(fetchMyProjectAction())
+    ];
+  } catch (err) {
+    yield fetchError('err');
+  }
+}
+
 export function* watchFetchBoards() {
   yield takeLatest(FETCH_BOARDS, fetchBoards);
 }
@@ -82,4 +97,8 @@ export function* watchAddBoard() {
 
 export function* watchUpdateBoard() {
   yield takeEvery(UPDATE_BOARD, updateBoard);
+}
+
+export function* watchDeleteBoard() {
+  yield takeEvery(DELETE_BOARD, deleteBoard);
 }

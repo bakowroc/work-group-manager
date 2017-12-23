@@ -10,7 +10,7 @@ import { sagaMiddleware } from './middleware/saga';
 import configure from './store';
 import { isLogged } from './utils/axios/parsers/query';
 import { watchAuthenticate } from './utils/axios/requests/AuthActions';
-import { watchAddBoard, watchFetchBoards, watchUpdateBoard } from './utils/axios/requests/BoardActions';
+import { watchAddBoard, watchDeleteBoard, watchFetchBoards, watchUpdateBoard } from './utils/axios/requests/BoardActions';
 import { watchAddChats, watchFetchChats } from './utils/axios/requests/ChatActions';
 import { fetchMyProjectAction,
     fetchProjectsAction,
@@ -33,6 +33,7 @@ sagaMiddleware.run(watchFetchMyProject);
 sagaMiddleware.run(watchFetchBoards);
 sagaMiddleware.run(watchAddBoard);
 sagaMiddleware.run(watchUpdateBoard);
+sagaMiddleware.run(watchDeleteBoard);
 sagaMiddleware.run(watchFetchChats);
 sagaMiddleware.run(watchAddChats);
 sagaMiddleware.run(watchFetchTasks);

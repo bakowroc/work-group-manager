@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button } from '../Button';
-import { toggleConfirm } from './confirm.duck';
+import { closeConfirm } from './confirm.duck';
 import { ConfirmDispatchProps, ConfirmStateProps } from './ConfirmProps';
 
 const styles: any = require('./Confirm.scss');
@@ -13,7 +13,7 @@ class ConfirmComponent extends React.Component<ConfirmStateProps & ConfirmDispat
 
   private onConfirm = (): void => {
     this.props.onConfirm();
-    this.props.toggleConfirm();
+    this.props.closeConfirm();
   }
 
   private renderMessage = (): JSX.Element => (
@@ -33,7 +33,7 @@ class ConfirmComponent extends React.Component<ConfirmStateProps & ConfirmDispat
       <Button
         label="Discard"
         buttonClassName={ styles.button }
-        onClick={ this.props.toggleConfirm }
+        onClick={ this.props.closeConfirm }
         flat={ true }
       />
     </div>
@@ -62,7 +62,7 @@ const mapStateToProps = (state: any): ConfirmStateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): ConfirmDispatchProps => bindActionCreators({
-  toggleConfirm
+  closeConfirm
 }, dispatch);
 
 export const Confirm = connect<ConfirmStateProps, ConfirmDispatchProps, any>(

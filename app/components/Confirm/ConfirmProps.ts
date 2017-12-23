@@ -1,5 +1,5 @@
 export interface ConfirmDispatchProps {
-  toggleConfirm: (payload?: any) => void;
+  closeConfirm: () => void;
 }
 export interface ConfirmStateProps {
   isOpen: boolean;

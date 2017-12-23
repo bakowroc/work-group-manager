@@ -17,13 +17,13 @@ class ChatController {
     {path: 'messages', select: ''}
   ])
 
-  private getManyElementRoutes = (): void => {
+  private getSingleElementRoutes = (): void => {
     this.router.route('/:slug')
     .get(APIRequest.GET_SINGLE(ChatModel, this.getPopulateQuery()))
     .put(APIRequest.UPDATE(ChatModel));
   }
 
-  private getSingleElementRoutes = (): void => {
+  private getManyElementRoutes = (): void => {
     this.router.route('/')
       .get(APIRequest.GET_MANY(ChatModel, this.getPopulateQuery()))
       .post(APIRequest.POST(ChatModel));

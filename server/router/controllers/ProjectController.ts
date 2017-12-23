@@ -17,13 +17,13 @@ class ProjectController {
     {path: 'boards', select: ''},
   ])
 
-  private getManyElementRoutes = (): void => {
+  private getSingleElementRoutes = (): void => {
     this.router.route('/:slug')
     .get(APIRequest.GET_SINGLE(ProjectModel, this.getPopulateQuery()))
     .put(APIRequest.UPDATE(ProjectModel));
   }
 
-  private getSingleElementRoutes = (): void => {
+  private getManyElementRoutes = (): void => {
     this.router.route('/')
       .get(APIRequest.GET_MANY(ProjectModel, this.getPopulateQuery()))
       .post(APIRequest.POST(ProjectModel));

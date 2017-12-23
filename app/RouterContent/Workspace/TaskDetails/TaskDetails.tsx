@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
 import { Chat } from '../../../components/Chat';
-import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
+import { openConfirm } from '../../../components/Confirm/confirm.duck';
 import { InputEdit } from '../../../components/InputEdit';
 import { Menu } from '../../../components/Menu';
 import { MenuItem } from '../../../components/Menu/MenuItem';
@@ -55,7 +55,7 @@ export class TaskDetailsComponent  extends React.Component<TaskDetailsStateProps
       onConfirm: this.onTaskDeleteConfirm
     };
 
-    this.props.toggleConfirm(message);
+    this.props.openConfirm(message);
   }
 
   private onChangeDoneStatus = () => {
@@ -249,7 +249,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   addChatAction,
   updateTaskAction,
   deleteTaskAction,
-  toggleConfirm,
+  openConfirm,
   toggleSnackbar
 }, dispatch);
 

@@ -5,13 +5,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button } from '../../../components/Button';
-import { toggleConfirm } from '../../../components/Confirm/confirm.duck';
+import { closeConfirm, openConfirm } from '../../../components/Confirm/confirm.duck';
 import { DropdownMenu } from '../../../components/DropdownMenu';
 import { DropdownItem } from '../../../components/DropdownMenu/DropdownItem';
 import { InputEdit } from '../../../components/InputEdit';
+import { toggleSnackbar } from '../../../components/Snackbar/snackbar.duck';
+import { SnackbarMessage } from '../../../components/Snackbar/SnackbarProps';
 import { SortableList } from '../../../components/SortableContainer/SortableList';
 import { getDifferences } from '../../../utils/axios/parsers/collection';
-import { updateBoardAction } from '../../../utils/axios/requests/BoardActions';
+import { deleteBoardAction, updateBoardAction } from '../../../utils/axios/requests/BoardActions';
 import { updateTaskAction } from '../../../utils/axios/requests/TaskActions';
 import { toggleAddTaskForm } from '../AddTaskForm/addTaskForm.duck';
 import { toggleTaskDetails } from '../TaskDetails/taskDetails.duck';
@@ -58,14 +60,22 @@ export class BoardComponent extends React.Component<BoardProps & BoardDispatchPr
     this.setState((prev: any) => ({...prev, isBoardSettingsMenuOpen: !prev.isBoardSettingsMenuOpen}));
   }
 
+  private onBoardDelete = (): void => {
+    const deleteBoardBody = {
+      slug: this.props.slug
+    };
+    this.props.deleteBoardAction(deleteBoardBody);
+    this.props.toggleSnackbar(SnackbarMessage.BOARD_DELETE_SUCCESS);
+  }
+
   private prepareConfirmPayload = () => {
     const message = {
       label: 'Board deleting',
       message: 'This action will delete board permanently',
-      onConfirm: alert
+      onConfirm: this.onBoardDelete
     };
 
-    this.props.toggleConfirm(message);
+    this.props.openConfirm(message);
   }
 
   private renderBoardIcon = (): JSX.Element => (
@@ -163,11 +173,14 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  deleteBoardAction,
   updateBoardAction,
   updateTaskAction,
   toggleAddTaskForm,
-  toggleConfirm,
-  toggleTaskDetails
+  openConfirm,
+  closeConfirm,
+  toggleTaskDetails,
+  toggleSnackbar
 }, dispatch);
 
 export const Board = connect<BoardStateProps, BoardDispatchProps, BoardProps>(

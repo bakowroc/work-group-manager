@@ -22,14 +22,14 @@ class TaskController {
     {path: 'chat', select: ''},
   ])
 
-  private getManyElementRoutes = (): void => {
+  private getSingleElementRoutes = (): void => {
     this.router.route('/:slug')
       .get(APIRequest.GET_SINGLE(TaskModel, this.getPopulateQuery()))
       .put(APIRequest.UPDATE(TaskModel))
       .delete(APIRequest.DELETE(TaskModel));
   }
 
-  private getSingleElementRoutes = (): void => {
+  private getManyElementRoutes = (): void => {
     this.router.route('/')
       .get(APIRequest.GET_MANY(TaskModel, this.getPopulateQuery()))
       .post(APIRequest.POST(TaskModel));

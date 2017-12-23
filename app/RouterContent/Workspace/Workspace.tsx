@@ -1,4 +1,5 @@
 import { get, groupBy, orderBy } from 'lodash';
+import * as moment from 'moment';
 import * as React from 'react';
 import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
@@ -18,14 +19,17 @@ const styles: any = require('./Workspace.scss');
 
 export class WorkspaceComponent extends React.Component<WorkspaceStateProps & WorkspaceDispatchProps> {
 
-  private renderBoards = (): Array<JSX.Element> => this.props.boards.map((boardProps: any, key: number) => (
-    <div key={ key } className={ styles.board }>
-      <Board
-        { ...boardProps }
-        tasks={ orderBy(get(this.props.tasks, boardProps._id, []), 'order') }
-      />
-    </div>
-  ))
+  private renderBoards = (): Array<JSX.Element> =>
+    this.props.boards
+    .sort((a: any, b: any) => moment(b.createdAt).isAfter(a.createdAt) ? a : b)
+    .map((boardProps: any, key: number) => (
+      <div key={ key } className={ styles.board }>
+        <Board
+          { ...boardProps }
+          tasks={ orderBy(get(this.props.tasks, boardProps._id, []), 'order') }
+        />
+      </div>
+    ))
 
   private renderAddTaskForm = (): JSX.Element => (
     <AddTaskForm

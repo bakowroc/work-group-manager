@@ -41,9 +41,11 @@ export default handleActions({
 
 export function* fetchTasks(action: Action<string>) {
   try {
-    yield put(isTasksFetching(true));
-    const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/task${action.payload}`);
-    yield put(getTasks(data.responseData));
+    if (action.payload.length > 2) {
+      yield put(isTasksFetching(true));
+      const {data}: AxiosResponse<Response<any>> = yield call(axios.get, `/api/task${action.payload}`);
+      yield put(getTasks(data.responseData));
+    }
   } catch {
     yield put(fetchError('error'));
   }

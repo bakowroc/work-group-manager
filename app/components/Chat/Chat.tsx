@@ -54,7 +54,7 @@ export class ChatComponent extends React.Component<ChatStateProps & ChatProps & 
 
   private renderChatHistory = (): Array<JSX.Element> =>
     this.state.history
-      .sort((a: any, b: any) => moment.utc(a.createdAt.timeStamp).diff(moment.utc(b.timeStamp)))
+      .sort((a: any, b: any) => moment(b.createdAt).isAfter(a.createdAt) ? b : a)
       .reverse()
       .filter((message: any) => !isUndefined(message._id))
       .map((messageProps: any, key: number) => (
